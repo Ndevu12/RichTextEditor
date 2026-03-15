@@ -10,7 +10,7 @@
 
 ## Progress Dashboard
 
-**Overall:** 14 / 25 phases complete | **56% done**
+**Overall:** 15 / 25 phases complete | **60% done**
 
 > Update the table below as each phase progresses. Use the status markers:
 > `Not Started`, `In Progress`, `Blocked`, `Complete`, `Skipped`
@@ -31,7 +31,7 @@
 | 12 | Plugins: Images & Image Dialog | `Complete` | 2026-03-15 | 2026-03-15 | Image extension, ImagePlugin (URL + base64), accessible ImageDialog (drag-drop, preview), dialog.css extensions |
 | 13 | Plugins: Code Blocks & Syntax HL | `Complete` | 2026-03-15 | 2026-03-15 | CodeBlockLowlight + lowlight (common bundle), highlight.css (light GitHub + dark Catppuccin) |
 | 14 | Plugins: History (Undo / Redo) | `Complete` | 2026-03-15 | 2026-03-15 | StarterKit undoRedo configured (depth:100, newGroupDelay:500), undo/redo buttons disabled via canUndo/canRedo |
-| 15 | Clipboard, Paste Handling & Utilities | `Not Started` | — | — | |
+| 15 | Clipboard, Paste Handling & Utilities | `Complete` | 2026-03-15 | 2026-03-15 | dom.ts (sanitize, focus, selection), string.ts (URL, escape, shortcut), paste wired via transformPastedHTML |
 | 16 | Accessibility & Keyboard Navigation | `Not Started` | — | — | |
 | 17 | Playground App | `Not Started` | — | — | |
 | 18 | Storybook Setup & Stories | `Not Started` | — | — | |
@@ -51,7 +51,7 @@
 | **M2 — Type-safe foundation** | 3 | — | 2026-03-15 |
 | **M3 — Headless engine works** | 4–5 | — | — |
 | **M4 — Editor renders & types** | 6–8 | — | — |
-| **M5 — All features functional** | 9–16 | — | — |
+| **M5 — All features functional** | 9–16 | — | — |  <!-- Phase 16 remaining -->
 | **M6 — Demo-ready** | 17–19 | — | — |
 | **M7 — Fully tested** | 20–21 | — | — |
 | **M8 — Ship it** | 22–25 | — | — |
@@ -1754,10 +1754,10 @@ export { HistoryPlugin } from './HistoryPlugin';
 
 | | |
 |---|---|
-| **Status** | `Not Started` |
-| **Started** | — |
-| **Completed** | — |
-| **Branch** | — |
+| **Status** | `Complete` |
+| **Started** | 2026-03-15 |
+| **Completed** | 2026-03-15 |
+| **Branch** | `feat/phase-15-clipboard-utils` |
 | **Blocked by** | Phases 9–14 |
 | **Deliverables** | `src/utils/dom.ts`, `src/utils/string.ts`, `src/utils/index.ts`, paste sanitization in engine |
 
@@ -1834,10 +1834,10 @@ editorProps: {
 
 ### Checkpoint
 
-- [ ] Pasting formatted text from external apps preserves formatting
-- [ ] Pasting a URL auto-creates a link
-- [ ] Script tags / event handlers in pasted content are stripped
-- [ ] All utility functions work correctly in isolation
+- [x] Pasting formatted text from external apps preserves formatting
+- [x] Pasting a URL auto-creates a link
+- [x] Script tags / event handlers in pasted content are stripped
+- [x] All utility functions work correctly in isolation
 
 ---
 
@@ -2983,6 +2983,7 @@ Chronological record of implementation progress. Add entries as work is done.
 | 2026-03-15 | 12 | Installed @tiptap/extension-image (inline:false, allowBase64:true, loading:lazy). Added Image.configure to schema.ts. Created ImagePlugin.tsx (insertImageByUrl, insertImageBase64, readFileAsBase64, MAX_IMAGE_SIZE). Created ImageDialog.tsx (accessible modal: drag-drop zone, file upload with FileReader base64, URL input, alt text, preview thumbnail, 5MB warning). Extended dialog.css (dropzone, file info, separator, warning, preview). Wired ImageDialog into EditorWrapper. Updated all barrel exports + public API. | CSS 13.15 KB (+2.93 KB); ESM 33.95 KB (+10.49 KB) |
 | 2026-03-15 | 13 | Installed @tiptap/extension-code-block-lowlight + lowlight + @tiptap/extension-code-block + highlight.js (peers). Disabled StarterKit codeBlock, added CodeBlockLowlight.configure with lowlight (common bundle). Created CodeBlockPlugin.tsx (getCodeBlockLanguage, setCodeBlockLanguage, SUPPORTED_LANGUAGES). Created highlight.css (GitHub-like light + Catppuccin-inspired dark syntax colors for all hljs classes). Exported lowlight instance for consumer language registration. | CSS 17.85 KB (+4.70 KB); ESM 35.40 KB (+1.45 KB); language selector is exported helper, not a UI component yet |
 | 2026-03-15 | 14 | Configured StarterKit undoRedo (depth:100, newGroupDelay:500) in schema.ts. Created HistoryPlugin.tsx (canUndo, canRedo, HISTORY_DEPTH, HISTORY_NEW_GROUP_DELAY constants). Enhanced useToolbar to disable undo/redo buttons based on editor.can().undo()/redo() state. Updated Plugins barrel + public API exports. | Tiptap v3 StarterKit uses `undoRedo` key (not `history`); defaults already match plan values (100 / 500ms); CSS unchanged; ESM 35.95 KB (+0.55 KB) |
+| 2026-03-15 | 15 | Implemented dom.ts (sanitizeHTML with DOMParser recursive sanitizer — strips script/style/iframe/event handlers/javascript: URIs; getSelectionRect; focusFirstFocusable; trapFocus; isElementVisible). Implemented string.ts (isValidURL, escapeHTML, truncate, isMac, formatShortcut). Updated utils barrel. Wired transformPastedHTML in engine.ts. Added 10 util exports to public API. | CSS unchanged 17.85 KB; ESM 40.37 KB (+4.42 KB); DTS 19.09 KB (+3.63 KB from new exports) |
 
 <!--
 Example entries:

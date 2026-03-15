@@ -1,5 +1,6 @@
 import { Editor } from '@tiptap/core';
 import { createExtensions } from './schema';
+import { sanitizeHTML } from '../utils/dom';
 
 /**
  * Options for creating a new editor instance.
@@ -32,6 +33,11 @@ export function createEditor(options: CreateEditorOptions = {}): Editor {
     extensions: createExtensions(),
     content: options.content || '',
     editable: options.editable ?? true,
+    editorProps: {
+      transformPastedHTML(html) {
+        return sanitizeHTML(html);
+      },
+    },
     onUpdate: ({ editor }) => {
       options.onUpdate?.(editor.getHTML());
     },
