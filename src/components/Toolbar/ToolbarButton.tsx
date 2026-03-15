@@ -23,6 +23,7 @@ export function ToolbarButton({
   return (
     <button
       type="button"
+      className="rte-toolbar__button"
       onClick={action}
       disabled={isDisabled}
       aria-label={label}

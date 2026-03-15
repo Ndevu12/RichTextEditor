@@ -1,1 +1,14 @@
-/* Placeholder base styles */
+/**
+ * Master stylesheet — entry point for the rich-text-editor package.
+ *
+ * Consumers import this via:
+ *   import 'rich-text-editor-ndevu/styles';
+ *
+ * Or it is included automatically when importing the JS entry and
+ * the bundler extracts CSS.
+ */
+
+@import './theme-light.css';
+@import './theme-dark.css';
+@import './editor.css';
+@import './toolbar.css';

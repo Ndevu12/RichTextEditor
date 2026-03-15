@@ -38,9 +38,11 @@ export function EditorWrapper({
   const readOnly = useEditorStore((s) => s.readOnly);
   const { items: toolbarItems } = useToolbar(toolbar);
 
+  const wrapperClass = ['rte-editor', className].filter(Boolean).join(' ');
+
   return (
     <div
-      className={className}
+      className={wrapperClass}
       style={style}
       data-theme={theme}
       data-readonly={readOnly || undefined}
@@ -52,6 +54,7 @@ export function EditorWrapper({
         minHeight={minHeight}
         maxHeight={maxHeight}
         placeholder={placeholder}
+        className="rte-content"
       />
 
       {/* Dialogs rendered here in Phases 11–12 */}

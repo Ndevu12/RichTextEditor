@@ -1,3 +1,6 @@
+// ── Styles (bundled to dist/index.css by tsup) ──────────
+import './styles/index.css';
+
 // ── Public API ───────────────────────────────
 
 // Main component

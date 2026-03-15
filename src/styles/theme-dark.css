@@ -1,1 +1,60 @@
-/* Placeholder theme: dark */
+/**
+ * Dark theme — CSS custom property tokens.
+ *
+ * Applied via [data-theme='dark'] on the editor wrapper.
+ * Catppuccin Mocha–inspired palette for comfortable dark editing.
+ */
+
+[data-theme='dark'] {
+  /* ── Surface colors ─────────────────────────────────── */
+  --rte-bg: #1e1e2e;
+  --rte-text: #cdd6f4;
+  --rte-text-muted: #a6adc8;
+  --rte-border: #45475a;
+
+  /* ── Toolbar ────────────────────────────────────────── */
+  --rte-toolbar-bg: #181825;
+  --rte-toolbar-border: #313244;
+
+  /* ── Buttons ────────────────────────────────────────── */
+  --rte-button-hover: #313244;
+  --rte-button-active: #45475a;
+  --rte-button-pressed: #585b70;
+  --rte-button-text: #cdd6f4;
+
+  /* ── Accent & focus ─────────────────────────────────── */
+  --rte-accent: #89b4fa;
+  --rte-placeholder: #585b70;
+  --rte-focus-ring: rgba(137, 180, 250, 0.3);
+
+  /* ── Code ───────────────────────────────────────────── */
+  --rte-code-bg: #313244;
+  --rte-code-text: #cdd6f4;
+  --rte-codeblock-bg: #1e1e2e;
+
+  /* ── Blockquote ─────────────────────────────────────── */
+  --rte-blockquote-border: #585b70;
+  --rte-blockquote-text: #a6adc8;
+
+  /* ── Links ──────────────────────────────────────────── */
+  --rte-link-color: #89b4fa;
+
+  /* ── Dialogs ────────────────────────────────────────── */
+  --rte-dialog-overlay: rgba(0, 0, 0, 0.6);
+  --rte-dialog-bg: #1e1e2e;
+  --rte-dialog-border: #45475a;
+
+  /* ── Form inputs ────────────────────────────────────── */
+  --rte-input-bg: #313244;
+  --rte-input-border: #45475a;
+  --rte-input-focus: #89b4fa;
+
+  /* ── Shared ─────────────────────────────────────────── */
+  --rte-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --rte-radius: 8px;
+  --rte-radius-sm: 4px;
+  --rte-font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --rte-font-mono: 'Fira Code', 'JetBrains Mono', 'Cascadia Code', monospace;
+  --rte-font-size: 16px;
+  --rte-line-height: 1.6;
+}

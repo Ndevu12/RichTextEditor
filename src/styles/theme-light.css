@@ -1,1 +1,60 @@
-/* Placeholder theme: light */
+/**
+ * Light theme — CSS custom property tokens.
+ *
+ * Applied via [data-theme='light'] on the editor wrapper.
+ * See Appendix C in IMPLEMENTATION_PLAN.md for the full token reference.
+ */
+
+[data-theme='light'] {
+  /* ── Surface colors ─────────────────────────────────── */
+  --rte-bg: #ffffff;
+  --rte-text: #1a1a2e;
+  --rte-text-muted: #6b7280;
+  --rte-border: #e0e0e0;
+
+  /* ── Toolbar ────────────────────────────────────────── */
+  --rte-toolbar-bg: #f8f9fa;
+  --rte-toolbar-border: #e0e0e0;
+
+  /* ── Buttons ────────────────────────────────────────── */
+  --rte-button-hover: #e9ecef;
+  --rte-button-active: #dee2e6;
+  --rte-button-pressed: #d0d7de;
+  --rte-button-text: #374151;
+
+  /* ── Accent & focus ─────────────────────────────────── */
+  --rte-accent: #0969da;
+  --rte-placeholder: #9ca3af;
+  --rte-focus-ring: rgba(9, 105, 218, 0.3);
+
+  /* ── Code ───────────────────────────────────────────── */
+  --rte-code-bg: #f6f8fa;
+  --rte-code-text: #1a1a2e;
+  --rte-codeblock-bg: #f6f8fa;
+
+  /* ── Blockquote ─────────────────────────────────────── */
+  --rte-blockquote-border: #d0d7de;
+  --rte-blockquote-text: #57606a;
+
+  /* ── Links ──────────────────────────────────────────── */
+  --rte-link-color: #0969da;
+
+  /* ── Dialogs ────────────────────────────────────────── */
+  --rte-dialog-overlay: rgba(0, 0, 0, 0.4);
+  --rte-dialog-bg: #ffffff;
+  --rte-dialog-border: #e0e0e0;
+
+  /* ── Form inputs ────────────────────────────────────── */
+  --rte-input-bg: #ffffff;
+  --rte-input-border: #d1d5db;
+  --rte-input-focus: #0969da;
+
+  /* ── Shared ─────────────────────────────────────────── */
+  --rte-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  --rte-radius: 8px;
+  --rte-radius-sm: 4px;
+  --rte-font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --rte-font-mono: 'Fira Code', 'JetBrains Mono', 'Cascadia Code', monospace;
+  --rte-font-size: 16px;
+  --rte-line-height: 1.6;
+}

@@ -63,6 +63,7 @@ export function Toolbar({ items }: ToolbarProps) {
   return (
     <div
       ref={toolbarRef}
+      className="rte-toolbar"
       role="toolbar"
       aria-label="Text formatting"
       aria-orientation="horizontal"
