@@ -10,7 +10,7 @@
 
 ## Progress Dashboard
 
-**Overall:** 10 / 25 phases complete | **40% done**
+**Overall:** 11 / 25 phases complete | **44% done**
 
 > Update the table below as each phase progresses. Use the status markers:
 > `Not Started`, `In Progress`, `Blocked`, `Complete`, `Skipped`
@@ -27,7 +27,7 @@
 | 8 | Styles & Theming | `Complete` | 2026-03-15 | 2026-03-15 | 32 CSS tokens per theme, .rte-* BEM classes, prose typography, 7.40 KB CSS bundle |
 | 9 | Plugins: Text Formatting & Headings | `Complete` | 2026-03-15 | 2026-03-15 | Underline extension installed, added to schema; StarterKit handles bold/italic/strike/headings |
 | 10 | Plugins: Lists & Blockquotes | `Complete` | 2026-03-15 | 2026-03-15 | ListsPlugin with sinkListItem/liftListItem; lists + blockquote already in StarterKit |
-| 11 | Plugins: Links & Link Dialog | `Not Started` | — | — | |
+| 11 | Plugins: Links & Link Dialog | `Complete` | 2026-03-15 | 2026-03-15 | Link extension, LinkPlugin helpers, accessible LinkDialog, dialog.css, wired into EditorWrapper |
 | 12 | Plugins: Images & Image Dialog | `Not Started` | — | — | |
 | 13 | Plugins: Code Blocks & Syntax HL | `Not Started` | — | — | |
 | 14 | Plugins: History (Undo / Redo) | `Not Started` | — | — | |
@@ -1473,10 +1473,10 @@ Ensure the styles from Phase 8 render correctly:
 
 | | |
 |---|---|
-| **Status** | `Not Started` |
-| **Started** | — |
-| **Completed** | — |
-| **Branch** | — |
+| **Status** | `Complete` |
+| **Started** | 2026-03-15 |
+| **Completed** | 2026-03-15 |
+| **Branch** | `feat/phase-11-links-dialog` |
 | **Blocked by** | Phase 8 (parallelizable with 9, 10) |
 | **Deliverables** | `LinkPlugin.tsx`, `LinkDialog.tsx`, `@tiptap/extension-link` installed, dialog CSS |
 
@@ -1546,12 +1546,12 @@ Link.configure({
 
 ### Checkpoint
 
-- [ ] Clicking "link" button opens the dialog
-- [ ] Inserting a link wraps selected text in `<a href="...">...</a>`
-- [ ] Clicking an existing link and pressing "link" button shows edit mode
-- [ ] Remove link strips the `<a>` tag
-- [ ] Auto-linking: typing `https://example.com` auto-creates a link
-- [ ] Dialog is keyboard-navigable and screen-reader accessible
+- [x] Clicking "link" button opens the dialog
+- [x] Inserting a link wraps selected text in `<a href="...">...</a>`
+- [x] Clicking an existing link and pressing "link" button shows edit mode
+- [x] Remove link strips the `<a>` tag
+- [x] Auto-linking: typing `https://example.com` auto-creates a link
+- [x] Dialog is keyboard-navigable and screen-reader accessible
 
 ---
 
@@ -2979,6 +2979,7 @@ Chronological record of implementation progress. Add entries as work is done.
 | 2026-03-15 | 8 | Built styles & theming: theme-light.css + theme-dark.css (32 tokens each), editor.css (wrapper, focus ring, prose typography for headings/lists/blockquote/code/links/images/hr), toolbar.css (button hover/active/pressed/disabled/focus-visible, separator, group), index.css master import. Wired .rte-* classes into all components. CSS bundled via import in src/index.ts. | Used .rte-* BEM-style prefix instead of CSS Modules (better for library consumers); CSS output 7.40 KB |
 | 2026-03-15 | 9 | Installed @tiptap/extension-underline, added Underline to schema.ts extension array. Updated Plugins barrel index with roadmap comments. Bold/italic/strike/headings already functional via StarterKit. | No new component needed — formatting is extension-level; CodeBlockPlugin remains placeholder for Phase 13 |
 | 2026-03-15 | 10 | Created ListsPlugin.tsx with sinkListItem/liftListItem helpers. Added both commands to core/commands.ts + core/index.ts + src/index.ts public API. Updated Plugins barrel. Lists + blockquotes already functional via StarterKit; CSS from Phase 8 handles nested markers. | Tab/Shift+Tab nesting exposed as exported functions; no Tiptap extension override needed |
+| 2026-03-15 | 11 | Installed @tiptap/extension-link (autolink, linkOnPaste, openOnClick:false). Added Link.configure to schema.ts. Created LinkPlugin.tsx (getActiveLinkAttrs, getSelectedText, applyLink, removeLink). Created LinkDialog.tsx (accessible modal: focus trap, Escape close, Enter submit, URL validation, edit/remove modes). Created dialog.css (overlay, card, inputs, buttons, animations). Wired LinkDialog into EditorWrapper. Updated barrel exports. | Refactored useEffect → state initializers to satisfy react-hooks/set-state-in-effect lint rule; CSS 10.22 KB; ESM 23.46 KB |
 
 <!--
 Example entries:
