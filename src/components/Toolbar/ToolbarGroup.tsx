@@ -11,7 +11,7 @@ export interface ToolbarGroupProps {
  */
 export function ToolbarGroup({ label, children }: ToolbarGroupProps) {
   return (
-    <div role="group" aria-label={label}>
+    <div className="rte-toolbar__group" role="group" aria-label={label}>
       {children}
     </div>
   );

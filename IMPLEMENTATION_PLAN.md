@@ -10,7 +10,7 @@
 
 ## Progress Dashboard
 
-**Overall:** 7 / 25 phases complete | **28% done**
+**Overall:** 8 / 25 phases complete | **32% done**
 
 > Update the table below as each phase progresses. Use the status markers:
 > `Not Started`, `In Progress`, `Blocked`, `Complete`, `Skipped`
@@ -24,7 +24,7 @@
 | 5 | React Hooks Layer | `Complete` | 2026-03-15 | 2026-03-15 | useEditor, useToolbar, useHistory; Tiptap v3 setContent API |
 | 6 | Core Components: Editor Shell | `Complete` | 2026-03-15 | 2026-03-15 | ContentEditable, Parser, Serializer, EditorProvider, EditorWrapper, RichTextEditor, full public API |
 | 7 | Toolbar System | `Complete` | 2026-03-15 | 2026-03-15 | ToolbarButton, ToolbarSeparator, ToolbarGroup, Toolbar with roving tabindex, wired into EditorWrapper |
-| 8 | Styles & Theming | `Not Started` | — | — | |
+| 8 | Styles & Theming | `Complete` | 2026-03-15 | 2026-03-15 | 32 CSS tokens per theme, .rte-* BEM classes, prose typography, 7.40 KB CSS bundle |
 | 9 | Plugins: Text Formatting & Headings | `Not Started` | — | — | |
 | 10 | Plugins: Lists & Blockquotes | `Not Started` | — | — | |
 | 11 | Plugins: Links & Link Dialog | `Not Started` | — | — | |
@@ -1270,10 +1270,10 @@ Main toolbar component:
 
 | | |
 |---|---|
-| **Status** | `Not Started` |
-| **Started** | — |
-| **Completed** | — |
-| **Branch** | — |
+| **Status** | `Complete` |
+| **Started** | 2026-03-15 |
+| **Completed** | 2026-03-15 |
+| **Branch** | `chore/phase-8-styles-theming` |
 | **Blocked by** | Phase 7 |
 | **Deliverables** | `theme-light.css`, `theme-dark.css`, `editor.css`, `toolbar.css`, `index.css` |
 
@@ -1364,11 +1364,11 @@ This file is the one included in the built package so consumers get themes autom
 
 ### Checkpoint
 
-- [ ] Editor renders with polished light theme
-- [ ] `theme="dark"` switches all colors correctly
-- [ ] Toolbar buttons have hover, active, pressed, disabled states
-- [ ] Content typography (headings, lists, quotes, code) looks professional
-- [ ] No style leakage outside the editor wrapper
+- [x] Editor renders with polished light theme
+- [x] `theme="dark"` switches all colors correctly
+- [x] Toolbar buttons have hover, active, pressed, disabled states
+- [x] Content typography (headings, lists, quotes, code) looks professional
+- [x] No style leakage outside the editor wrapper
 
 ---
 
@@ -2976,6 +2976,7 @@ Chronological record of implementation progress. Add entries as work is done.
 | 2026-03-15 | 5 | Built 3 custom React hooks: useEditor (lifecycle, controlled value sync, active state), useToolbar (item→config mapping, actions, active states), useHistory (undo/redo with canUndo/canRedo) | Tiptap v3 changed setContent 2nd param from boolean to SetContentOptions object; icons deferred to Phase 7 Toolbar component |
 | 2026-03-15 | 6 | Built editor shell: ContentEditable (EditorContent wrapper), Parser/Serializer (JSON↔HTML), EditorProvider (lifecycle bridge), EditorWrapper (composition), RichTextEditor (public API). Populated src/index.ts with full public API exports | Used @tiptap/core for generateHTML/generateJSON (not @tiptap/html); Toolbar stub until Phase 7; bundle now 13KB ESM |
 | 2026-03-15 | 7 | Built toolbar system: ToolbarButton (aria-label/pressed, shortcut hints, fallback text), ToolbarSeparator (role=separator), ToolbarGroup (role=group), Toolbar (groupBySeparator, roving tabindex ArrowLeft/Right/Home/End). Wired Toolbar into EditorWrapper replacing stub. | No CSS Modules yet (Phase 8); icons still null (text labels used); bundle now 15.78KB ESM |
+| 2026-03-15 | 8 | Built styles & theming: theme-light.css + theme-dark.css (32 tokens each), editor.css (wrapper, focus ring, prose typography for headings/lists/blockquote/code/links/images/hr), toolbar.css (button hover/active/pressed/disabled/focus-visible, separator, group), index.css master import. Wired .rte-* classes into all components. CSS bundled via import in src/index.ts. | Used .rte-* BEM-style prefix instead of CSS Modules (better for library consumers); CSS output 7.40 KB |
 
 <!--
 Example entries:
