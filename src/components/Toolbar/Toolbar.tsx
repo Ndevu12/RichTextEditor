@@ -1,4 +1,4 @@
-import { useRef, useCallback } from 'react';
+import { useRef, useCallback, useMemo, useState } from 'react';
 import type { ToolbarButtonConfig } from '@/types';
 import { ToolbarButton } from './ToolbarButton';
 import { ToolbarSeparator } from './ToolbarSeparator';
@@ -14,48 +14,74 @@ export interface ToolbarProps {
  *
  * - Groups items by separators into `ToolbarGroup` components
  * - Renders each item as `ToolbarButton` or `ToolbarSeparator`
- * - Implements roving tabindex: Arrow Left/Right moves focus between buttons
+ * - Implements roving tabindex: only one button has tabindex=0 at a time
+ *   - Arrow Left/Right moves focus between buttons (wraps)
+ *   - Home/End jumps to first/last button
+ *   - Tab exits the toolbar (only one button is in the tab order)
  * - role="toolbar" with aria-label and aria-orientation
  */
 export function Toolbar({ items }: ToolbarProps) {
   const toolbarRef = useRef<HTMLDivElement>(null);
 
+  // Flat list of button configs (excluding separators)
+  const flatButtons = useMemo(
+    () => items.filter((i): i is ToolbarButtonConfig => i !== '|'),
+    [items],
+  );
+
+  // Track which button id has tabindex=0 in the roving tabindex scheme
+  const [rovingId, setRovingId] = useState<string | null>(null);
+
+  // Resolve active roving target: stored id (if still valid & enabled), or first enabled
+  const activeRovingId = useMemo(() => {
+    if (rovingId && flatButtons.some((b) => b.id === rovingId && !b.isDisabled)) {
+      return rovingId;
+    }
+    return flatButtons.find((b) => !b.isDisabled)?.id ?? flatButtons[0]?.id ?? null;
+  }, [rovingId, flatButtons]);
+
   // ── Roving tabindex keyboard handler ───────────────────────
-  const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
-    const toolbar = toolbarRef.current;
-    if (!toolbar) return;
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLDivElement>) => {
+      const toolbar = toolbarRef.current;
+      if (!toolbar) return;
 
-    const buttons = Array.from(
-      toolbar.querySelectorAll<HTMLButtonElement>('button:not([disabled])'),
-    );
-    if (buttons.length === 0) return;
+      const buttons = Array.from(
+        toolbar.querySelectorAll<HTMLButtonElement>('button:not([disabled])'),
+      );
+      if (buttons.length === 0) return;
 
-    const currentIndex = buttons.indexOf(document.activeElement as HTMLButtonElement);
-    let nextIndex: number | null = null;
+      const currentIndex = buttons.indexOf(document.activeElement as HTMLButtonElement);
+      let nextIndex: number | null = null;
 
-    switch (e.key) {
-      case 'ArrowRight':
-        e.preventDefault();
-        nextIndex = currentIndex < buttons.length - 1 ? currentIndex + 1 : 0;
-        break;
-      case 'ArrowLeft':
-        e.preventDefault();
-        nextIndex = currentIndex > 0 ? currentIndex - 1 : buttons.length - 1;
-        break;
-      case 'Home':
-        e.preventDefault();
-        nextIndex = 0;
-        break;
-      case 'End':
-        e.preventDefault();
-        nextIndex = buttons.length - 1;
-        break;
-    }
+      switch (e.key) {
+        case 'ArrowRight':
+          e.preventDefault();
+          nextIndex = currentIndex < buttons.length - 1 ? currentIndex + 1 : 0;
+          break;
+        case 'ArrowLeft':
+          e.preventDefault();
+          nextIndex = currentIndex > 0 ? currentIndex - 1 : buttons.length - 1;
+          break;
+        case 'Home':
+          e.preventDefault();
+          nextIndex = 0;
+          break;
+        case 'End':
+          e.preventDefault();
+          nextIndex = buttons.length - 1;
+          break;
+      }
 
-    if (nextIndex !== null) {
-      buttons[nextIndex].focus();
-    }
-  }, []);
+      if (nextIndex !== null) {
+        const nextButton = buttons[nextIndex];
+        const id = nextButton.getAttribute('data-toolbar-item');
+        if (id) setRovingId(id);
+        nextButton.focus();
+      }
+    },
+    [],
+  );
 
   // ── Group items by separators ──────────────────────────────
   const groups = groupBySeparator(items);
@@ -72,7 +98,11 @@ export function Toolbar({ items }: ToolbarProps) {
       {groups.map((group, groupIndex) => (
         <ToolbarGroup key={groupIndex} label={`Formatting group ${groupIndex + 1}`}>
           {group.map((item) => (
-            <ToolbarButton key={item.id} {...item} />
+            <ToolbarButton
+              key={item.id}
+              {...item}
+              tabIndex={item.id === activeRovingId ? 0 : -1}
+            />
           ))}
           {groupIndex < groups.length - 1 && <ToolbarSeparator />}
         </ToolbarGroup>

@@ -14,6 +14,8 @@ export interface EditorProviderProps {
   theme?: Theme;
   /** Placeholder text */
   placeholder?: string;
+  /** Accessible label for the editor content area */
+  ariaLabel?: string;
   /** Called when editor gains focus */
   onFocus?: () => void;
   /** Called when editor loses focus */
@@ -35,12 +37,13 @@ export function EditorProvider({
   readOnly = false,
   theme = 'light',
   placeholder,
+  ariaLabel,
   onFocus,
   onBlur,
   children,
 }: EditorProviderProps) {
   // Initialize and manage the Tiptap editor lifecycle
-  useEditor({ value, onChange, placeholder, readOnly, onFocus, onBlur });
+  useEditor({ value, onChange, placeholder, readOnly, ariaLabel, onFocus, onBlur });
 
   const setTheme = useEditorStore((s) => s.setTheme);
   const setReadOnly = useEditorStore((s) => s.setReadOnly);
