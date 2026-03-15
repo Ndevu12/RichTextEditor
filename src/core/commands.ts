@@ -4,8 +4,7 @@ import type { Editor } from '@tiptap/core';
 // Text Formatting
 // ──────────────────────────────────────────────
 
-export const toggleBold = (editor: Editor): boolean =>
-  editor.chain().focus().toggleBold().run();
+export const toggleBold = (editor: Editor): boolean => editor.chain().focus().toggleBold().run();
 
 export const toggleItalic = (editor: Editor): boolean =>
   editor.chain().focus().toggleItalic().run();
@@ -47,8 +46,7 @@ export const liftListItem = (editor: Editor): boolean =>
 export const toggleBlockquote = (editor: Editor): boolean =>
   editor.chain().focus().toggleBlockquote().run();
 
-export const toggleCode = (editor: Editor): boolean =>
-  editor.chain().focus().toggleCode().run();
+export const toggleCode = (editor: Editor): boolean => editor.chain().focus().toggleCode().run();
 
 export const toggleCodeBlock = (editor: Editor): boolean =>
   editor.chain().focus().toggleCodeBlock().run();
@@ -64,8 +62,7 @@ export const insertLink = (editor: Editor, href: string, text?: string): boolean
   return editor.chain().focus().setLink({ href }).run();
 };
 
-export const removeLink = (editor: Editor): boolean =>
-  editor.chain().focus().unsetLink().run();
+export const removeLink = (editor: Editor): boolean => editor.chain().focus().unsetLink().run();
 
 // ──────────────────────────────────────────────
 // Images (requires Image extension — Phase 12)

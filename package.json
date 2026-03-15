@@ -57,7 +57,7 @@
     "test:watch": "vitest --config config/vitest.config.ts",
     "test:coverage": "vitest run --coverage --config config/vitest.config.ts",
     "test:e2e": "playwright test",
-    "clean": "tsx scripts/clean.ts",
+    "clean": "rm -rf dist",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "prepublishOnly": "yarn clean && yarn build",

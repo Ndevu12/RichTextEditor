@@ -11,7 +11,10 @@ export default function App() {
   const [theme, setTheme] = useState<Theme>('light');
   const [showPreview, setShowPreview] = useState(false);
 
-  const toggleTheme = useCallback(() => setTheme((t) => (t === 'light' ? 'dark' : 'light')), []);
+  const toggleTheme = useCallback(
+    () => setTheme((t: Theme) => (t === 'light' ? 'dark' : 'light')),
+    [],
+  );
   const togglePreview = useCallback(() => setShowPreview((p) => !p), []);
 
   const handleSave = useCallback(() => {

@@ -143,11 +143,7 @@ export function LinkDialog() {
   );
 
   return (
-    <div
-      className="rte-dialog__overlay"
-      onClick={handleOverlayClick}
-      role="presentation"
-    >
+    <div className="rte-dialog__overlay" onClick={handleOverlayClick} role="presentation">
       <div
         ref={dialogRef}
         className="rte-dialog"

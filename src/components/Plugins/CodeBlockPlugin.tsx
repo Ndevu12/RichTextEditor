@@ -49,9 +49,10 @@ export const SUPPORTED_LANGUAGES = [
  * @returns The language string, or null if the cursor is not in a code block.
  */
 export function getCodeBlockLanguage(editor: Editor): string | null {
-  const { node } = editor.state.selection.$from.parent.type.name === 'codeBlock'
-    ? { node: editor.state.selection.$from.parent }
-    : { node: null };
+  const { node } =
+    editor.state.selection.$from.parent.type.name === 'codeBlock'
+      ? { node: editor.state.selection.$from.parent }
+      : { node: null };
 
   if (!node) return null;
   return (node.attrs as { language?: string }).language ?? null;

@@ -34,11 +34,7 @@ export function ContentEditable({
   };
 
   return (
-    <div
-      className={className}
-      style={style}
-      data-placeholder={placeholder}
-    >
+    <div className={className} style={style} data-placeholder={placeholder}>
       <EditorContent editor={editor} />
     </div>
   );
