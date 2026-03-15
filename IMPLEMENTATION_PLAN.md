@@ -10,7 +10,7 @@
 
 ## Progress Dashboard
 
-**Overall:** 2 / 25 phases complete | **8% done**
+**Overall:** 3 / 25 phases complete | **12% done**
 
 > Update the table below as each phase progresses. Use the status markers:
 > `Not Started`, `In Progress`, `Blocked`, `Complete`, `Skipped`
@@ -19,7 +19,7 @@
 |---|-------|--------|---------|-----------|-------|
 | 1 | Yarn 4, Package Manager & Git Hygiene | `Complete` | 2026-03-15 | 2026-03-15 | Yarn 4.13.0; ESLint pinned to v9 for plugin compat |
 | 2 | TypeScript, Bundler & Linting Config | `Complete` | 2026-03-15 | 2026-03-15 | Migrated to ESLint v9 flat config; added @eslint/js + globals |
-| 3 | Type System Foundation | `Not Started` | — | — | |
+| 3 | Type System Foundation | `Complete` | 2026-03-15 | 2026-03-15 | All interfaces, types, and constants defined |
 | 4 | Core Engine & Zustand Store | `Not Started` | — | — | |
 | 5 | React Hooks Layer | `Not Started` | — | — | |
 | 6 | Core Components: Editor Shell | `Not Started` | — | — | |
@@ -48,7 +48,7 @@
 | Milestone | Phases | Target | Reached |
 |-----------|--------|--------|---------|
 | **M1 — Buildable project** | 1–2 | — | 2026-03-15 |
-| **M2 — Type-safe foundation** | 3 | — | — |
+| **M2 — Type-safe foundation** | 3 | — | 2026-03-15 |
 | **M3 — Headless engine works** | 4–5 | — | — |
 | **M4 — Editor renders & types** | 6–8 | — | — |
 | **M5 — All features functional** | 9–16 | — | — |
@@ -542,10 +542,10 @@ yarn build         # should produce dist/ with empty exports
 
 | | |
 |---|---|
-| **Status** | `Not Started` |
-| **Started** | — |
-| **Completed** | — |
-| **Branch** | — |
+| **Status** | `Complete` |
+| **Started** | 2026-03-15 |
+| **Completed** | 2026-03-15 |
+| **Branch** | `chore/phase-3-type-system` |
 | **Blocked by** | Phase 2 |
 | **Deliverables** | `src/types/editor.types.ts`, `src/types/toolbar.types.ts`, `src/types/plugin.types.ts`, `src/types/index.ts` |
 
@@ -706,9 +706,9 @@ export * from './plugin.types';
 
 ### Checkpoint
 
-- [ ] `yarn typecheck` passes
-- [ ] All types are importable from `@/types`
-- [ ] No circular dependencies
+- [x] `yarn typecheck` passes
+- [x] All types are importable from `@/types`
+- [x] No circular dependencies
 
 ---
 
@@ -2971,6 +2971,7 @@ Chronological record of implementation progress. Add entries as work is done.
 |------|-------|---------|-------|
 | 2026-03-15 | 1 | Initialized Yarn 4.13.0, populated package.json with full metadata/scripts/exports, installed 5 prod + 21 dev deps, updated .gitignore & README | ESLint pinned to v9 for eslint-plugin-react-hooks compat; added @testing-library/dom as missing peer |
 | 2026-03-15 | 2 | Configured tsconfig.json (strict), tsup (dual ESM/CJS), vitest, ESLint v9 flat config, Prettier | Migrated .eslintrc.cjs → eslint.config.js for ESLint v9; added @eslint/js@9 + globals; rollup config marked as optional fallback |
+| 2026-03-15 | 3 | Defined all TypeScript interfaces: editor types, toolbar types, plugin types, barrel index | No deviations; import graph is acyclic (editor→toolbar, plugin→toolbar) |
 
 <!--
 Example entries:
