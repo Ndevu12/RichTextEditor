@@ -10,7 +10,7 @@
 
 ## Progress Dashboard
 
-**Overall:** 11 / 25 phases complete | **44% done**
+**Overall:** 12 / 25 phases complete | **48% done**
 
 > Update the table below as each phase progresses. Use the status markers:
 > `Not Started`, `In Progress`, `Blocked`, `Complete`, `Skipped`
@@ -28,7 +28,7 @@
 | 9 | Plugins: Text Formatting & Headings | `Complete` | 2026-03-15 | 2026-03-15 | Underline extension installed, added to schema; StarterKit handles bold/italic/strike/headings |
 | 10 | Plugins: Lists & Blockquotes | `Complete` | 2026-03-15 | 2026-03-15 | ListsPlugin with sinkListItem/liftListItem; lists + blockquote already in StarterKit |
 | 11 | Plugins: Links & Link Dialog | `Complete` | 2026-03-15 | 2026-03-15 | Link extension, LinkPlugin helpers, accessible LinkDialog, dialog.css, wired into EditorWrapper |
-| 12 | Plugins: Images & Image Dialog | `Not Started` | — | — | |
+| 12 | Plugins: Images & Image Dialog | `Complete` | 2026-03-15 | 2026-03-15 | Image extension, ImagePlugin (URL + base64), accessible ImageDialog (drag-drop, preview), dialog.css extensions |
 | 13 | Plugins: Code Blocks & Syntax HL | `Not Started` | — | — | |
 | 14 | Plugins: History (Undo / Redo) | `Not Started` | — | — | |
 | 15 | Clipboard, Paste Handling & Utilities | `Not Started` | — | — | |
@@ -1559,10 +1559,10 @@ Link.configure({
 
 | | |
 |---|---|
-| **Status** | `Not Started` |
-| **Started** | — |
-| **Completed** | — |
-| **Branch** | — |
+| **Status** | `Complete` |
+| **Started** | 2026-03-15 |
+| **Completed** | 2026-03-15 |
+| **Branch** | `feat/phase-12-images-dialog` |
 | **Blocked by** | Phase 8 (parallelizable with 9–11) |
 | **Deliverables** | `ImagePlugin.tsx`, `ImageDialog.tsx`, `@tiptap/extension-image` installed |
 
@@ -1631,11 +1631,11 @@ Image.configure({
 
 ### Checkpoint
 
-- [ ] Inserting an image via URL renders `<img src="..." alt="..." />`
-- [ ] Uploading a file converts to base64 and inserts correctly
-- [ ] Image is block-level, centered, max-width 100%
-- [ ] Alt text is included in the output HTML
-- [ ] Dialog fully accessible
+- [x] Inserting an image via URL renders `<img src="..." alt="..." />`
+- [x] Uploading a file converts to base64 and inserts correctly
+- [x] Image is block-level, centered, max-width 100%
+- [x] Alt text is included in the output HTML
+- [x] Dialog fully accessible
 
 ---
 
@@ -2980,6 +2980,7 @@ Chronological record of implementation progress. Add entries as work is done.
 | 2026-03-15 | 9 | Installed @tiptap/extension-underline, added Underline to schema.ts extension array. Updated Plugins barrel index with roadmap comments. Bold/italic/strike/headings already functional via StarterKit. | No new component needed — formatting is extension-level; CodeBlockPlugin remains placeholder for Phase 13 |
 | 2026-03-15 | 10 | Created ListsPlugin.tsx with sinkListItem/liftListItem helpers. Added both commands to core/commands.ts + core/index.ts + src/index.ts public API. Updated Plugins barrel. Lists + blockquotes already functional via StarterKit; CSS from Phase 8 handles nested markers. | Tab/Shift+Tab nesting exposed as exported functions; no Tiptap extension override needed |
 | 2026-03-15 | 11 | Installed @tiptap/extension-link (autolink, linkOnPaste, openOnClick:false). Added Link.configure to schema.ts. Created LinkPlugin.tsx (getActiveLinkAttrs, getSelectedText, applyLink, removeLink). Created LinkDialog.tsx (accessible modal: focus trap, Escape close, Enter submit, URL validation, edit/remove modes). Created dialog.css (overlay, card, inputs, buttons, animations). Wired LinkDialog into EditorWrapper. Updated barrel exports. | Refactored useEffect → state initializers to satisfy react-hooks/set-state-in-effect lint rule; CSS 10.22 KB; ESM 23.46 KB |
+| 2026-03-15 | 12 | Installed @tiptap/extension-image (inline:false, allowBase64:true, loading:lazy). Added Image.configure to schema.ts. Created ImagePlugin.tsx (insertImageByUrl, insertImageBase64, readFileAsBase64, MAX_IMAGE_SIZE). Created ImageDialog.tsx (accessible modal: drag-drop zone, file upload with FileReader base64, URL input, alt text, preview thumbnail, 5MB warning). Extended dialog.css (dropzone, file info, separator, warning, preview). Wired ImageDialog into EditorWrapper. Updated all barrel exports + public API. | CSS 13.15 KB (+2.93 KB); ESM 33.95 KB (+10.49 KB) |
 
 <!--
 Example entries:

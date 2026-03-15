@@ -57,3 +57,12 @@ export {
   redo,
 } from './core';
 export { toHTML, fromHTML, createEmptyDoc, isContentEmpty } from './core';
+
+// Image plugin utilities (advanced usage)
+export {
+  insertImageByUrl,
+  insertImageBase64,
+  readFileAsBase64,
+  openImageDialog,
+  MAX_IMAGE_SIZE,
+} from './components/Plugins/ImagePlugin';
