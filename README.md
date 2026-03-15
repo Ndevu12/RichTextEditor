@@ -4,6 +4,7 @@
 
 [![License: BSD-3-Clause](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](./LICENSE)
 [![npm version](https://img.shields.io/npm/v/rich-text-editor-ndevu.svg)](https://www.npmjs.com/package/rich-text-editor-ndevu)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue.svg)](https://www.typescriptlang.org/)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](./CONTRIBUTING.md)
 
 ---
@@ -81,6 +82,7 @@ pnpm add react react-dom
 ```tsx
 import React, { useState } from 'react';
 import { RichTextEditor } from 'rich-text-editor-ndevu';
+import 'rich-text-editor-ndevu/styles.css';
 
 export default function App() {
   const [content, setContent] = useState('');
@@ -98,6 +100,10 @@ export default function App() {
   );
 }
 ```
+
+> **Note:** The CSS import (`rich-text-editor-ndevu/styles.css`) is required for the editor
+> to render correctly. If your bundler already handles CSS side-effects, the styles are
+> also auto-imported when you import the component.
 
 ---
 
@@ -186,6 +192,7 @@ function DarkModeExample() {
 | `style` | `React.CSSProperties` | `undefined` | Inline styles applied to the editor wrapper. |
 | `onFocus` | `() => void` | `undefined` | Callback fired when the editor gains focus. |
 | `onBlur` | `() => void` | `undefined` | Callback fired when the editor loses focus. |
+| `ariaLabel` | `string` | `'Rich text editor'` | Accessible label for the editor content area (announced by screen readers). |
 
 ### Toolbar Items
 

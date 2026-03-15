@@ -1,12 +1,19 @@
-// ── Styles (bundled to dist/index.css by tsup) ──────────
+/**
+ * rich-text-editor-ndevu — Public API
+ *
+ * This is the single entry point consumers see when they
+ * `import from 'rich-text-editor-ndevu'`.
+ *
+ * @packageDocumentation
+ */
+
+// ── Styles (bundled to dist/index.css by tsup) ─────────────────────
 import './styles/index.css';
 
-// ── Public API ───────────────────────────────
-
-// Main component
+// ── Main Component ─────────────────────────────────────────────────
 export { RichTextEditor } from './components/Editor';
 
-// Types
+// ── Types ──────────────────────────────────────────────────────────
 export type {
   RichTextEditorProps,
   Theme,
@@ -22,9 +29,12 @@ export type {
   ToolbarButtonConfig,
   ToolbarGroupConfig,
 } from './types';
+export type { PluginConfig, PluginRegistry } from './types';
+
+// ── Constants ──────────────────────────────────────────────────────
 export { DEFAULT_TOOLBAR } from './types';
 
-// Hooks (advanced usage)
+// ── Hooks ──────────────────────────────────────────────────────────
 export { useEditor } from './hooks';
 export type { UseEditorOptions } from './hooks';
 export { useToolbar } from './hooks';
@@ -32,11 +42,13 @@ export type { UseToolbarResult } from './hooks';
 export { useHistory } from './hooks';
 export type { UseHistoryResult } from './hooks';
 
-// Core utilities (advanced usage)
+// ── Core / Headless (advanced usage) ───────────────────────────────
 export { useEditorStore } from './core';
 export type { EditorStore } from './core';
 export { createEditor, createExtensions, lowlight } from './core';
 export type { CreateEditorOptions } from './core';
+
+// ── Commands ───────────────────────────────────────────────────────
 export {
   toggleBold,
   toggleItalic,
@@ -56,9 +68,11 @@ export {
   undo,
   redo,
 } from './core';
+
+// ── Content Helpers ────────────────────────────────────────────────
 export { toHTML, fromHTML, createEmptyDoc, isContentEmpty } from './core';
 
-// Image plugin utilities (advanced usage)
+// ── Plugin Utilities ───────────────────────────────────────────────
 export {
   insertImageByUrl,
   insertImageBase64,
@@ -67,14 +81,12 @@ export {
   MAX_IMAGE_SIZE,
 } from './components/Plugins/ImagePlugin';
 
-// Code block plugin utilities (advanced usage)
 export {
   getCodeBlockLanguage,
   setCodeBlockLanguage,
   SUPPORTED_LANGUAGES,
 } from './components/Plugins/CodeBlockPlugin';
 
-// History plugin utilities (advanced usage)
 export {
   canUndo,
   canRedo,
@@ -82,7 +94,7 @@ export {
   HISTORY_NEW_GROUP_DELAY,
 } from './components/Plugins/HistoryPlugin';
 
-// DOM & string utilities (advanced usage)
+// ── DOM & String Utilities ─────────────────────────────────────────
 export {
   sanitizeHTML,
   getSelectionRect,
