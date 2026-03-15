@@ -1,0 +1,169 @@
+/* ── Reset & Layout ─────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+}
+
+/* ── App Shell ──────────────────────────────── */
+.app {
+  min-height: 100vh;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.app[data-theme='light'] {
+  background-color: #f8f9fa;
+  color: #1a1a1a;
+}
+
+.app[data-theme='dark'] {
+  background-color: #1a1b26;
+  color: #c0caf5;
+}
+
+/* ── Header ─────────────────────────────────── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+}
+
+[data-theme='light'] .header {
+  border-bottom: 1px solid #dee2e6;
+}
+
+[data-theme='dark'] .header {
+  border-bottom: 1px solid #2f3348;
+}
+
+.header__title {
+  font-size: 1.25rem;
+}
+
+.header__actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* ── Buttons ────────────────────────────────── */
+.btn {
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-family: inherit;
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+.btn--primary {
+  font-weight: 600;
+}
+
+[data-theme='light'] .btn {
+  border: 1px solid #ced4da;
+  background-color: #fff;
+  color: #1a1a1a;
+}
+
+[data-theme='light'] .btn:hover {
+  background-color: #f1f3f5;
+}
+
+[data-theme='dark'] .btn {
+  border: 1px solid #3b3e52;
+  background-color: #24283b;
+  color: #c0caf5;
+}
+
+[data-theme='dark'] .btn:hover {
+  background-color: #2f3348;
+}
+
+/* ── Main Content ───────────────────────────── */
+.main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* ── Title Input ────────────────────────────── */
+.title-input {
+  width: 100%;
+  font-size: 1.75rem;
+  font-weight: 700;
+  border: none;
+  background-color: transparent;
+  color: inherit;
+  padding: 8px 0;
+  margin-bottom: 20px;
+  outline: none;
+  font-family: inherit;
+}
+
+[data-theme='light'] .title-input {
+  border-bottom: 2px solid #dee2e6;
+}
+
+[data-theme='dark'] .title-input {
+  border-bottom: 2px solid #3b3e52;
+}
+
+.title-input:focus {
+  border-bottom-color: #4c6ef5;
+}
+
+/* ── Preview Panel ──────────────────────────── */
+.preview {
+  padding: 24px;
+  border-radius: 8px;
+  line-height: 1.7;
+}
+
+.preview__title {
+  margin-top: 0;
+}
+
+[data-theme='light'] .preview {
+  border: 1px solid #dee2e6;
+  background-color: #fff;
+}
+
+[data-theme='dark'] .preview {
+  border: 1px solid #2f3348;
+  background-color: #24283b;
+}
+
+/* ── HTML Output ────────────────────────────── */
+.html-output {
+  margin-top: 24px;
+}
+
+.html-output__summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.html-output__code {
+  margin-top: 8px;
+  padding: 12px;
+  border-radius: 6px;
+  overflow: auto;
+  font-size: 0.8rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+[data-theme='light'] .html-output__code {
+  background-color: #f1f3f5;
+}
+
+[data-theme='dark'] .html-output__code {
+  background-color: #24283b;
+}
