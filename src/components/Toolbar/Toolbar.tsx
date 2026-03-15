@@ -41,47 +41,44 @@ export function Toolbar({ items }: ToolbarProps) {
   }, [rovingId, flatButtons]);
 
   // ── Roving tabindex keyboard handler ───────────────────────
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLDivElement>) => {
-      const toolbar = toolbarRef.current;
-      if (!toolbar) return;
+  const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
+    const toolbar = toolbarRef.current;
+    if (!toolbar) return;
 
-      const buttons = Array.from(
-        toolbar.querySelectorAll<HTMLButtonElement>('button:not([disabled])'),
-      );
-      if (buttons.length === 0) return;
+    const buttons = Array.from(
+      toolbar.querySelectorAll<HTMLButtonElement>('button:not([disabled])'),
+    );
+    if (buttons.length === 0) return;
 
-      const currentIndex = buttons.indexOf(document.activeElement as HTMLButtonElement);
-      let nextIndex: number | null = null;
+    const currentIndex = buttons.indexOf(document.activeElement as HTMLButtonElement);
+    let nextIndex: number | null = null;
 
-      switch (e.key) {
-        case 'ArrowRight':
-          e.preventDefault();
-          nextIndex = currentIndex < buttons.length - 1 ? currentIndex + 1 : 0;
-          break;
-        case 'ArrowLeft':
-          e.preventDefault();
-          nextIndex = currentIndex > 0 ? currentIndex - 1 : buttons.length - 1;
-          break;
-        case 'Home':
-          e.preventDefault();
-          nextIndex = 0;
-          break;
-        case 'End':
-          e.preventDefault();
-          nextIndex = buttons.length - 1;
-          break;
-      }
+    switch (e.key) {
+      case 'ArrowRight':
+        e.preventDefault();
+        nextIndex = currentIndex < buttons.length - 1 ? currentIndex + 1 : 0;
+        break;
+      case 'ArrowLeft':
+        e.preventDefault();
+        nextIndex = currentIndex > 0 ? currentIndex - 1 : buttons.length - 1;
+        break;
+      case 'Home':
+        e.preventDefault();
+        nextIndex = 0;
+        break;
+      case 'End':
+        e.preventDefault();
+        nextIndex = buttons.length - 1;
+        break;
+    }
 
-      if (nextIndex !== null) {
-        const nextButton = buttons[nextIndex];
-        const id = nextButton.getAttribute('data-toolbar-item');
-        if (id) setRovingId(id);
-        nextButton.focus();
-      }
-    },
-    [],
-  );
+    if (nextIndex !== null) {
+      const nextButton = buttons[nextIndex];
+      const id = nextButton.getAttribute('data-toolbar-item');
+      if (id) setRovingId(id);
+      nextButton.focus();
+    }
+  }, []);
 
   // ── Group items by separators ──────────────────────────────
   const groups = groupBySeparator(items);
@@ -98,11 +95,7 @@ export function Toolbar({ items }: ToolbarProps) {
       {groups.map((group, groupIndex) => (
         <ToolbarGroup key={groupIndex} label={`Formatting group ${groupIndex + 1}`}>
           {group.map((item) => (
-            <ToolbarButton
-              key={item.id}
-              {...item}
-              tabIndex={item.id === activeRovingId ? 0 : -1}
-            />
+            <ToolbarButton key={item.id} {...item} tabIndex={item.id === activeRovingId ? 0 : -1} />
           ))}
           {groupIndex < groups.length - 1 && <ToolbarSeparator />}
         </ToolbarGroup>

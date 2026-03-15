@@ -43,11 +43,7 @@ export interface EditorActions {
   setTheme: (theme: Theme) => void;
   setReadOnly: (readOnly: boolean) => void;
   setFocused: (focused: boolean) => void;
-  updateActiveState: (
-    marks: Set<string>,
-    nodes: Set<string>,
-    headingLevel: number | null,
-  ) => void;
+  updateActiveState: (marks: Set<string>, nodes: Set<string>, headingLevel: number | null) => void;
   setOpenDialog: (dialog: DialogType | null) => void;
 }
 

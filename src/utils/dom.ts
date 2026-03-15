@@ -22,11 +22,7 @@ const DISALLOWED_TAGS = new Set([
 
 const EVENT_ATTR_RE = /^on/i;
 
-const DANGEROUS_ATTRS = new Set([
-  'srcdoc',
-  'formaction',
-  'xlink:href',
-]);
+const DANGEROUS_ATTRS = new Set(['srcdoc', 'formaction', 'xlink:href']);
 
 // ── HTML Sanitization ────────────────────────────────────────
 
@@ -80,11 +76,7 @@ function sanitizeNode(node: Node): void {
         const attr = el.attributes[j];
         const name = attr.name.toLowerCase();
 
-        if (
-          EVENT_ATTR_RE.test(name) ||
-          DANGEROUS_ATTRS.has(name) ||
-          isJavascriptURI(attr.value)
-        ) {
+        if (EVENT_ATTR_RE.test(name) || DANGEROUS_ATTRS.has(name) || isJavascriptURI(attr.value)) {
           attrsToRemove.push(attr.name);
         }
       }

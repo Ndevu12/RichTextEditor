@@ -31,7 +31,15 @@ export interface UseEditorOptions {
  * - Handle `readOnly` changes
  */
 export function useEditor(options: UseEditorOptions = {}): Editor | null {
-  const { value = '', onChange, placeholder, readOnly = false, ariaLabel, onFocus, onBlur } = options;
+  const {
+    value = '',
+    onChange,
+    placeholder,
+    readOnly = false,
+    ariaLabel,
+    onFocus,
+    onBlur,
+  } = options;
 
   const editorRef = useRef<Editor | null>(null);
   const isInternalUpdate = useRef(false);
@@ -39,36 +47,39 @@ export function useEditor(options: UseEditorOptions = {}): Editor | null {
   const { setEditor, setContent, setFocused, updateActiveState } = useEditorStore.getState();
 
   // ── Refresh active marks/nodes from editor state ──────────
-  const refreshActiveState = useCallback((editor: Editor) => {
-    const marks = new Set<string>();
-    const nodes = new Set<string>();
-    let headingLevel: number | null = null;
+  const refreshActiveState = useCallback(
+    (editor: Editor) => {
+      const marks = new Set<string>();
+      const nodes = new Set<string>();
+      let headingLevel: number | null = null;
 
-    // Collect active marks
-    for (const mark of ['bold', 'italic', 'underline', 'strike', 'code', 'link']) {
-      if (editor.isActive(mark)) {
-        marks.add(mark);
+      // Collect active marks
+      for (const mark of ['bold', 'italic', 'underline', 'strike', 'code', 'link']) {
+        if (editor.isActive(mark)) {
+          marks.add(mark);
+        }
       }
-    }
 
-    // Collect active nodes
-    for (const node of ['bulletList', 'orderedList', 'blockquote', 'codeBlock']) {
-      if (editor.isActive(node)) {
-        nodes.add(node);
+      // Collect active nodes
+      for (const node of ['bulletList', 'orderedList', 'blockquote', 'codeBlock']) {
+        if (editor.isActive(node)) {
+          nodes.add(node);
+        }
       }
-    }
 
-    // Check headings (1–6)
-    for (let level = 1; level <= 6; level++) {
-      if (editor.isActive('heading', { level })) {
-        nodes.add('heading');
-        headingLevel = level;
-        break;
+      // Check headings (1–6)
+      for (let level = 1; level <= 6; level++) {
+        if (editor.isActive('heading', { level })) {
+          nodes.add('heading');
+          headingLevel = level;
+          break;
+        }
       }
-    }
 
-    updateActiveState(marks, nodes, headingLevel);
-  }, [updateActiveState]);
+      updateActiveState(marks, nodes, headingLevel);
+    },
+    [updateActiveState],
+  );
 
   // ── Create editor on mount ────────────────────────────────
   useEffect(() => {

@@ -10,14 +10,5 @@ export {
   openImageDialog,
   MAX_IMAGE_SIZE,
 } from './ImagePlugin';
-export {
-  getCodeBlockLanguage,
-  setCodeBlockLanguage,
-  SUPPORTED_LANGUAGES,
-} from './CodeBlockPlugin';
-export {
-  canUndo,
-  canRedo,
-  HISTORY_DEPTH,
-  HISTORY_NEW_GROUP_DELAY,
-} from './HistoryPlugin';
+export { getCodeBlockLanguage, setCodeBlockLanguage, SUPPORTED_LANGUAGES } from './CodeBlockPlugin';
+export { canUndo, canRedo, HISTORY_DEPTH, HISTORY_NEW_GROUP_DELAY } from './HistoryPlugin';
