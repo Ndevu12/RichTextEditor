@@ -14,7 +14,7 @@
 
 ## Progress Dashboard
 
-**Overall:** 20 / 25 phases complete | **80% done**
+**Overall:** 21 / 25 phases complete | **84% done**
 
 > Update the table below as each phase progresses. Use the status markers:
 > `Not Started`, `In Progress`, `Blocked`, `Complete`, `Skipped`
@@ -41,8 +41,8 @@
 | 18 | Storybook Setup & Stories | `Complete` | 2026-03-15 | 2026-03-15 | Storybook 8.6.18 (all packages aligned); 3 story files (18 stories total) |
 | 19 | Example Apps (React & Next.js) | `Complete` | 2026-03-15 | 2026-03-15 | React demo (Vite blog editor), Next.js 14 demo (SSR-safe dynamic import); code-split components |
 | 20 | Unit & Integration Tests | `Complete` | 2026-03-15 | 2026-03-15 | 12 test files, 182 tests, coverage: stmts 84.8%, branches 75.4%, funcs 88%, lines 87.6% |
-| 21 | End-to-End Tests | `Not Started` | — | — | |
-| 22 | Documentation | `Not Started` | — | — | |
+| 21 | End-to-End Tests | `Not Started` | — | — | Deferred to after remaining phases |
+| 22 | Documentation | `Complete` | 2026-03-15 | 2026-03-15 | 5 docs files, CONTRIBUTING.md, CHANGELOG.md |
 | 23 | CI / CD Pipelines | `Not Started` | — | — | |
 | 24 | Build Scripts & Release Pipeline | `Not Started` | — | — | |
 | 25 | Final Polish & v0.1.0 Release | `Not Started` | — | — | |
@@ -2376,11 +2376,11 @@ export default defineConfig({
 
 | | |
 |---|---|
-| **Status** | `Not Started` |
-| **Started** | — |
-| **Completed** | — |
-| **Branch** | — |
-| **Blocked by** | Phase 21 |
+| **Status** | `Complete` |
+| **Started** | 2026-03-15 |
+| **Completed** | 2026-03-15 |
+| **Branch** | `feat/phase-22-documentation` |
+| **Blocked by** | Phase 21 (skipped — E2E deferred) |
 | **Deliverables** | `docs/architecture.md`, `docs/api.md`, `docs/plugins.md`, `docs/theming.md`, `docs/contributing.md`, updated `CONTRIBUTING.md`, `CHANGELOG.md` |
 
 **Goal:** Write comprehensive documentation for users, contributors, and plugin authors.
@@ -2471,9 +2471,9 @@ Replace the placeholder with real contribution guidelines with `yarn` commands.
 
 ### Checkpoint
 
-- [ ] All docs/ files are populated with substantive content
-- [ ] CONTRIBUTING.md has real instructions
-- [ ] CHANGELOG.md tracks v0.1.0
+- [x] All docs/ files are populated with substantive content
+- [x] CONTRIBUTING.md has real instructions
+- [x] CHANGELOG.md tracks v0.1.0
 
 ---
 
@@ -2992,6 +2992,7 @@ Chronological record of implementation progress. Add entries as work is done.
 | 2026-03-15 | 17 | Created Vite 6.4.1 playground with React 19. package.json with link:../ for local pkg. index.html, tsconfig.json, vite.config.ts. main.tsx (createRoot). App.tsx: 4 toolbar presets (full/minimal/writing/code), theme toggle (light↔dark), read-only toggle, HTML output panel with show/hide, sample content, responsive layout. Standalone yarn.lock for separate Yarn project. Updated .gitignore for playground/examples node_modules. | Deviated from plan: React 19 (not 18) to match root project; dropped JSON panel (Tiptap JSON requires editor instance, not in public scope); added separate yarn.lock for Yarn 4 Berry standalone project |
 | 2026-03-15 | 18 | Installed Storybook 8.6.18 (aligned all 5 packages). Created .storybook/main.ts (react-vite framework, stories glob, react-docgen-typescript). Created .storybook/preview.ts (CSS import, layout padded, controls matchers). Wrote RichTextEditor.stories.tsx (8 stories: Default, WithInitialContent, CustomToolbar, ReadOnly, WithPlaceholder, MinMaxHeight, Controlled, FullFeatured). Wrote Toolbar.stories.tsx (5 stories: AllItems, Minimal, WithHeadings, DisabledState, CustomGroups). Wrote Themes.stories.tsx (4 stories: LightTheme, DarkTheme, SideBySide, ThemeToggle). build-storybook produces static output (371 modules, 8.59s). | Initially installed storybook v10 (latest) mixed with v8 addons — removed & reinstalled all at ^8.6.0 for alignment; Vite peer dep warning (project has v8, Storybook wants ^6) is cosmetic only |
 | 2026-03-15 | 19 | React demo: Vite 6 + React 19 blog post editor with code-split components (Header, Preview, HtmlOutput), CSS stylesheet (data-theme selectors), constants file, title input, theme toggle, preview mode, save button, HTML output. Next.js 14 demo: Pages Router, dynamic import with ssr:false + loading placeholder, transpilePackages config, Header/HtmlOutput components, theme toggle. Both install & dev/build verified. Milestone M6 reached. | Used React 19 (not 18) for both; Next.js 14 peer dep warnings with React 19 are cosmetic; ESLint ignoreDuringBuilds needed (root ESLint 9 flat config incompatible with Next.js 14 built-in lint); code-split per user request instead of single-file approach |
+| 2026-03-15 | 22 | Documentation: architecture.md (hierarchy, data flow, extension system, directory rationale, decision log), api.md (full props/hooks/commands/types/constants reference), plugins.md (built-in plugins, custom plugin guide), theming.md (all 32 CSS tokens, custom theme guide), contributing.md (detailed dev guide), CONTRIBUTING.md (concise quick-start), CHANGELOG.md (v0.1.0 features) | Phase 21 (E2E) deferred by user decision; proceeded to Phase 22 directly |
 | 2026-03-15 | 20 | Unit & integration tests: 12 test files, 182 tests all passing. Coverage: stmts 84.8%, branches 75.4%, funcs 88%, lines 87.6%. Tested: engine, commands (18 cmds), Editor component, Toolbar (buttons, keyboard, a11y), useEditor/useToolbar/useHistory hooks, dom utils, string utils, content Parser/Serializer, model, all Plugins, both Dialogs (LinkDialog + ImageDialog with validation, submit, Escape, overlay click, drag-drop). | Added 6 additional test files beyond the 6 planned (model, Content, Plugins, Dialogs, useToolbar, useHistory) to meet 80% coverage thresholds; jsdom limitations prevented getBoundingClientRect tests |
 
 <!--
