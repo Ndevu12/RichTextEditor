@@ -10,7 +10,7 @@
 
 ## Progress Dashboard
 
-**Overall:** 4 / 25 phases complete | **16% done**
+**Overall:** 5 / 25 phases complete | **20% done**
 
 > Update the table below as each phase progresses. Use the status markers:
 > `Not Started`, `In Progress`, `Blocked`, `Complete`, `Skipped`
@@ -21,7 +21,7 @@
 | 2 | TypeScript, Bundler & Linting Config | `Complete` | 2026-03-15 | 2026-03-15 | Migrated to ESLint v9 flat config; added @eslint/js + globals |
 | 3 | Type System Foundation | `Complete` | 2026-03-15 | 2026-03-15 | All interfaces, types, and constants defined |
 | 4 | Core Engine & Zustand Store | `Complete` | 2026-03-15 | 2026-03-15 | schema, engine, commands, store (Zustand), model, barrel |
-| 5 | React Hooks Layer | `Not Started` | — | — | |
+| 5 | React Hooks Layer | `Complete` | 2026-03-15 | 2026-03-15 | useEditor, useToolbar, useHistory; Tiptap v3 setContent API |
 | 6 | Core Components: Editor Shell | `Not Started` | — | — | |
 | 7 | Toolbar System | `Not Started` | — | — | |
 | 8 | Styles & Theming | `Not Started` | — | — | |
@@ -952,10 +952,10 @@ export * from './model';
 
 | | |
 |---|---|
-| **Status** | `Not Started` |
-| **Started** | — |
-| **Completed** | — |
-| **Branch** | — |
+| **Status** | `Complete` |
+| **Started** | 2026-03-15 |
+| **Completed** | 2026-03-15 |
+| **Branch** | `chore/phase-5-react-hooks` |
 | **Blocked by** | Phase 4 |
 | **Deliverables** | `src/hooks/useEditor.ts`, `src/hooks/useToolbar.ts`, `src/hooks/useHistory.ts`, `src/hooks/index.ts` |
 
@@ -1028,9 +1028,9 @@ export { useHistory } from './useHistory';
 
 ### Checkpoint
 
-- [ ] `yarn typecheck` passes
-- [ ] Hooks are syntactically correct and import correctly
-- [ ] No circular dependencies between hooks → store → engine
+- [x] `yarn typecheck` passes
+- [x] Hooks are syntactically correct and import correctly
+- [x] No circular dependencies between hooks → store → engine
 
 ---
 
@@ -2973,6 +2973,7 @@ Chronological record of implementation progress. Add entries as work is done.
 | 2026-03-15 | 2 | Configured tsconfig.json (strict), tsup (dual ESM/CJS), vitest, ESLint v9 flat config, Prettier | Migrated .eslintrc.cjs → eslint.config.js for ESLint v9; added @eslint/js@9 + globals; rollup config marked as optional fallback |
 | 2026-03-15 | 3 | Defined all TypeScript interfaces: editor types, toolbar types, plugin types, barrel index | No deviations; import graph is acyclic (editor→toolbar, plugin→toolbar) |
 | 2026-03-15 | 4 | Built core engine: schema.ts (StarterKit), engine.ts (editor factory), commands.ts (15 commands), store.ts (Zustand), model.ts (HTML↔JSON), barrel | Used insertContent for image cmd (Image ext not yet loaded); fixed no-undef ESLint rule for TS files; added React type imports to Phase 3 files |
+| 2026-03-15 | 5 | Built 3 custom React hooks: useEditor (lifecycle, controlled value sync, active state), useToolbar (item→config mapping, actions, active states), useHistory (undo/redo with canUndo/canRedo) | Tiptap v3 changed setContent 2nd param from boolean to SetContentOptions object; icons deferred to Phase 7 Toolbar component |
 
 <!--
 Example entries:
