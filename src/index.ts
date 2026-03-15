@@ -35,7 +35,7 @@ export type { UseHistoryResult } from './hooks';
 // Core utilities (advanced usage)
 export { useEditorStore } from './core';
 export type { EditorStore } from './core';
-export { createEditor, createExtensions } from './core';
+export { createEditor, createExtensions, lowlight } from './core';
 export type { CreateEditorOptions } from './core';
 export {
   toggleBold,
@@ -66,3 +66,10 @@ export {
   openImageDialog,
   MAX_IMAGE_SIZE,
 } from './components/Plugins/ImagePlugin';
+
+// Code block plugin utilities (advanced usage)
+export {
+  getCodeBlockLanguage,
+  setCodeBlockLanguage,
+  SUPPORTED_LANGUAGES,
+} from './components/Plugins/CodeBlockPlugin';

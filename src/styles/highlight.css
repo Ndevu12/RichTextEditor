@@ -1,0 +1,199 @@
+/**
+ * Syntax highlighting styles for code blocks.
+ *
+ * Targets lowlight/highlight.js `.hljs-*` classes inside
+ * `.rte-content .tiptap pre code`.
+ *
+ * Light theme: GitHub-inspired palette.
+ * Dark theme:  One Dark / Catppuccin Mocha-inspired palette.
+ */
+
+/* ──────────────────────────────────────────────────────── */
+/*  Code block container enhancements                       */
+/* ──────────────────────────────────────────────────────── */
+
+.rte-content .tiptap pre {
+  position: relative;
+  tab-size: 2;
+  -moz-tab-size: 2;
+}
+
+/* Language label (lowlight adds data-language attr) */
+.rte-content .tiptap pre code::before {
+  content: attr(data-language);
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-family: var(--rte-font-family);
+  font-size: 0.7em;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.5;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ──────────────────────────────────────────────────────── */
+/*  Light theme — GitHub-inspired syntax colors             */
+/* ──────────────────────────────────────────────────────── */
+
+[data-theme='light'] .rte-content .tiptap pre code .hljs-comment,
+[data-theme='light'] .rte-content .tiptap pre code .hljs-quote {
+  color: #6a737d;
+  font-style: italic;
+}
+
+[data-theme='light'] .rte-content .tiptap pre code .hljs-keyword,
+[data-theme='light'] .rte-content .tiptap pre code .hljs-selector-tag,
+[data-theme='light'] .rte-content .tiptap pre code .hljs-type {
+  color: #d73a49;
+}
+
+[data-theme='light'] .rte-content .tiptap pre code .hljs-string,
+[data-theme='light'] .rte-content .tiptap pre code .hljs-addition {
+  color: #032f62;
+}
+
+[data-theme='light'] .rte-content .tiptap pre code .hljs-number,
+[data-theme='light'] .rte-content .tiptap pre code .hljs-literal,
+[data-theme='light'] .rte-content .tiptap pre code .hljs-built_in {
+  color: #005cc5;
+}
+
+[data-theme='light'] .rte-content .tiptap pre code .hljs-title,
+[data-theme='light'] .rte-content .tiptap pre code .hljs-section,
+[data-theme='light'] .rte-content .tiptap pre code .hljs-title\.function_ {
+  color: #6f42c1;
+}
+
+[data-theme='light'] .rte-content .tiptap pre code .hljs-variable,
+[data-theme='light'] .rte-content .tiptap pre code .hljs-template-variable {
+  color: #e36209;
+}
+
+[data-theme='light'] .rte-content .tiptap pre code .hljs-attr,
+[data-theme='light'] .rte-content .tiptap pre code .hljs-attribute {
+  color: #005cc5;
+}
+
+[data-theme='light'] .rte-content .tiptap pre code .hljs-tag {
+  color: #22863a;
+}
+
+[data-theme='light'] .rte-content .tiptap pre code .hljs-name {
+  color: #22863a;
+}
+
+[data-theme='light'] .rte-content .tiptap pre code .hljs-regexp,
+[data-theme='light'] .rte-content .tiptap pre code .hljs-link {
+  color: #032f62;
+}
+
+[data-theme='light'] .rte-content .tiptap pre code .hljs-meta {
+  color: #005cc5;
+}
+
+[data-theme='light'] .rte-content .tiptap pre code .hljs-deletion {
+  color: #b31d28;
+  background: #ffeef0;
+}
+
+[data-theme='light'] .rte-content .tiptap pre code .hljs-addition {
+  background: #f0fff4;
+}
+
+[data-theme='light'] .rte-content .tiptap pre code .hljs-symbol,
+[data-theme='light'] .rte-content .tiptap pre code .hljs-bullet {
+  color: #005cc5;
+}
+
+[data-theme='light'] .rte-content .tiptap pre code .hljs-emphasis {
+  font-style: italic;
+}
+
+[data-theme='light'] .rte-content .tiptap pre code .hljs-strong {
+  font-weight: 700;
+}
+
+/* ──────────────────────────────────────────────────────── */
+/*  Dark theme — One Dark / Catppuccin-inspired colors      */
+/* ──────────────────────────────────────────────────────── */
+
+[data-theme='dark'] .rte-content .tiptap pre code .hljs-comment,
+[data-theme='dark'] .rte-content .tiptap pre code .hljs-quote {
+  color: #6c7086;
+  font-style: italic;
+}
+
+[data-theme='dark'] .rte-content .tiptap pre code .hljs-keyword,
+[data-theme='dark'] .rte-content .tiptap pre code .hljs-selector-tag,
+[data-theme='dark'] .rte-content .tiptap pre code .hljs-type {
+  color: #cba6f7;
+}
+
+[data-theme='dark'] .rte-content .tiptap pre code .hljs-string,
+[data-theme='dark'] .rte-content .tiptap pre code .hljs-addition {
+  color: #a6e3a1;
+}
+
+[data-theme='dark'] .rte-content .tiptap pre code .hljs-number,
+[data-theme='dark'] .rte-content .tiptap pre code .hljs-literal,
+[data-theme='dark'] .rte-content .tiptap pre code .hljs-built_in {
+  color: #fab387;
+}
+
+[data-theme='dark'] .rte-content .tiptap pre code .hljs-title,
+[data-theme='dark'] .rte-content .tiptap pre code .hljs-section,
+[data-theme='dark'] .rte-content .tiptap pre code .hljs-title\.function_ {
+  color: #89b4fa;
+}
+
+[data-theme='dark'] .rte-content .tiptap pre code .hljs-variable,
+[data-theme='dark'] .rte-content .tiptap pre code .hljs-template-variable {
+  color: #f38ba8;
+}
+
+[data-theme='dark'] .rte-content .tiptap pre code .hljs-attr,
+[data-theme='dark'] .rte-content .tiptap pre code .hljs-attribute {
+  color: #f9e2af;
+}
+
+[data-theme='dark'] .rte-content .tiptap pre code .hljs-tag {
+  color: #f38ba8;
+}
+
+[data-theme='dark'] .rte-content .tiptap pre code .hljs-name {
+  color: #89b4fa;
+}
+
+[data-theme='dark'] .rte-content .tiptap pre code .hljs-regexp,
+[data-theme='dark'] .rte-content .tiptap pre code .hljs-link {
+  color: #a6e3a1;
+}
+
+[data-theme='dark'] .rte-content .tiptap pre code .hljs-meta {
+  color: #f9e2af;
+}
+
+[data-theme='dark'] .rte-content .tiptap pre code .hljs-deletion {
+  color: #f38ba8;
+  background: rgba(243, 139, 168, 0.1);
+}
+
+[data-theme='dark'] .rte-content .tiptap pre code .hljs-addition {
+  background: rgba(166, 227, 161, 0.1);
+}
+
+[data-theme='dark'] .rte-content .tiptap pre code .hljs-symbol,
+[data-theme='dark'] .rte-content .tiptap pre code .hljs-bullet {
+  color: #f9e2af;
+}
+
+[data-theme='dark'] .rte-content .tiptap pre code .hljs-emphasis {
+  font-style: italic;
+}
+
+[data-theme='dark'] .rte-content .tiptap pre code .hljs-strong {
+  font-weight: 700;
+}

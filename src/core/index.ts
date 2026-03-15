@@ -1,5 +1,5 @@
 // Schema
-export { createExtensions } from './schema';
+export { createExtensions, lowlight } from './schema';
 
 // Engine
 export { createEditor } from './engine';
