@@ -28,6 +28,7 @@ export function RichTextEditor(props: RichTextEditorProps) {
     maxHeight,
     className,
     style,
+    ariaLabel,
     onFocus,
     onBlur,
   } = props;
@@ -39,6 +40,7 @@ export function RichTextEditor(props: RichTextEditorProps) {
       readOnly={readOnly}
       theme={theme}
       placeholder={placeholder}
+      ariaLabel={ariaLabel}
       onFocus={onFocus}
       onBlur={onBlur}
     >

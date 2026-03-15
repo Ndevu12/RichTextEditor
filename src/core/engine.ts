@@ -12,6 +12,8 @@ export interface CreateEditorOptions {
   editable?: boolean;
   /** Placeholder text shown when the editor is empty */
   placeholder?: string;
+  /** Accessible label for the editor (default: 'Rich text editor') */
+  ariaLabel?: string;
   /** Called when the editor content changes */
   onUpdate?: (html: string) => void;
   /** Called when the selection changes */
@@ -29,11 +31,26 @@ export interface CreateEditorOptions {
  * (Phase 5) will call this and manage the lifecycle.
  */
 export function createEditor(options: CreateEditorOptions = {}): Editor {
+  const ariaAttrs: Record<string, string> = {
+    role: 'textbox',
+    'aria-multiline': 'true',
+    'aria-label': options.ariaLabel ?? 'Rich text editor',
+  };
+
+  if (options.placeholder) {
+    ariaAttrs['aria-placeholder'] = options.placeholder;
+  }
+
+  if (!options.editable) {
+    ariaAttrs['aria-readonly'] = 'true';
+  }
+
   return new Editor({
     extensions: createExtensions(),
     content: options.content || '',
     editable: options.editable ?? true,
     editorProps: {
+      attributes: ariaAttrs,
       transformPastedHTML(html) {
         return sanitizeHTML(html);
       },

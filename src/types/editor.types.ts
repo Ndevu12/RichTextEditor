@@ -19,6 +19,8 @@ export interface RichTextEditorProps {
   maxHeight?: string | number;
   className?: string;
   style?: React.CSSProperties;
+  /** Accessible label for the editor content area (default: 'Rich text editor') */
+  ariaLabel?: string;
   onFocus?: () => void;
   onBlur?: () => void;
 }

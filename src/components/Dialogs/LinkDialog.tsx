@@ -44,6 +44,9 @@ export function LinkDialog() {
   const urlRef = useRef<HTMLInputElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
 
+  // Save the element that had focus before the dialog opened (for focus restoration)
+  const triggerRef = useRef<Element | null>(document.activeElement);
+
   // ── Auto-focus URL field on mount ──────────────────────────
   useLayoutEffect(() => {
     urlRef.current?.focus();
@@ -67,6 +70,10 @@ export function LinkDialog() {
   // ── Close dialog ───────────────────────────────────────────
   const close = useCallback(() => {
     setOpenDialog(null);
+    // Restore focus to the element that triggered the dialog
+    requestAnimationFrame(() => {
+      (triggerRef.current as HTMLElement)?.focus?.();
+    });
   }, [setOpenDialog]);
 
   // ── Insert / update link ───────────────────────────────────

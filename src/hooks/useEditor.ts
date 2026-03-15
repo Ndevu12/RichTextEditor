@@ -12,6 +12,8 @@ export interface UseEditorOptions {
   placeholder?: string;
   /** Disable editing */
   readOnly?: boolean;
+  /** Accessible label for the editor content area */
+  ariaLabel?: string;
   /** Called when editor gains focus */
   onFocus?: () => void;
   /** Called when editor loses focus */
@@ -29,7 +31,7 @@ export interface UseEditorOptions {
  * - Handle `readOnly` changes
  */
 export function useEditor(options: UseEditorOptions = {}): Editor | null {
-  const { value = '', onChange, placeholder, readOnly = false, onFocus, onBlur } = options;
+  const { value = '', onChange, placeholder, readOnly = false, ariaLabel, onFocus, onBlur } = options;
 
   const editorRef = useRef<Editor | null>(null);
   const isInternalUpdate = useRef(false);
@@ -74,6 +76,7 @@ export function useEditor(options: UseEditorOptions = {}): Editor | null {
       content: value,
       editable: !readOnly,
       placeholder,
+      ariaLabel,
       onUpdate: (html) => {
         isInternalUpdate.current = true;
         setContent(html);
@@ -128,6 +131,16 @@ export function useEditor(options: UseEditorOptions = {}): Editor | null {
     if (!editor) return;
     editor.setEditable(!readOnly);
     useEditorStore.getState().setReadOnly(readOnly);
+
+    // Keep aria-readonly in sync with the readOnly prop
+    const el = editor.view?.dom;
+    if (el) {
+      if (readOnly) {
+        el.setAttribute('aria-readonly', 'true');
+      } else {
+        el.removeAttribute('aria-readonly');
+      }
+    }
   }, [readOnly]);
 
   return useEditorStore((s) => s.editor);

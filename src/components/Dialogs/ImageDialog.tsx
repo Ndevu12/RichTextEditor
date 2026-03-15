@@ -39,6 +39,9 @@ export function ImageDialog() {
   const fileRef = useRef<HTMLInputElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
 
+  // Save the element that had focus before the dialog opened (for focus restoration)
+  const triggerRef = useRef<Element | null>(document.activeElement);
+
   // ── Auto-focus URL field on mount ──────────────────────────
   useLayoutEffect(() => {
     urlRef.current?.focus();
@@ -61,6 +64,10 @@ export function ImageDialog() {
   // ── Close dialog ───────────────────────────────────────────
   const close = useCallback(() => {
     setOpenDialog(null);
+    // Restore focus to the element that triggered the dialog
+    requestAnimationFrame(() => {
+      (triggerRef.current as HTMLElement)?.focus?.();
+    });
   }, [setOpenDialog]);
 
   // ── Process a file (shared by browse & drag-and-drop) ──────
