@@ -33,7 +33,13 @@ export const toggleBulletList = (editor: Editor): boolean =>
 
 export const toggleOrderedList = (editor: Editor): boolean =>
   editor.chain().focus().toggleOrderedList().run();
+/** Increase list indent — sink the current list item one level deeper. */
+export const sinkListItem = (editor: Editor): boolean =>
+  editor.chain().focus().sinkListItem('listItem').run();
 
+/** Decrease list indent — lift the current list item one level up. */
+export const liftListItem = (editor: Editor): boolean =>
+  editor.chain().focus().liftListItem('listItem').run();
 // ──────────────────────────────────────────────
 // Block Formatting
 // ──────────────────────────────────────────────
