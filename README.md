@@ -64,7 +64,14 @@ pnpm add rich-text-editor-ndevu
 Make sure your project has the following peer dependencies installed:
 
 ```bash
+# npm
 npm install react react-dom
+
+# yarn
+yarn add react react-dom
+
+# pnpm
+pnpm add react react-dom
 ```
 
 ---
@@ -216,10 +223,10 @@ git clone https://github.com/Ndevu12/RichTextEditor.git
 cd RichTextEditor
 
 # 2. Install dependencies
-npm install
+yarn install
 
 # 3. Start the development server
-npm run dev
+yarn dev
 ```
 
 ### Contribution workflow
@@ -232,8 +239,8 @@ npm run dev
 3. **Make your changes** — write clear, focused commits.
 4. **Run tests and linting** before pushing:
    ```bash
-   npm run lint
-   npm test
+   yarn lint
+   yarn test
    ```
 5. **Push** your branch and **open a Pull Request** against `main`.
 6. Your PR will be reviewed by a maintainer. Please address any feedback promptly.
