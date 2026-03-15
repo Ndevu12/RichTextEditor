@@ -1,5 +1,6 @@
 import type { Extensions } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
+import Underline from '@tiptap/extension-underline';
 
 /**
  * Assemble the base Tiptap extension stack.
@@ -8,10 +9,10 @@ import StarterKit from '@tiptap/starter-kit';
  * bullet list, ordered list, blockquote, code, code block, history,
  * hard break, horizontal rule, document, paragraph, text.
  *
- * Individual plugin phases will add or override extensions:
- * - Phase 9:  Underline extension
- * - Phase 11: Link extension
- * - Phase 12: Image extension
+ * Additional extensions:
+ * - Phase 9:  Underline (not in StarterKit)
+ * - Phase 11: Link
+ * - Phase 12: Image
  * - Phase 13: CodeBlockLowlight (replaces StarterKit's codeBlock)
  * - Phase 14: Custom history config
  */
@@ -22,5 +23,6 @@ export function createExtensions(): Extensions {
       // history: false,      // Phase 14 — custom history config
       // codeBlock: false,    // Phase 13 — replaced by code-block-lowlight
     }),
+    Underline,
   ];
 }

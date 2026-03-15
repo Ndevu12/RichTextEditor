@@ -10,7 +10,7 @@
 
 ## Progress Dashboard
 
-**Overall:** 8 / 25 phases complete | **32% done**
+**Overall:** 9 / 25 phases complete | **36% done**
 
 > Update the table below as each phase progresses. Use the status markers:
 > `Not Started`, `In Progress`, `Blocked`, `Complete`, `Skipped`
@@ -25,7 +25,7 @@
 | 6 | Core Components: Editor Shell | `Complete` | 2026-03-15 | 2026-03-15 | ContentEditable, Parser, Serializer, EditorProvider, EditorWrapper, RichTextEditor, full public API |
 | 7 | Toolbar System | `Complete` | 2026-03-15 | 2026-03-15 | ToolbarButton, ToolbarSeparator, ToolbarGroup, Toolbar with roving tabindex, wired into EditorWrapper |
 | 8 | Styles & Theming | `Complete` | 2026-03-15 | 2026-03-15 | 32 CSS tokens per theme, .rte-* BEM classes, prose typography, 7.40 KB CSS bundle |
-| 9 | Plugins: Text Formatting & Headings | `Not Started` | — | — | |
+| 9 | Plugins: Text Formatting & Headings | `Complete` | 2026-03-15 | 2026-03-15 | Underline extension installed, added to schema; StarterKit handles bold/italic/strike/headings |
 | 10 | Plugins: Lists & Blockquotes | `Not Started` | — | — | |
 | 11 | Plugins: Links & Link Dialog | `Not Started` | — | — | |
 | 12 | Plugins: Images & Image Dialog | `Not Started` | — | — | |
@@ -1376,10 +1376,10 @@ This file is the one included in the built package so consumers get themes autom
 
 | | |
 |---|---|
-| **Status** | `Not Started` |
-| **Started** | — |
-| **Completed** | — |
-| **Branch** | — |
+| **Status** | `Complete` |
+| **Started** | 2026-03-15 |
+| **Completed** | 2026-03-15 |
+| **Branch** | `feat/phase-9-text-formatting` |
 | **Blocked by** | Phase 8 |
 | **Deliverables** | Underline extension installed, `schema.ts` updated, all text formatting toolbar items functional |
 
@@ -1403,19 +1403,19 @@ In this phase, we only wire up the text formatting plugins. CodeBlock has its ow
 
 ### 9.4 — Verify all toolbar items work
 
-- [ ] Bold: toggles `<strong>` on selection
-- [ ] Italic: toggles `<em>` on selection
-- [ ] Underline: toggles `<u>` on selection
-- [ ] Strike: toggles `<s>` on selection
-- [ ] Heading 1–6: toggles `<h1>`–`<h6>` on current block
-- [ ] Keyboard shortcuts: Ctrl/⌘+B, Ctrl/⌘+I, Ctrl/⌘+U
+- [x] Bold: toggles `<strong>` on selection
+- [x] Italic: toggles `<em>` on selection
+- [x] Underline: toggles `<u>` on selection
+- [x] Strike: toggles `<s>` on selection
+- [x] Heading 1–6: toggles `<h1>`–`<h6>` on current block
+- [x] Keyboard shortcuts: Ctrl/⌘+B, Ctrl/⌘+I, Ctrl/⌘+U
 
 ### Checkpoint
 
-- [ ] All text formatting commands work
-- [ ] Toolbar buttons reflect active state correctly
-- [ ] Keyboard shortcuts work
-- [ ] Output HTML is semantically correct
+- [x] All text formatting commands work
+- [x] Toolbar buttons reflect active state correctly
+- [x] Keyboard shortcuts work
+- [x] Output HTML is semantically correct
 
 ---
 
@@ -2977,6 +2977,7 @@ Chronological record of implementation progress. Add entries as work is done.
 | 2026-03-15 | 6 | Built editor shell: ContentEditable (EditorContent wrapper), Parser/Serializer (JSON↔HTML), EditorProvider (lifecycle bridge), EditorWrapper (composition), RichTextEditor (public API). Populated src/index.ts with full public API exports | Used @tiptap/core for generateHTML/generateJSON (not @tiptap/html); Toolbar stub until Phase 7; bundle now 13KB ESM |
 | 2026-03-15 | 7 | Built toolbar system: ToolbarButton (aria-label/pressed, shortcut hints, fallback text), ToolbarSeparator (role=separator), ToolbarGroup (role=group), Toolbar (groupBySeparator, roving tabindex ArrowLeft/Right/Home/End). Wired Toolbar into EditorWrapper replacing stub. | No CSS Modules yet (Phase 8); icons still null (text labels used); bundle now 15.78KB ESM |
 | 2026-03-15 | 8 | Built styles & theming: theme-light.css + theme-dark.css (32 tokens each), editor.css (wrapper, focus ring, prose typography for headings/lists/blockquote/code/links/images/hr), toolbar.css (button hover/active/pressed/disabled/focus-visible, separator, group), index.css master import. Wired .rte-* classes into all components. CSS bundled via import in src/index.ts. | Used .rte-* BEM-style prefix instead of CSS Modules (better for library consumers); CSS output 7.40 KB |
+| 2026-03-15 | 9 | Installed @tiptap/extension-underline, added Underline to schema.ts extension array. Updated Plugins barrel index with roadmap comments. Bold/italic/strike/headings already functional via StarterKit. | No new component needed — formatting is extension-level; CodeBlockPlugin remains placeholder for Phase 13 |
 
 <!--
 Example entries:
