@@ -10,7 +10,7 @@
   --rte-bg: #ffffff;
   --rte-text: #1a1a2e;
   --rte-text-muted: #6b7280;
-  --rte-border: #e0e0e0;
+  --rte-border: #d0d0d0;
 
   /* ── Toolbar ────────────────────────────────────────── */
   --rte-toolbar-bg: #f8f9fa;
@@ -50,7 +50,7 @@
   --rte-input-focus: #0969da;
 
   /* ── Shared ─────────────────────────────────────────── */
-  --rte-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  --rte-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   --rte-radius: 8px;
   --rte-radius-sm: 4px;
   --rte-font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;

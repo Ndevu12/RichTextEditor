@@ -10,8 +10,8 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 2px;
-  padding: 6px 8px;
+  gap: 4px;
+  padding: 8px 12px;
   background: var(--rte-toolbar-bg);
   border-bottom: 1px solid var(--rte-toolbar-border);
   user-select: none;
@@ -22,6 +22,7 @@
   display: flex;
   align-items: center;
   gap: 2px;
+  padding: 2px 0;
 }
 
 /* ── Single button ─────────────────────────────────────── */
@@ -40,9 +41,16 @@
   font-weight: 500;
   line-height: 1;
   cursor: pointer;
+  overflow: hidden;
   transition:
     background-color 0.15s ease,
     color 0.15s ease;
+}
+
+.rte-toolbar__button svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
 }
 
 .rte-toolbar__button:hover:not(:disabled) {
@@ -79,8 +87,9 @@
 /* ── Separator ─────────────────────────────────────────── */
 .rte-toolbar__separator {
   width: 1px;
-  height: 20px;
-  margin: 0 4px;
-  background: var(--rte-border);
+  height: 24px;
+  margin: 0 6px;
+  background: var(--rte-toolbar-border);
   flex-shrink: 0;
+  align-self: center;
 }
