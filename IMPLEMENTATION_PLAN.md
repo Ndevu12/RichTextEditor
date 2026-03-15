@@ -14,7 +14,7 @@
 
 ## Progress Dashboard
 
-**Overall:** 22 / 25 phases complete | **88% done**
+**Overall:** 23 / 25 phases complete | **92% done**
 
 > Update the table below as each phase progresses. Use the status markers:
 > `Not Started`, `In Progress`, `Blocked`, `Complete`, `Skipped`
@@ -44,7 +44,7 @@
 | 21 | End-to-End Tests | `Not Started` | — | — | Deferred to after remaining phases |
 | 22 | Documentation | `Complete` | 2026-03-15 | 2026-03-15 | 5 docs files, CONTRIBUTING.md, CHANGELOG.md |
 | 23 | CI / CD Pipelines | `Complete` | 2026-03-15 | 2026-03-15 | ci.yml (3 jobs), release.yml (npm provenance), YAML issue templates, PR template |
-| 24 | Build Scripts & Release Pipeline | `Not Started` | — | — | |
+| 24 | Build Scripts & Release Pipeline | `Complete` | 2026-03-15 | 2026-03-15 | clean.ts (--all flag), build.ts (clean→typecheck→tsup→verify), release.ts (bump→tag→push) |
 | 25 | Final Polish & v0.1.0 Release | `Not Started` | — | — | |
 
 ### Milestone Markers
@@ -2584,10 +2584,10 @@ Expand with:
 
 | | |
 |---|---|
-| **Status** | `Not Started` |
-| **Started** | — |
-| **Completed** | — |
-| **Branch** | — |
+| **Status** | `Complete` |
+| **Started** | 2026-03-15 |
+| **Completed** | 2026-03-15 |
+| **Branch** | `feat/phase-24-build-scripts` |
 | **Blocked by** | Phase 23 |
 | **Deliverables** | `scripts/clean.ts`, `scripts/build.ts`, `scripts/release.ts` |
 
@@ -2640,9 +2640,9 @@ console.log('Build completed successfully!');
 
 ### Checkpoint
 
-- [ ] `yarn clean` removes all build artifacts
-- [ ] `tsx scripts/build.ts` produces a valid `dist/` directory
-- [ ] Release script works end-to-end (dry run)
+- [x] `yarn clean` removes all build artifacts
+- [x] `tsx scripts/build.ts` produces a valid `dist/` directory
+- [x] Release script works end-to-end (dry run)
 
 ---
 
@@ -2995,6 +2995,7 @@ Chronological record of implementation progress. Add entries as work is done.
 | 2026-03-15 | 22 | Documentation: architecture.md (hierarchy, data flow, extension system, directory rationale, decision log), api.md (full props/hooks/commands/types/constants reference), plugins.md (built-in plugins, custom plugin guide), theming.md (all 32 CSS tokens, custom theme guide), contributing.md (detailed dev guide), CONTRIBUTING.md (concise quick-start), CHANGELOG.md (v0.1.0 features) | Phase 21 (E2E) deferred by user decision; proceeded to Phase 22 directly |
 | 2026-03-15 | 20 | Unit & integration tests: 12 test files, 182 tests all passing. Coverage: stmts 84.8%, branches 75.4%, funcs 88%, lines 87.6%. Tested: engine, commands (18 cmds), Editor component, Toolbar (buttons, keyboard, a11y), useEditor/useToolbar/useHistory hooks, dom utils, string utils, content Parser/Serializer, model, all Plugins, both Dialogs (LinkDialog + ImageDialog with validation, submit, Escape, overlay click, drag-drop). | Added 6 additional test files beyond the 6 planned (model, Content, Plugins, Dialogs, useToolbar, useHistory) to meet 80% coverage thresholds; jsdom limitations prevented getBoundingClientRect tests |
 | 2026-03-15 | 23 | CI/CD pipelines: ci.yml (lint+typecheck, test+coverage, build+verify — 3 parallel jobs, Node 20, Corepack, concurrency groups), release.yml (npm publish on v* tag with provenance), YAML form-based issue templates (bug_report.yml + feature_request.yml), expanded PR template (description, related issues, change type, checklist, screenshots) | E2E job omitted from CI (Phase 21 deferred); used YAML form templates instead of Markdown issue templates; added npm provenance via id-token permission |
+| 2026-03-15 | 24 | Build scripts & release pipeline: clean.ts (dist + optional coverage/storybook-static/.turbo via --all), build.ts (clean→typecheck→tsup→verify with size checks), release.ts (dirty check→tests→build→version bump→changelog update→git tag→push, --dry-run support). Added tsx devDep. Updated package.json scripts (clean, clean:all, prepublishOnly, release). | Added tsx as devDep (was missing); prepublishOnly now runs full build.ts pipeline; release --dry-run verified end-to-end |
 
 <!--
 Example entries:

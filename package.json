@@ -57,10 +57,12 @@
     "test:watch": "vitest --config config/vitest.config.ts",
     "test:coverage": "vitest run --coverage --config config/vitest.config.ts",
     "test:e2e": "playwright test",
-    "clean": "rm -rf dist",
+    "clean": "tsx scripts/clean.ts",
+    "clean:all": "tsx scripts/clean.ts --all",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "prepublishOnly": "yarn clean && yarn build",
+    "prepublishOnly": "tsx scripts/build.ts",
+    "release": "tsx scripts/release.ts",
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
@@ -108,6 +110,7 @@
     "react-dom": "^19.2.4",
     "storybook": "^8.6.0",
     "tsup": "^8.5.1",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3",
     "vite": "^8.0.0",
     "vitest": "^4.1.0"
