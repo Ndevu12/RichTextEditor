@@ -81,3 +81,17 @@ export {
   HISTORY_DEPTH,
   HISTORY_NEW_GROUP_DELAY,
 } from './components/Plugins/HistoryPlugin';
+
+// DOM & string utilities (advanced usage)
+export {
+  sanitizeHTML,
+  getSelectionRect,
+  focusFirstFocusable,
+  trapFocus,
+  isElementVisible,
+  isValidURL,
+  escapeHTML,
+  truncate,
+  isMac,
+  formatShortcut,
+} from './utils';
