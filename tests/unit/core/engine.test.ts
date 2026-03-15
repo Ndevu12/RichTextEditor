@@ -28,7 +28,7 @@ describe('createEditor', () => {
     editor.commands.setContent('<p>changed</p>');
 
     expect(onUpdate).toHaveBeenCalled();
-    expect(onUpdate.mock.calls.at(-1)?.[0]).toContain('changed');
+    expect(onUpdate.mock.calls[onUpdate.mock.calls.length - 1]?.[0]).toContain('changed');
   });
 
   it('respects editable: false option', () => {

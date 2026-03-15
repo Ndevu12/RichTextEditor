@@ -39,11 +39,11 @@ function ControlledEditor(props: RichTextEditorProps) {
 // ── Stories ──────────────────────────────────────────────────
 
 export const Default: Story = {
-  render: (args) => <ControlledEditor {...args} />,
+  render: (args: RichTextEditorProps) => <ControlledEditor {...args} />,
 };
 
 export const WithInitialContent: Story = {
-  render: (args) => <ControlledEditor {...args} />,
+  render: (args: RichTextEditorProps) => <ControlledEditor {...args} />,
   args: {
     value: `
       <h2>Hello World</h2>
@@ -60,14 +60,14 @@ export const WithInitialContent: Story = {
 const CUSTOM_TOOLBAR: ToolbarItem[] = ['bold', 'italic', 'underline', '|', 'link'];
 
 export const CustomToolbar: Story = {
-  render: (args) => <ControlledEditor {...args} />,
+  render: (args: RichTextEditorProps) => <ControlledEditor {...args} />,
   args: {
     toolbar: CUSTOM_TOOLBAR,
   },
 };
 
 export const ReadOnly: Story = {
-  render: (args) => <ControlledEditor {...args} />,
+  render: (args: RichTextEditorProps) => <ControlledEditor {...args} />,
   args: {
     readOnly: true,
     value: '<p>This content is <strong>read-only</strong>. You cannot edit it.</p>',
@@ -75,7 +75,7 @@ export const ReadOnly: Story = {
 };
 
 export const WithPlaceholder: Story = {
-  render: (args) => <ControlledEditor {...args} />,
+  render: (args: RichTextEditorProps) => <ControlledEditor {...args} />,
   args: {
     placeholder: 'Start typing your blog post here...',
     value: '',
@@ -83,7 +83,7 @@ export const WithPlaceholder: Story = {
 };
 
 export const MinMaxHeight: Story = {
-  render: (args) => <ControlledEditor {...args} />,
+  render: (args: RichTextEditorProps) => <ControlledEditor {...args} />,
   args: {
     minHeight: '150px',
     maxHeight: '300px',
@@ -128,7 +128,7 @@ export const Controlled: Story = {
 };
 
 export const FullFeatured: Story = {
-  render: (args) => <ControlledEditor {...args} />,
+  render: (args: RichTextEditorProps) => <ControlledEditor {...args} />,
   args: {
     toolbar: DEFAULT_TOOLBAR,
     value: `

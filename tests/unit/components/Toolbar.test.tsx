@@ -10,6 +10,7 @@ function makeButton(overrides: Partial<ToolbarButtonConfig> = {}): ToolbarButton
   return {
     id: 'bold',
     label: 'Bold',
+    icon: 'B',
     action: vi.fn(),
     isActive: false,
     isDisabled: false,

@@ -1,1 +1,1 @@
-# Playwright config placeholder
+// Playwright config placeholder
