@@ -10,7 +10,7 @@
 
 ## Progress Dashboard
 
-**Overall:** 1 / 25 phases complete | **4% done**
+**Overall:** 2 / 25 phases complete | **8% done**
 
 > Update the table below as each phase progresses. Use the status markers:
 > `Not Started`, `In Progress`, `Blocked`, `Complete`, `Skipped`
@@ -18,7 +18,7 @@
 | # | Phase | Status | Started | Completed | Notes |
 |---|-------|--------|---------|-----------|-------|
 | 1 | Yarn 4, Package Manager & Git Hygiene | `Complete` | 2026-03-15 | 2026-03-15 | Yarn 4.13.0; ESLint pinned to v9 for plugin compat |
-| 2 | TypeScript, Bundler & Linting Config | `Not Started` | — | — | |
+| 2 | TypeScript, Bundler & Linting Config | `Complete` | 2026-03-15 | 2026-03-15 | Migrated to ESLint v9 flat config; added @eslint/js + globals |
 | 3 | Type System Foundation | `Not Started` | — | — | |
 | 4 | Core Engine & Zustand Store | `Not Started` | — | — | |
 | 5 | React Hooks Layer | `Not Started` | — | — | |
@@ -47,7 +47,7 @@
 
 | Milestone | Phases | Target | Reached |
 |-----------|--------|--------|---------|
-| **M1 — Buildable project** | 1–2 | — | — |
+| **M1 — Buildable project** | 1–2 | — | 2026-03-15 |
 | **M2 — Type-safe foundation** | 3 | — | — |
 | **M3 — Headless engine works** | 4–5 | — | — |
 | **M4 — Editor renders & types** | 6–8 | — | — |
@@ -338,12 +338,12 @@ Verify the lock file is created and `node_modules/` is populated without errors.
 
 | | |
 |---|---|
-| **Status** | `Not Started` |
-| **Started** | — |
-| **Completed** | — |
-| **Branch** | — |
+| **Status** | `Complete` |
+| **Started** | 2026-03-15 |
+| **Completed** | 2026-03-15 |
+| **Branch** | `chore/setup1` |
 | **Blocked by** | Phase 1 |
-| **Deliverables** | `tsconfig.json`, `tsup.config.ts`, `config/vitest.config.ts`, `.eslintrc.cjs`, `.prettierrc`, `.prettierignore`, `tests/setup.ts` |
+| **Deliverables** | `tsconfig.json`, `tsup.config.ts`, `config/vitest.config.ts`, `eslint.config.js`, `.prettierrc`, `.prettierignore`, `tests/setup.ts` |
 
 **Goal:** Configure TypeScript strict mode, tsup for dual ESM/CJS output, and ESLint + Prettier for code quality.
 
@@ -531,10 +531,10 @@ yarn build         # should produce dist/ with empty exports
 
 ### Checkpoint
 
-- [ ] `yarn typecheck` passes
-- [ ] `yarn lint` runs without errors
-- [ ] `yarn build` produces `dist/index.js`, `dist/index.cjs`, `dist/index.d.ts`
-- [ ] ESLint + Prettier configs exist and are functional
+- [x] `yarn typecheck` passes
+- [x] `yarn lint` runs without errors
+- [x] `yarn build` produces `dist/index.js`, `dist/index.cjs`, `dist/index.d.ts`
+- [x] ESLint + Prettier configs exist and are functional
 
 ---
 
@@ -2970,6 +2970,7 @@ Chronological record of implementation progress. Add entries as work is done.
 | Date | Phase | Summary | Notes |
 |------|-------|---------|-------|
 | 2026-03-15 | 1 | Initialized Yarn 4.13.0, populated package.json with full metadata/scripts/exports, installed 5 prod + 21 dev deps, updated .gitignore & README | ESLint pinned to v9 for eslint-plugin-react-hooks compat; added @testing-library/dom as missing peer |
+| 2026-03-15 | 2 | Configured tsconfig.json (strict), tsup (dual ESM/CJS), vitest, ESLint v9 flat config, Prettier | Migrated .eslintrc.cjs → eslint.config.js for ESLint v9; added @eslint/js@9 + globals; rollup config marked as optional fallback |
 
 <!--
 Example entries:
