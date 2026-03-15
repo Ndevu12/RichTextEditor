@@ -577,7 +577,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/js@npm:9.39.4":
+"@eslint/js@npm:9.39.4, @eslint/js@npm:^9.0.0":
   version: 9.39.4
   resolution: "@eslint/js@npm:9.39.4"
   checksum: 10c0/5aa7dea2cbc5decf7f5e3b0c6f86a084ccee0f792d288ca8e839f8bc1b64e03e227068968e49b26096e6f71fd857ab6e42691d1b993826b9a3883f1bdd7a0e46
@@ -3157,6 +3157,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"globals@npm:^17.4.0":
+  version: 17.4.0
+  resolution: "globals@npm:17.4.0"
+  checksum: 10c0/2be9e8c2b9035836f13d420b22f0247a328db82967d3bebfc01126d888ed609305f06c05895914e969653af5c6ba35fd7a0920f3e6c869afa60666c810630feb
+  languageName: node
+  linkType: hard
+
 "globalthis@npm:^1.0.4":
   version: 1.0.4
   resolution: "globalthis@npm:1.0.4"
@@ -4952,6 +4959,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "rich-text-editor-ndevu@workspace:."
   dependencies:
+    "@eslint/js": "npm:^9.0.0"
     "@testing-library/dom": "npm:^10.4.1"
     "@testing-library/jest-dom": "npm:^6.9.1"
     "@testing-library/react": "npm:^16.3.2"
@@ -4969,6 +4977,7 @@ __metadata:
     eslint-config-prettier: "npm:^10.1.8"
     eslint-plugin-react: "npm:^7.37.5"
     eslint-plugin-react-hooks: "npm:^7.0.1"
+    globals: "npm:^17.4.0"
     jsdom: "npm:^29.0.0"
     prettier: "npm:^3.8.1"
     react: "npm:^19.2.4"
