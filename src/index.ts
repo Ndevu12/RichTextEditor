@@ -45,6 +45,8 @@ export {
   setHeading,
   toggleBulletList,
   toggleOrderedList,
+  sinkListItem,
+  liftListItem,
   toggleBlockquote,
   toggleCode,
   toggleCodeBlock,

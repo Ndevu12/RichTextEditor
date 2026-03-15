@@ -10,7 +10,7 @@
 
 ## Progress Dashboard
 
-**Overall:** 9 / 25 phases complete | **36% done**
+**Overall:** 10 / 25 phases complete | **40% done**
 
 > Update the table below as each phase progresses. Use the status markers:
 > `Not Started`, `In Progress`, `Blocked`, `Complete`, `Skipped`
@@ -26,7 +26,7 @@
 | 7 | Toolbar System | `Complete` | 2026-03-15 | 2026-03-15 | ToolbarButton, ToolbarSeparator, ToolbarGroup, Toolbar with roving tabindex, wired into EditorWrapper |
 | 8 | Styles & Theming | `Complete` | 2026-03-15 | 2026-03-15 | 32 CSS tokens per theme, .rte-* BEM classes, prose typography, 7.40 KB CSS bundle |
 | 9 | Plugins: Text Formatting & Headings | `Complete` | 2026-03-15 | 2026-03-15 | Underline extension installed, added to schema; StarterKit handles bold/italic/strike/headings |
-| 10 | Plugins: Lists & Blockquotes | `Not Started` | — | — | |
+| 10 | Plugins: Lists & Blockquotes | `Complete` | 2026-03-15 | 2026-03-15 | ListsPlugin with sinkListItem/liftListItem; lists + blockquote already in StarterKit |
 | 11 | Plugins: Links & Link Dialog | `Not Started` | — | — | |
 | 12 | Plugins: Images & Image Dialog | `Not Started` | — | — | |
 | 13 | Plugins: Code Blocks & Syntax HL | `Not Started` | — | — | |
@@ -1423,10 +1423,10 @@ In this phase, we only wire up the text formatting plugins. CodeBlock has its ow
 
 | | |
 |---|---|
-| **Status** | `Not Started` |
-| **Started** | — |
-| **Completed** | — |
-| **Branch** | — |
+| **Status** | `Complete` |
+| **Started** | 2026-03-15 |
+| **Completed** | 2026-03-15 |
+| **Branch** | `feat/phase-10-lists-blockquotes` |
 | **Blocked by** | Phase 8 (parallelizable with 9) |
 | **Deliverables** | `ListsPlugin.tsx`, list/blockquote CSS, Tab/Shift+Tab nesting |
 
@@ -1461,11 +1461,11 @@ Ensure the styles from Phase 8 render correctly:
 
 ### Checkpoint
 
-- [ ] Bullet list toggle works
-- [ ] Ordered list toggle works
-- [ ] Tab/Shift+Tab nests/unnests list items
-- [ ] Blockquote toggle works
-- [ ] Nested structures render correctly
+- [x] Bullet list toggle works
+- [x] Ordered list toggle works
+- [x] Tab/Shift+Tab nests/unnests list items
+- [x] Blockquote toggle works
+- [x] Nested structures render correctly
 
 ---
 
@@ -2978,6 +2978,7 @@ Chronological record of implementation progress. Add entries as work is done.
 | 2026-03-15 | 7 | Built toolbar system: ToolbarButton (aria-label/pressed, shortcut hints, fallback text), ToolbarSeparator (role=separator), ToolbarGroup (role=group), Toolbar (groupBySeparator, roving tabindex ArrowLeft/Right/Home/End). Wired Toolbar into EditorWrapper replacing stub. | No CSS Modules yet (Phase 8); icons still null (text labels used); bundle now 15.78KB ESM |
 | 2026-03-15 | 8 | Built styles & theming: theme-light.css + theme-dark.css (32 tokens each), editor.css (wrapper, focus ring, prose typography for headings/lists/blockquote/code/links/images/hr), toolbar.css (button hover/active/pressed/disabled/focus-visible, separator, group), index.css master import. Wired .rte-* classes into all components. CSS bundled via import in src/index.ts. | Used .rte-* BEM-style prefix instead of CSS Modules (better for library consumers); CSS output 7.40 KB |
 | 2026-03-15 | 9 | Installed @tiptap/extension-underline, added Underline to schema.ts extension array. Updated Plugins barrel index with roadmap comments. Bold/italic/strike/headings already functional via StarterKit. | No new component needed — formatting is extension-level; CodeBlockPlugin remains placeholder for Phase 13 |
+| 2026-03-15 | 10 | Created ListsPlugin.tsx with sinkListItem/liftListItem helpers. Added both commands to core/commands.ts + core/index.ts + src/index.ts public API. Updated Plugins barrel. Lists + blockquotes already functional via StarterKit; CSS from Phase 8 handles nested markers. | Tab/Shift+Tab nesting exposed as exported functions; no Tiptap extension override needed |
 
 <!--
 Example entries:
