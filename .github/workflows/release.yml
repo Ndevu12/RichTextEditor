@@ -1,1 +1,47 @@
-# Release workflow placeholder — configure to publish on tag push
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  publish:
+    name: Publish to npm
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # for npm provenance
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Run tests
+        run: yarn test
+
+      - name: Build library
+        run: yarn build
+
+      - name: Verify dist output
+        run: |
+          test -f dist/index.js || (echo "Missing dist/index.js" && exit 1)
+          test -f dist/index.cjs || (echo "Missing dist/index.cjs" && exit 1)
+          test -f dist/index.d.ts || (echo "Missing dist/index.d.ts" && exit 1)
+          test -f dist/index.css || (echo "Missing dist/index.css" && exit 1)
+
+      - name: Publish to npm with provenance
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

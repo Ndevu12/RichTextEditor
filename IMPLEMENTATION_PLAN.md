@@ -14,7 +14,7 @@
 
 ## Progress Dashboard
 
-**Overall:** 21 / 25 phases complete | **84% done**
+**Overall:** 22 / 25 phases complete | **88% done**
 
 > Update the table below as each phase progresses. Use the status markers:
 > `Not Started`, `In Progress`, `Blocked`, `Complete`, `Skipped`
@@ -43,7 +43,7 @@
 | 20 | Unit & Integration Tests | `Complete` | 2026-03-15 | 2026-03-15 | 12 test files, 182 tests, coverage: stmts 84.8%, branches 75.4%, funcs 88%, lines 87.6% |
 | 21 | End-to-End Tests | `Not Started` | — | — | Deferred to after remaining phases |
 | 22 | Documentation | `Complete` | 2026-03-15 | 2026-03-15 | 5 docs files, CONTRIBUTING.md, CHANGELOG.md |
-| 23 | CI / CD Pipelines | `Not Started` | — | — | |
+| 23 | CI / CD Pipelines | `Complete` | 2026-03-15 | 2026-03-15 | ci.yml (3 jobs), release.yml (npm provenance), YAML issue templates, PR template |
 | 24 | Build Scripts & Release Pipeline | `Not Started` | — | — | |
 | 25 | Final Polish & v0.1.0 Release | `Not Started` | — | — | |
 
@@ -2481,10 +2481,10 @@ Replace the placeholder with real contribution guidelines with `yarn` commands.
 
 | | |
 |---|---|
-| **Status** | `Not Started` |
-| **Started** | — |
-| **Completed** | — |
-| **Branch** | — |
+| **Status** | `Complete` |
+| **Started** | 2026-03-15 |
+| **Completed** | 2026-03-15 |
+| **Branch** | `feat/phase-23-ci-cd` |
 | **Blocked by** | Phase 22 |
 | **Deliverables** | `.github/workflows/ci.yml`, `.github/workflows/release.yml`, updated issue/PR templates |
 
@@ -2574,9 +2574,9 @@ Expand with:
 
 ### Checkpoint
 
-- [ ] CI runs on every PR and blocks merge on failure
-- [ ] Release workflow publishes to npm on tag push
-- [ ] Issue and PR templates are helpful and complete
+- [x] CI runs on every PR and blocks merge on failure
+- [x] Release workflow publishes to npm on tag push
+- [x] Issue and PR templates are helpful and complete
 
 ---
 
@@ -2994,6 +2994,7 @@ Chronological record of implementation progress. Add entries as work is done.
 | 2026-03-15 | 19 | React demo: Vite 6 + React 19 blog post editor with code-split components (Header, Preview, HtmlOutput), CSS stylesheet (data-theme selectors), constants file, title input, theme toggle, preview mode, save button, HTML output. Next.js 14 demo: Pages Router, dynamic import with ssr:false + loading placeholder, transpilePackages config, Header/HtmlOutput components, theme toggle. Both install & dev/build verified. Milestone M6 reached. | Used React 19 (not 18) for both; Next.js 14 peer dep warnings with React 19 are cosmetic; ESLint ignoreDuringBuilds needed (root ESLint 9 flat config incompatible with Next.js 14 built-in lint); code-split per user request instead of single-file approach |
 | 2026-03-15 | 22 | Documentation: architecture.md (hierarchy, data flow, extension system, directory rationale, decision log), api.md (full props/hooks/commands/types/constants reference), plugins.md (built-in plugins, custom plugin guide), theming.md (all 32 CSS tokens, custom theme guide), contributing.md (detailed dev guide), CONTRIBUTING.md (concise quick-start), CHANGELOG.md (v0.1.0 features) | Phase 21 (E2E) deferred by user decision; proceeded to Phase 22 directly |
 | 2026-03-15 | 20 | Unit & integration tests: 12 test files, 182 tests all passing. Coverage: stmts 84.8%, branches 75.4%, funcs 88%, lines 87.6%. Tested: engine, commands (18 cmds), Editor component, Toolbar (buttons, keyboard, a11y), useEditor/useToolbar/useHistory hooks, dom utils, string utils, content Parser/Serializer, model, all Plugins, both Dialogs (LinkDialog + ImageDialog with validation, submit, Escape, overlay click, drag-drop). | Added 6 additional test files beyond the 6 planned (model, Content, Plugins, Dialogs, useToolbar, useHistory) to meet 80% coverage thresholds; jsdom limitations prevented getBoundingClientRect tests |
+| 2026-03-15 | 23 | CI/CD pipelines: ci.yml (lint+typecheck, test+coverage, build+verify — 3 parallel jobs, Node 20, Corepack, concurrency groups), release.yml (npm publish on v* tag with provenance), YAML form-based issue templates (bug_report.yml + feature_request.yml), expanded PR template (description, related issues, change type, checklist, screenshots) | E2E job omitted from CI (Phase 21 deferred); used YAML form templates instead of Markdown issue templates; added npm provenance via id-token permission |
 
 <!--
 Example entries:
