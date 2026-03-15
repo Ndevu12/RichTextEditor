@@ -10,7 +10,7 @@
 
 ## Progress Dashboard
 
-**Overall:** 3 / 25 phases complete | **12% done**
+**Overall:** 4 / 25 phases complete | **16% done**
 
 > Update the table below as each phase progresses. Use the status markers:
 > `Not Started`, `In Progress`, `Blocked`, `Complete`, `Skipped`
@@ -20,7 +20,7 @@
 | 1 | Yarn 4, Package Manager & Git Hygiene | `Complete` | 2026-03-15 | 2026-03-15 | Yarn 4.13.0; ESLint pinned to v9 for plugin compat |
 | 2 | TypeScript, Bundler & Linting Config | `Complete` | 2026-03-15 | 2026-03-15 | Migrated to ESLint v9 flat config; added @eslint/js + globals |
 | 3 | Type System Foundation | `Complete` | 2026-03-15 | 2026-03-15 | All interfaces, types, and constants defined |
-| 4 | Core Engine & Zustand Store | `Not Started` | — | — | |
+| 4 | Core Engine & Zustand Store | `Complete` | 2026-03-15 | 2026-03-15 | schema, engine, commands, store (Zustand), model, barrel |
 | 5 | React Hooks Layer | `Not Started` | — | — | |
 | 6 | Core Components: Editor Shell | `Not Started` | — | — | |
 | 7 | Toolbar System | `Not Started` | — | — | |
@@ -716,10 +716,10 @@ export * from './plugin.types';
 
 | | |
 |---|---|
-| **Status** | `Not Started` |
-| **Started** | — |
-| **Completed** | — |
-| **Branch** | — |
+| **Status** | `Complete` |
+| **Started** | 2026-03-15 |
+| **Completed** | 2026-03-15 |
+| **Branch** | `chore/phase-4-core-engine` |
 | **Blocked by** | Phase 3 |
 | **Deliverables** | `src/core/schema.ts`, `src/core/engine.ts`, `src/core/commands.ts`, `src/core/store.ts`, `src/core/model.ts`, `src/core/index.ts` |
 
@@ -942,9 +942,9 @@ export * from './model';
 
 ### Checkpoint
 
-- [ ] `yarn typecheck` passes
-- [ ] `yarn build` succeeds (store, engine, commands compile)
-- [ ] Can write a simple script that creates an editor instance and executes `toggleBold()`
+- [x] `yarn typecheck` passes
+- [x] `yarn build` succeeds (store, engine, commands compile)
+- [x] Can write a simple script that creates an editor instance and executes `toggleBold()`
 
 ---
 
@@ -2972,6 +2972,7 @@ Chronological record of implementation progress. Add entries as work is done.
 | 2026-03-15 | 1 | Initialized Yarn 4.13.0, populated package.json with full metadata/scripts/exports, installed 5 prod + 21 dev deps, updated .gitignore & README | ESLint pinned to v9 for eslint-plugin-react-hooks compat; added @testing-library/dom as missing peer |
 | 2026-03-15 | 2 | Configured tsconfig.json (strict), tsup (dual ESM/CJS), vitest, ESLint v9 flat config, Prettier | Migrated .eslintrc.cjs → eslint.config.js for ESLint v9; added @eslint/js@9 + globals; rollup config marked as optional fallback |
 | 2026-03-15 | 3 | Defined all TypeScript interfaces: editor types, toolbar types, plugin types, barrel index | No deviations; import graph is acyclic (editor→toolbar, plugin→toolbar) |
+| 2026-03-15 | 4 | Built core engine: schema.ts (StarterKit), engine.ts (editor factory), commands.ts (15 commands), store.ts (Zustand), model.ts (HTML↔JSON), barrel | Used insertContent for image cmd (Image ext not yet loaded); fixed no-undef ESLint rule for TS files; added React type imports to Phase 3 files |
 
 <!--
 Example entries:
