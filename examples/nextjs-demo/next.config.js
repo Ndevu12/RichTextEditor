@@ -1,3 +1,5 @@
+const isGHPages = process.env.GITHUB_PAGES === 'true';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -7,6 +9,12 @@ const nextConfig = {
     // with Next.js 14's built-in ESLint integration. Skip during build.
     ignoreDuringBuilds: true,
   },
+  // Static export for GitHub Pages deployment
+  ...(isGHPages && {
+    output: 'export',
+    basePath: '/RichTextEditor/nextjs-demo',
+    images: { unoptimized: true },
+  }),
 };
 
 module.exports = nextConfig;

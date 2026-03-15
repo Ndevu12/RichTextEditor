@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RichTextEditor — Live Demos</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      background: #f8f9fa;
+      color: #1a1a2e;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 48px 24px;
+    }
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 0 0 8px;
+    }
+    .subtitle {
+      color: #6b7280;
+      font-size: 1.1rem;
+      margin: 0 0 40px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      display: block;
+      padding: 24px;
+      border: 1px solid #e0e0e0;
+      border-radius: 12px;
+      background: #fff;
+      text-decoration: none;
+      color: inherit;
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+    .card:hover {
+      border-color: #0969da;
+      box-shadow: 0 4px 16px rgba(9, 105, 218, 0.12);
+    }
+    .card h2 {
+      margin: 0 0 8px;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #0969da;
+    }
+    .card p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #57606a;
+      line-height: 1.5;
+    }
+    .badge {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: #f0f4f8;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #57606a;
+    }
+    footer {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid #e0e0e0;
+      font-size: 0.85rem;
+      color: #6b7280;
+    }
+    footer a { color: #0969da; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📝 RichTextEditor</h1>
+    <p class="subtitle">
+      Free and open-source Rich Text Editor for React — lightweight, extensible, and ready to use.
+    </p>
+
+    <div class="grid">
+      <a class="card" href="./playground/">
+        <h2>🎮 Playground</h2>
+        <p>Interactive sandbox — try all toolbar presets, toggle themes, and see live HTML output.</p>
+        <span class="badge">Vite + React</span>
+      </a>
+
+      <a class="card" href="./react-demo/">
+        <h2>⚛️ React Demo</h2>
+        <p>Blog-style example showing how to integrate the editor in a typical React application.</p>
+        <span class="badge">Vite + React</span>
+      </a>
+
+      <a class="card" href="./nextjs-demo/">
+        <h2>▲ Next.js Demo</h2>
+        <p>Server-side rendering example with Next.js — demonstrates framework compatibility.</p>
+        <span class="badge">Next.js 14</span>
+      </a>
+
+      <a class="card" href="./storybook/">
+        <h2>📖 Storybook</h2>
+        <p>Component gallery with interactive controls — explore props, themes, and accessibility.</p>
+        <span class="badge">Storybook 8</span>
+      </a>
+    </div>
+
+    <footer>
+      <a href="https://github.com/Ndevu12/RichTextEditor">GitHub</a> ·
+      <a href="https://www.npmjs.com/package/rich-text-editor-ndevu">npm</a> ·
+      <a href="https://github.com/Ndevu12/RichTextEditor/blob/main/README.md">Documentation</a>
+    </footer>
+  </div>
+</body>
+</html>

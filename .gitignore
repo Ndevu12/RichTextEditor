@@ -33,6 +33,7 @@ examples/*/yarn.lock
 .next/
 **/.next/
 /out/
+**/out/
 
 # production
 /build

@@ -1,0 +1,101 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # Allow manual trigger
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  GITHUB_PAGES: 'true'
+
+jobs:
+  build:
+    name: Build all apps
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: yarn
+
+      - name: Install root dependencies
+        run: yarn install --immutable
+
+      # ── Build library ───────────────────────────────────
+      - name: Build library
+        run: yarn build
+
+      # ── Build Playground ────────────────────────────────
+      - name: Install playground dependencies
+        working-directory: playground
+        run: yarn install
+
+      - name: Build playground
+        working-directory: playground
+        run: yarn build
+
+      # ── Build React Demo ────────────────────────────────
+      - name: Install react-demo dependencies
+        working-directory: examples/react-demo
+        run: yarn install
+
+      - name: Build react-demo
+        working-directory: examples/react-demo
+        run: npx vite build
+
+      # ── Build Next.js Demo ─────────────────────────────
+      - name: Install nextjs-demo dependencies
+        working-directory: examples/nextjs-demo
+        run: yarn install
+
+      - name: Build nextjs-demo
+        working-directory: examples/nextjs-demo
+        run: npx next build
+
+      # ── Build Storybook ────────────────────────────────
+      - name: Build storybook
+        run: yarn build-storybook
+
+      # ── Assemble _site directory ────────────────────────
+      - name: Assemble deployment directory
+        run: |
+          mkdir -p _site
+          cp -r playground/dist/        _site/playground
+          cp -r examples/react-demo/dist/ _site/react-demo
+          cp -r examples/nextjs-demo/out/ _site/nextjs-demo
+          cp -r storybook-static/        _site/storybook
+          cp .github/pages/index.html    _site/index.html
+          touch _site/.nojekyll
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
