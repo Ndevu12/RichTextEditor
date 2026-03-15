@@ -15,7 +15,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  GITHUB_PAGES: 'true'
+  DEPLOY_PAGES: 'true'
 
 jobs:
   build:

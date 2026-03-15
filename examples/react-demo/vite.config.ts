@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-const isGHPages = process.env.GITHUB_PAGES === 'true';
+const isGHPages = process.env.DEPLOY_PAGES === 'true';
 
 export default defineConfig({
   plugins: [react()],

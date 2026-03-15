@@ -1,4 +1,4 @@
-const isGHPages = process.env.GITHUB_PAGES === 'true';
+const isGHPages = process.env.DEPLOY_PAGES === 'true';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
