@@ -1,196 +1,154 @@
-# Contributing (Detailed Guide)
+# Contributing - Technical Deep Dive
 
-Detailed contribution guide for `rich-text-editor-ndevu`. For a quick overview, see the root [CONTRIBUTING.md](../CONTRIBUTING.md).
-
----
-
-## Development Setup
-
-### Prerequisites
-
-- **Node.js** ≥ 20
-- **Yarn 4** (Berry) — installed via Corepack
-- **Git**
-
-### Clone & Install
-
-```bash
-git clone https://github.com/Ndevu12/RichTextEditor.git
-cd RichTextEditor
-
-# Enable Corepack (ships with Node 20+)
-corepack enable
-
-# Install dependencies
-yarn install
-```
-
-### Available Scripts
-
-| Script | Description |
-|--------|-------------|
-| `yarn dev` | Start the Vite dev server |
-| `yarn build` | Build the library (ESM + CJS + DTS) via tsup |
-| `yarn build:watch` | Build in watch mode |
-| `yarn test` | Run unit tests (Vitest) |
-| `yarn test:watch` | Run tests in watch mode |
-| `yarn test:coverage` | Run tests with code coverage |
-| `yarn test:e2e` | Run end-to-end tests (Playwright) |
-| `yarn lint` | Lint source files (ESLint) |
-| `yarn lint:fix` | Auto-fix lint issues |
-| `yarn format` | Format source files (Prettier) |
-| `yarn format:check` | Check formatting without writing |
-| `yarn typecheck` | Type-check with TypeScript compiler |
-| `yarn storybook` | Start Storybook dev server (port 6006) |
-| `yarn build-storybook` | Build static Storybook |
-| `yarn clean` | Remove build artifacts |
-
-### Project Structure
-
-See [docs/architecture.md](./architecture.md) for the full directory structure and architectural overview.
+> **Start here first:** [CONTRIBUTING.md](../CONTRIBUTING.md) covers the essential guidelines for all contributors.
+>
+> This document provides additional technical depth for contributors working on the codebase internals.
 
 ---
 
-## Coding Standards
+## Detailed Coding Standards
 
-### TypeScript
+### TypeScript Conventions
 
-- **Strict mode** enabled — no `any` unless absolutely necessary
-- All public APIs must have explicit type annotations
-- Use `type` imports: `import type { Foo } from './bar'`
-- Target: ES2020, JSX: react-jsx
+- **Strict mode** is enabled with all strict checks
+- Target: `ES2020`, JSX: `react-jsx`
+- Path alias: `@/*` maps to `src/*`
+- Use `type` imports everywhere: `import type { Foo } from './bar'`
+- No `any` unless absolutely necessary (ESLint enforces this)
+- Prefer `interface` for object shapes that may be extended, `type` for unions and intersections
 
-### ESLint
+### ESLint Configuration
 
-ESLint v9 flat config at `eslint.config.js`. Key rules:
-- `@typescript-eslint/no-explicit-any` — error
-- `react-hooks/rules-of-hooks` — error
-- `react-hooks/exhaustive-deps` — warn
+ESLint v9 flat config at `eslint.config.js`. Key rules enforced:
 
-Run before committing:
+| Rule | Level | Notes |
+|------|-------|-------|
+| `@typescript-eslint/no-explicit-any` | error | No `any` types |
+| `react-hooks/rules-of-hooks` | error | Hooks called correctly |
+| `react-hooks/exhaustive-deps` | warn | Dependency arrays complete |
+| `no-console` | warn | Use sparingly |
 
-```bash
-yarn lint
+### Prettier Settings
+
+Configured in `package.json`:
+
+```json
+{
+  "singleQuote": true,
+  "trailingComma": "all",
+  "printWidth": 100,
+  "semi": true
+}
 ```
 
-### Prettier
+### CSS Architecture
 
-Config in `package.json`. Settings:
-- Single quotes
-- Trailing commas
-- 100 char print width
-
-```bash
-yarn format       # Fix
-yarn format:check # Verify
-```
-
-### CSS
-
-- Class names follow **BEM-like `.rte-*`** convention
-- Use **CSS custom properties** (`--rte-*` tokens) for all colors and dimensions
-- No CSS-in-JS — only plain `.css` files in `src/styles/`
+- All class names use `.rte-*` BEM-like prefix to avoid conflicts with consumer styles
+- Colors and dimensions always use `var(--rte-*)` tokens (never hard-coded)
+- Theme styles live in `theme-light.css` / `theme-dark.css` scoped under `[data-theme='...']`
+- No CSS-in-JS, no CSS Modules, no Tailwind - plain CSS files only
+- See [theming.md](./theming.md) for the full token reference
 
 ---
 
-## Testing Guidelines
+## Architecture Rules
 
-### Unit Tests
+These rules are enforced to maintain the codebase's separation of concerns:
 
-- Test files go in `tests/unit/` mirroring the source structure
-- Use **Vitest** + **React Testing Library** + **jest-dom** matchers
-- Config: `config/vitest.config.ts`
-- Aim for ≥80% coverage across statements, branches, functions, and lines
+### `core/` Must Stay Framework-Agnostic
 
-```bash
-yarn test              # Run once
-yarn test:watch        # Watch mode
-yarn test:coverage     # With coverage report
+Files in `src/core/` must **never** import React. They contain:
+- `engine.ts` - Tiptap Editor factory
+- `commands.ts` - imperative editor commands
+- `schema.ts` - extension assembly
+- `model.ts` - HTML/JSON conversion
+- `store.ts` - Zustand store (Zustand is framework-agnostic)
+
+### Hooks Bridge Core and React
+
+Each hook in `src/hooks/` has one clear responsibility:
+- `useEditor` - editor lifecycle and prop synchronization
+- `useToolbar` - resolves toolbar item strings to button configs
+- `useHistory` - undo/redo state and actions
+
+If you need new editor behavior, consider whether it belongs in `core/` (framework-agnostic) or `hooks/` (React-specific).
+
+### Component Organization
+
+Components in `src/components/` are grouped by feature:
+- `Editor/` - the main `RichTextEditor` shell
+- `Toolbar/` - toolbar system (button, separator, group)
+- `Content/` - editable area, parser, serializer
+- `Dialogs/` - modal dialogs (link, image)
+- `Plugins/` - plugin utility modules
+
+Each folder has an `index.ts` barrel export.
+
+---
+
+## Testing in Depth
+
+### Test File Organization
+
+```
+tests/
+├── setup.ts                        # jest-dom matchers for Vitest
+├── unit/
+│   ├── components/
+│   │   ├── Editor.test.tsx         # RichTextEditor component tests
+│   │   └── Toolbar.test.tsx        # Toolbar keyboard nav, ARIA tests
+│   ├── core/
+│   │   ├── commands.test.ts        # All 17 editor commands
+│   │   └── engine.test.ts          # createEditor factory, options
+│   ├── hooks/
+│   │   └── useEditor.test.ts       # Hook lifecycle, prop sync
+│   └── utils/
+│       └── dom.test.ts             # sanitizeHTML, DOM helpers
+└── e2e/
+    ├── playwright.config.ts
+    ├── editor.spec.ts
+    ├── toolbar.spec.ts
+    └── themes.spec.ts
 ```
 
-#### Writing a Unit Test
+### Testing Patterns
 
+**Component tests** use React Testing Library:
 ```ts
-import { describe, it, expect } from 'vitest';
-import { render, screen } from '@testing-library/react';
-import { RichTextEditor } from '@/components/Editor';
-
-describe('RichTextEditor', () => {
-  it('renders without crashing', () => {
-    render(<RichTextEditor value="" />);
-    expect(screen.getByRole('textbox')).toBeInTheDocument();
-  });
-});
+render(<RichTextEditor value="<p>Hello</p>" />);
+expect(screen.getByRole('textbox')).toBeInTheDocument();
 ```
 
-### End-to-End Tests
-
-- Test files in `tests/e2e/`
-- Use **Playwright** (Chromium + Firefox)
-- Config: `tests/e2e/playwright.config.ts`
-- Tests run against the playground app
-
-```bash
-yarn test:e2e
+**Command tests** use a real Tiptap editor instance:
+```ts
+const editor = createEditor({ content: '<p>Hello</p>' });
+toggleBold(editor);
+expect(editor.isActive('bold')).toBe(true);
+editor.destroy();
 ```
+
+**Hook tests** use `renderHook` from React Testing Library.
+
+### Coverage Thresholds
+
+Config in `config/vitest.config.ts`:
+- Statements: 80%
+- Branches: 80%
+- Functions: 80%
+- Lines: 80%
 
 ---
 
-## Pull Request Workflow
+## Extension Development
 
-### Branch Naming
+If you're adding a new Tiptap extension to the editor:
 
-```
-feat/<description>     # New features
-fix/<description>      # Bug fixes
-chore/<description>    # Maintenance, tooling
-docs/<description>     # Documentation only
-```
+1. **Create the extension** in `src/components/Plugins/`
+2. **Register it** in `src/core/schema.ts` (`createExtensions()`)
+3. **Add toolbar support** in `src/hooks/useToolbar.ts` (meta, action, active state)
+4. **Add the toolbar ID** to `ToolbarItemType` in `src/types/toolbar.types.ts`
+5. **Export utilities** from `src/index.ts`
+6. **Write tests** in `tests/unit/`
+7. **Update docs** in `docs/plugins.md`
 
-### Commit Messages
-
-Follow conventional commits:
-
-```
-feat(toolbar): add highlight button
-fix(link-dialog): handle empty URL submission
-chore(deps): update tiptap to 3.20.2
-docs(api): add useHistory examples
-test(commands): add toggleBold edge cases
-```
-
-### Before Submitting
-
-1. Run the full check suite:
-   ```bash
-   yarn lint
-   yarn format:check
-   yarn typecheck
-   yarn test
-   yarn build
-   ```
-2. Ensure no regressions in existing tests
-3. Add tests for new functionality
-4. Update documentation if the public API changes
-
-### Review Process
-
-1. Open a PR against the `main` branch
-2. Fill in the PR template (description, related issues, checklist)
-3. Wait for CI to pass (lint, type-check, test, build)
-4. Request review from a maintainer
-5. Address feedback, then merge
-
----
-
-## Architecture Decisions
-
-When working on the codebase, keep these design decisions in mind:
-
-- **`core/` must stay framework-agnostic** — no React imports in `core/` files
-- **Hooks bridge core ↔ React** — each hook has one focused responsibility
-- **Toolbar is declarative** — consumers pass string identifiers, not components
-- **Themes are CSS-only** — no JS runtime for theming, just data attributes
-- **Extensions are Tiptap-based** — don't re-invent ProseMirror functionality
-
-See [docs/architecture.md](./architecture.md) for the full decision log.
+See [plugins.md](./plugins.md) for a complete walkthrough with examples.
