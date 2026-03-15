@@ -10,7 +10,7 @@
 
 ## Progress Dashboard
 
-**Overall:** 6 / 25 phases complete | **24% done**
+**Overall:** 7 / 25 phases complete | **28% done**
 
 > Update the table below as each phase progresses. Use the status markers:
 > `Not Started`, `In Progress`, `Blocked`, `Complete`, `Skipped`
@@ -23,7 +23,7 @@
 | 4 | Core Engine & Zustand Store | `Complete` | 2026-03-15 | 2026-03-15 | schema, engine, commands, store (Zustand), model, barrel |
 | 5 | React Hooks Layer | `Complete` | 2026-03-15 | 2026-03-15 | useEditor, useToolbar, useHistory; Tiptap v3 setContent API |
 | 6 | Core Components: Editor Shell | `Complete` | 2026-03-15 | 2026-03-15 | ContentEditable, Parser, Serializer, EditorProvider, EditorWrapper, RichTextEditor, full public API |
-| 7 | Toolbar System | `Not Started` | — | — | |
+| 7 | Toolbar System | `Complete` | 2026-03-15 | 2026-03-15 | ToolbarButton, ToolbarSeparator, ToolbarGroup, Toolbar with roving tabindex, wired into EditorWrapper |
 | 8 | Styles & Theming | `Not Started` | — | — | |
 | 9 | Plugins: Text Formatting & Headings | `Not Started` | — | — | |
 | 10 | Plugins: Lists & Blockquotes | `Not Started` | — | — | |
@@ -1187,10 +1187,10 @@ export function RichTextEditor(props: RichTextEditorProps) {
 
 | | |
 |---|---|
-| **Status** | `Not Started` |
-| **Started** | — |
-| **Completed** | — |
-| **Branch** | — |
+| **Status** | `Complete` |
+| **Started** | 2026-03-15 |
+| **Completed** | 2026-03-15 |
+| **Branch** | `chore/phase-7-toolbar-system` |
 | **Blocked by** | Phase 6 |
 | **Deliverables** | `ToolbarButton.tsx`, `ToolbarSeparator.tsx`, `ToolbarGroup.tsx`, `Toolbar.tsx`, index file |
 
@@ -1258,11 +1258,11 @@ Main toolbar component:
 
 ### Checkpoint
 
-- [ ] Toolbar renders with all default buttons
-- [ ] Custom `toolbar` prop renders only specified items
-- [ ] Clicking "Bold" toggles bold on selected text
-- [ ] Active button shows visually pressed state
-- [ ] Keyboard: Tab into toolbar, arrow keys between buttons
+- [x] Toolbar renders with all default buttons
+- [x] Custom `toolbar` prop renders only specified items
+- [x] Clicking "Bold" toggles bold on selected text
+- [x] Active button shows visually pressed state
+- [x] Keyboard: Tab into toolbar, arrow keys between buttons
 
 ---
 
@@ -2975,6 +2975,7 @@ Chronological record of implementation progress. Add entries as work is done.
 | 2026-03-15 | 4 | Built core engine: schema.ts (StarterKit), engine.ts (editor factory), commands.ts (15 commands), store.ts (Zustand), model.ts (HTML↔JSON), barrel | Used insertContent for image cmd (Image ext not yet loaded); fixed no-undef ESLint rule for TS files; added React type imports to Phase 3 files |
 | 2026-03-15 | 5 | Built 3 custom React hooks: useEditor (lifecycle, controlled value sync, active state), useToolbar (item→config mapping, actions, active states), useHistory (undo/redo with canUndo/canRedo) | Tiptap v3 changed setContent 2nd param from boolean to SetContentOptions object; icons deferred to Phase 7 Toolbar component |
 | 2026-03-15 | 6 | Built editor shell: ContentEditable (EditorContent wrapper), Parser/Serializer (JSON↔HTML), EditorProvider (lifecycle bridge), EditorWrapper (composition), RichTextEditor (public API). Populated src/index.ts with full public API exports | Used @tiptap/core for generateHTML/generateJSON (not @tiptap/html); Toolbar stub until Phase 7; bundle now 13KB ESM |
+| 2026-03-15 | 7 | Built toolbar system: ToolbarButton (aria-label/pressed, shortcut hints, fallback text), ToolbarSeparator (role=separator), ToolbarGroup (role=group), Toolbar (groupBySeparator, roving tabindex ArrowLeft/Right/Home/End). Wired Toolbar into EditorWrapper replacing stub. | No CSS Modules yet (Phase 8); icons still null (text labels used); bundle now 15.78KB ESM |
 
 <!--
 Example entries:

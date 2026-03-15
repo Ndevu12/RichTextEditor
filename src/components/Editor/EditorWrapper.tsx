@@ -1,4 +1,6 @@
 import { useEditorStore } from '@/core/store';
+import { useToolbar } from '@/hooks/useToolbar';
+import { Toolbar } from '@/components/Toolbar';
 import { ContentEditable } from '@/components/Content';
 import type { ToolbarItem } from '@/types';
 
@@ -22,12 +24,9 @@ export interface EditorWrapperProps {
  *
  * Applies `data-theme` attribute for CSS theming and conditionally
  * hides the toolbar when `readOnly` is true.
- *
- * NOTE: Toolbar component is a stub until Phase 7. Dialogs are
- * added in Phases 11–12.
  */
 export function EditorWrapper({
-  toolbar: _toolbar,
+  toolbar,
   placeholder,
   minHeight,
   maxHeight,
@@ -37,6 +36,7 @@ export function EditorWrapper({
   const editor = useEditorStore((s) => s.editor);
   const theme = useEditorStore((s) => s.theme);
   const readOnly = useEditorStore((s) => s.readOnly);
+  const { items: toolbarItems } = useToolbar(toolbar);
 
   return (
     <div
@@ -45,12 +45,7 @@ export function EditorWrapper({
       data-theme={theme}
       data-readonly={readOnly || undefined}
     >
-      {/* Toolbar will be rendered here in Phase 7 */}
-      {!readOnly && (
-        <div role="toolbar" aria-label="Text formatting" aria-orientation="horizontal">
-          {/* Phase 7: <Toolbar items={toolbarItems} /> */}
-        </div>
-      )}
+      {!readOnly && <Toolbar items={toolbarItems} />}
 
       <ContentEditable
         editor={editor}
