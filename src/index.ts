@@ -73,3 +73,11 @@ export {
   setCodeBlockLanguage,
   SUPPORTED_LANGUAGES,
 } from './components/Plugins/CodeBlockPlugin';
+
+// History plugin utilities (advanced usage)
+export {
+  canUndo,
+  canRedo,
+  HISTORY_DEPTH,
+  HISTORY_NEW_GROUP_DELAY,
+} from './components/Plugins/HistoryPlugin';
