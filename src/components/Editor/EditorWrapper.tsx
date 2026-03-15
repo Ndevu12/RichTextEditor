@@ -2,6 +2,7 @@ import { useEditorStore } from '@/core/store';
 import { useToolbar } from '@/hooks/useToolbar';
 import { Toolbar } from '@/components/Toolbar';
 import { ContentEditable } from '@/components/Content';
+import { LinkDialog } from '@/components/Dialogs/LinkDialog';
 import type { ToolbarItem } from '@/types';
 
 export interface EditorWrapperProps {
@@ -36,6 +37,7 @@ export function EditorWrapper({
   const editor = useEditorStore((s) => s.editor);
   const theme = useEditorStore((s) => s.theme);
   const readOnly = useEditorStore((s) => s.readOnly);
+  const openDialog = useEditorStore((s) => s.openDialog);
   const { items: toolbarItems } = useToolbar(toolbar);
 
   const wrapperClass = ['rte-editor', className].filter(Boolean).join(' ');
@@ -57,7 +59,9 @@ export function EditorWrapper({
         className="rte-content"
       />
 
-      {/* Dialogs rendered here in Phases 11–12 */}
+      {/* Dialogs */}
+      {openDialog === 'link' && <LinkDialog />}
+      {/* Phase 12: openDialog === 'image' && <ImageDialog /> */}
     </div>
   );
 }
