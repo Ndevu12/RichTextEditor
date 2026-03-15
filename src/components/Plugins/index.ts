@@ -10,5 +10,9 @@ export {
   openImageDialog,
   MAX_IMAGE_SIZE,
 } from './ImagePlugin';
-// Phase 13: CodeBlockPlugin
+export {
+  getCodeBlockLanguage,
+  setCodeBlockLanguage,
+  SUPPORTED_LANGUAGES,
+} from './CodeBlockPlugin';
 // Phase 14: HistoryPlugin

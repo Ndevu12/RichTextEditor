@@ -10,7 +10,7 @@
 
 ## Progress Dashboard
 
-**Overall:** 12 / 25 phases complete | **48% done**
+**Overall:** 13 / 25 phases complete | **52% done**
 
 > Update the table below as each phase progresses. Use the status markers:
 > `Not Started`, `In Progress`, `Blocked`, `Complete`, `Skipped`
@@ -29,7 +29,7 @@
 | 10 | Plugins: Lists & Blockquotes | `Complete` | 2026-03-15 | 2026-03-15 | ListsPlugin with sinkListItem/liftListItem; lists + blockquote already in StarterKit |
 | 11 | Plugins: Links & Link Dialog | `Complete` | 2026-03-15 | 2026-03-15 | Link extension, LinkPlugin helpers, accessible LinkDialog, dialog.css, wired into EditorWrapper |
 | 12 | Plugins: Images & Image Dialog | `Complete` | 2026-03-15 | 2026-03-15 | Image extension, ImagePlugin (URL + base64), accessible ImageDialog (drag-drop, preview), dialog.css extensions |
-| 13 | Plugins: Code Blocks & Syntax HL | `Not Started` | — | — | |
+| 13 | Plugins: Code Blocks & Syntax HL | `Complete` | 2026-03-15 | 2026-03-15 | CodeBlockLowlight + lowlight (common bundle), highlight.css (light GitHub + dark Catppuccin) |
 | 14 | Plugins: History (Undo / Redo) | `Not Started` | — | — | |
 | 15 | Clipboard, Paste Handling & Utilities | `Not Started` | — | — | |
 | 16 | Accessibility & Keyboard Navigation | `Not Started` | — | — | |
@@ -1643,10 +1643,10 @@ Image.configure({
 
 | | |
 |---|---|
-| **Status** | `Not Started` |
-| **Started** | — |
-| **Completed** | — |
-| **Branch** | — |
+| **Status** | `Complete` |
+| **Started** | 2026-03-15 |
+| **Completed** | 2026-03-15 |
+| **Branch** | `feat/phase-13-codeblock-lowlight` |
 | **Blocked by** | Phase 8 (parallelizable with 9–12) |
 | **Deliverables** | `CodeBlockPlugin.tsx`, `@tiptap/extension-code-block-lowlight` + `lowlight` installed, code theme CSS |
 
@@ -1697,11 +1697,11 @@ Add styles for `.hljs` (highlight.js) theme classes inside code blocks:
 
 ### Checkpoint
 
-- [ ] Typing `` ``` `` creates a code block
-- [ ] Code is syntax-highlighted based on detected language
-- [ ] Language selector dropdown works (if implemented)
-- [ ] Inline `code` and block `codeBlock` are visually distinct
-- [ ] Theme switch updates code block colors
+- [x] Typing `` ``` `` creates a code block
+- [x] Code is syntax-highlighted based on detected language
+- [x] Language selector dropdown works (if implemented)
+- [x] Inline `code` and block `codeBlock` are visually distinct
+- [x] Theme switch updates code block colors
 
 ---
 
@@ -2981,6 +2981,7 @@ Chronological record of implementation progress. Add entries as work is done.
 | 2026-03-15 | 10 | Created ListsPlugin.tsx with sinkListItem/liftListItem helpers. Added both commands to core/commands.ts + core/index.ts + src/index.ts public API. Updated Plugins barrel. Lists + blockquotes already functional via StarterKit; CSS from Phase 8 handles nested markers. | Tab/Shift+Tab nesting exposed as exported functions; no Tiptap extension override needed |
 | 2026-03-15 | 11 | Installed @tiptap/extension-link (autolink, linkOnPaste, openOnClick:false). Added Link.configure to schema.ts. Created LinkPlugin.tsx (getActiveLinkAttrs, getSelectedText, applyLink, removeLink). Created LinkDialog.tsx (accessible modal: focus trap, Escape close, Enter submit, URL validation, edit/remove modes). Created dialog.css (overlay, card, inputs, buttons, animations). Wired LinkDialog into EditorWrapper. Updated barrel exports. | Refactored useEffect → state initializers to satisfy react-hooks/set-state-in-effect lint rule; CSS 10.22 KB; ESM 23.46 KB |
 | 2026-03-15 | 12 | Installed @tiptap/extension-image (inline:false, allowBase64:true, loading:lazy). Added Image.configure to schema.ts. Created ImagePlugin.tsx (insertImageByUrl, insertImageBase64, readFileAsBase64, MAX_IMAGE_SIZE). Created ImageDialog.tsx (accessible modal: drag-drop zone, file upload with FileReader base64, URL input, alt text, preview thumbnail, 5MB warning). Extended dialog.css (dropzone, file info, separator, warning, preview). Wired ImageDialog into EditorWrapper. Updated all barrel exports + public API. | CSS 13.15 KB (+2.93 KB); ESM 33.95 KB (+10.49 KB) |
+| 2026-03-15 | 13 | Installed @tiptap/extension-code-block-lowlight + lowlight + @tiptap/extension-code-block + highlight.js (peers). Disabled StarterKit codeBlock, added CodeBlockLowlight.configure with lowlight (common bundle). Created CodeBlockPlugin.tsx (getCodeBlockLanguage, setCodeBlockLanguage, SUPPORTED_LANGUAGES). Created highlight.css (GitHub-like light + Catppuccin-inspired dark syntax colors for all hljs classes). Exported lowlight instance for consumer language registration. | CSS 17.85 KB (+4.70 KB); ESM 35.40 KB (+1.45 KB); language selector is exported helper, not a UI component yet |
 
 <!--
 Example entries:
