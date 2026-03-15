@@ -3,6 +3,7 @@ import { useToolbar } from '@/hooks/useToolbar';
 import { Toolbar } from '@/components/Toolbar';
 import { ContentEditable } from '@/components/Content';
 import { LinkDialog } from '@/components/Dialogs/LinkDialog';
+import { ImageDialog } from '@/components/Dialogs/ImageDialog';
 import type { ToolbarItem } from '@/types';
 
 export interface EditorWrapperProps {
@@ -61,7 +62,7 @@ export function EditorWrapper({
 
       {/* Dialogs */}
       {openDialog === 'link' && <LinkDialog />}
-      {/* Phase 12: openDialog === 'image' && <ImageDialog /> */}
+      {openDialog === 'image' && <ImageDialog />}
     </div>
   );
 }

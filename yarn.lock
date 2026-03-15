@@ -1274,6 +1274,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tiptap/extension-image@npm:^3.20.1":
+  version: 3.20.1
+  resolution: "@tiptap/extension-image@npm:3.20.1"
+  peerDependencies:
+    "@tiptap/core": ^3.20.1
+  checksum: 10c0/f9ea71d869e260cbad0d2668005070ac99a592f964de89fbe9b7b3131711919a170127215b52a9d37984adedb66172cb5de0a6221cafa0654c94079b230ab065
+  languageName: node
+  linkType: hard
+
 "@tiptap/extension-italic@npm:^3.20.1":
   version: 3.20.1
   resolution: "@tiptap/extension-italic@npm:3.20.1"
@@ -4965,6 +4974,7 @@ __metadata:
     "@testing-library/react": "npm:^16.3.2"
     "@testing-library/user-event": "npm:^14.6.1"
     "@tiptap/core": "npm:^3.20.1"
+    "@tiptap/extension-image": "npm:^3.20.1"
     "@tiptap/extension-link": "npm:^3.20.1"
     "@tiptap/extension-underline": "npm:^3.20.1"
     "@tiptap/pm": "npm:^3.20.1"

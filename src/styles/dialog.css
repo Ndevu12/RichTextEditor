@@ -167,3 +167,159 @@
     transform: translateY(0);
   }
 }
+
+/* ──────────────────────────────────────────────────────── */
+/*  Image Dialog — Drop zone, preview, separator, warning   */
+/* ──────────────────────────────────────────────────────── */
+
+/* ── Drop zone ─────────────────────────────────────────── */
+.rte-dialog__dropzone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80px;
+  margin-bottom: 12px;
+  padding: 16px;
+  border: 2px dashed var(--rte-input-border);
+  border-radius: var(--rte-radius-sm);
+  background: var(--rte-input-bg);
+  text-align: center;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.rte-dialog__dropzone--active {
+  border-color: var(--rte-accent);
+  background: var(--rte-button-hover);
+}
+
+.rte-dialog__dropzone-text {
+  margin: 0;
+  font-size: 0.85em;
+  color: var(--rte-text-muted);
+}
+
+.rte-dialog__browse-button {
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--rte-accent);
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.rte-dialog__browse-button:hover {
+  filter: brightness(1.1);
+}
+
+.rte-dialog__browse-button:focus-visible {
+  outline: 2px solid var(--rte-accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Hidden file input */
+.rte-dialog__file-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* ── File info (after selection) ───────────────────────── */
+.rte-dialog__file-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rte-dialog__file-name {
+  font-size: 0.85em;
+  color: var(--rte-text);
+  max-width: 280px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rte-dialog__file-clear {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--rte-button-hover);
+  color: var(--rte-text-muted);
+  font-size: 1em;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  flex-shrink: 0;
+}
+
+.rte-dialog__file-clear:hover {
+  background: #e53e3e;
+  color: #ffffff;
+}
+
+.rte-dialog__file-clear:focus-visible {
+  outline: 2px solid var(--rte-accent);
+  outline-offset: 2px;
+}
+
+/* ── Separator (—— or enter URL ——) ────────────────────── */
+.rte-dialog__separator {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 8px 0 14px;
+  color: var(--rte-text-muted);
+  font-size: 0.8em;
+}
+
+.rte-dialog__separator::before,
+.rte-dialog__separator::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--rte-border);
+}
+
+/* ── Size warning ──────────────────────────────────────── */
+.rte-dialog__warning {
+  margin: 0 0 10px;
+  padding: 6px 10px;
+  border-radius: var(--rte-radius-sm);
+  background: rgba(237, 137, 54, 0.1);
+  color: #dd6b20;
+  font-size: 0.8em;
+}
+
+/* ── Image preview ─────────────────────────────────────── */
+.rte-dialog__preview {
+  margin-bottom: 14px;
+  padding: 8px;
+  border: 1px solid var(--rte-border);
+  border-radius: var(--rte-radius-sm);
+  background: var(--rte-input-bg);
+  text-align: center;
+  overflow: hidden;
+}
+
+.rte-dialog__preview-image {
+  max-width: 100%;
+  max-height: 160px;
+  border-radius: var(--rte-radius-sm);
+  object-fit: contain;
+}

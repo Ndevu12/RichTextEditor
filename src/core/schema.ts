@@ -2,6 +2,7 @@ import type { Extensions } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
 import Underline from '@tiptap/extension-underline';
 import Link from '@tiptap/extension-link';
+import Image from '@tiptap/extension-image';
 
 /**
  * Assemble the base Tiptap extension stack.
@@ -13,7 +14,7 @@ import Link from '@tiptap/extension-link';
  * Additional extensions:
  * - Phase 9:  Underline (not in StarterKit)
  * - Phase 11: Link (autolink, paste-link, opens in new tab)
- * - Phase 12: Image
+ * - Phase 12: Image (block-level, base64 allowed, lazy loading)
  * - Phase 13: CodeBlockLowlight (replaces StarterKit's codeBlock)
  * - Phase 14: Custom history config
  */
@@ -32,6 +33,13 @@ export function createExtensions(): Extensions {
       HTMLAttributes: {
         rel: 'noopener noreferrer nofollow',
         target: '_blank',
+      },
+    }),
+    Image.configure({
+      inline: false,
+      allowBase64: true,
+      HTMLAttributes: {
+        loading: 'lazy',
       },
     }),
   ];
