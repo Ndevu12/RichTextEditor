@@ -33,7 +33,11 @@ export function createExtensions(): Extensions {
     StarterKit.configure({
       // Phase 13 — disable StarterKit's codeBlock, replaced by CodeBlockLowlight
       codeBlock: false,
-      // history: false,      // Phase 14 — custom history config
+      // Phase 14 — configure history depth and grouping delay
+      undoRedo: {
+        depth: 100,
+        newGroupDelay: 500,
+      },
     }),
     Underline,
     Link.configure({

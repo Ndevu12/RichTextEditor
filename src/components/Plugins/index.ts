@@ -15,4 +15,9 @@ export {
   setCodeBlockLanguage,
   SUPPORTED_LANGUAGES,
 } from './CodeBlockPlugin';
-// Phase 14: HistoryPlugin
+export {
+  canUndo,
+  canRedo,
+  HISTORY_DEPTH,
+  HISTORY_NEW_GROUP_DELAY,
+} from './HistoryPlugin';

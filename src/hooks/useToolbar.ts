@@ -157,7 +157,14 @@ export function useToolbar(toolbarItems: ToolbarItem[]): UseToolbarResult {
       if (item === '|') return '|';
 
       const meta = TOOLBAR_META[item];
-      const isDisabled = readOnly || !editor;
+      const baseDisabled = readOnly || !editor;
+
+      // Phase 14: undo/redo buttons are disabled based on history state
+      let isDisabled = baseDisabled;
+      if (!baseDisabled && editor) {
+        if (item === 'undo') isDisabled = !editor.can().undo();
+        if (item === 'redo') isDisabled = !editor.can().redo();
+      }
 
       return {
         id: item,
