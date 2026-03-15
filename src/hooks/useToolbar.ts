@@ -16,6 +16,7 @@ import {
   redo as redoCmd,
 } from '@/core/commands';
 import type { ToolbarItem, ToolbarItemType, ToolbarButtonConfig } from '@/types';
+import { TOOLBAR_ICONS } from '@/components/Toolbar/icons';
 
 // ── Platform detection for keyboard shortcut hints ──────────
 const isMac = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.platform);
@@ -169,7 +170,7 @@ export function useToolbar(toolbarItems: ToolbarItem[]): UseToolbarResult {
       return {
         id: item,
         label: meta.label,
-        icon: null, // Icons will be provided by Toolbar component (Phase 7)
+        icon: TOOLBAR_ICONS[item] ?? null,
         action: editor ? getAction(item, editor) : () => {},
         isActive: isItemActive(item, activeMarks, activeNodes, headingLevel),
         isDisabled,

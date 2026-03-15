@@ -11,7 +11,7 @@
 /* ── Editor wrapper ────────────────────────────────────── */
 .rte-editor {
   position: relative;
-  border: 1px solid var(--rte-border);
+  border: 1.5px solid var(--rte-border);
   border-radius: var(--rte-radius);
   background: var(--rte-bg);
   color: var(--rte-text);

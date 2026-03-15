@@ -38,7 +38,7 @@ This project follows the [Contributor Covenant Code of Conduct](https://www.cont
 
 ### Suggesting Features
 
-- Open an issue with the `enhancement` label
+- Open an issue with the `feature request` label
 - Describe the use case and why it would benefit users
 - If possible, propose an API or approach
 
