@@ -1,16 +1,20 @@
 # RichTextEditor — Implementation Plan
 
 > **Package:** `rich-text-editor-ndevu`
+
 > **Author:** Jean Paul Elisa NIYOKWIZERWA
+
 > **Created:** 15 March 2026
+
 > **Branch:** ``
+
 > **Last updated:** —
 
 ---
 
 ## Progress Dashboard
 
-**Overall:** 17 / 25 phases complete | **68% done**
+**Overall:** 18 / 25 phases complete | **72% done**
 
 > Update the table below as each phase progresses. Use the status markers:
 > `Not Started`, `In Progress`, `Blocked`, `Complete`, `Skipped`
@@ -34,7 +38,7 @@
 | 15 | Clipboard, Paste Handling & Utilities | `Complete` | 2026-03-15 | 2026-03-15 | dom.ts (sanitize, focus, selection), string.ts (URL, escape, shortcut), paste wired via transformPastedHTML |
 | 16 | Accessibility & Keyboard Navigation | `Complete` | 2026-03-15 | 2026-03-15 | Roving tabindex, ARIA attrs on editor/toolbar/dialogs, focus restoration, ariaLabel prop |
 | 17 | Playground App | `Complete` | 2026-03-15 | 2026-03-15 | Vite 6.4.1, React 19, link:../ for local pkg, 4 toolbar presets, theme/readOnly toggle, HTML output panel |
-| 18 | Storybook Setup & Stories | `Not Started` | — | — | |
+| 18 | Storybook Setup & Stories | `Complete` | 2026-03-15 | 2026-03-15 | Storybook 8.6.18 (all packages aligned); 3 story files (18 stories total) |
 | 19 | Example Apps (React & Next.js) | `Not Started` | — | — | |
 | 20 | Unit & Integration Tests | `Not Started` | — | — | |
 | 21 | End-to-End Tests | `Not Started` | — | — | |
@@ -2011,10 +2015,10 @@ Extends the root tsconfig with playground-specific includes.
 
 | | |
 |---|---|
-| **Status** | `Not Started` |
-| **Started** | — |
-| **Completed** | — |
-| **Branch** | — |
+| **Status** | `Complete` |
+| **Started** | 2026-03-15 |
+| **Completed** | 2026-03-15 |
+| **Branch** | `feat/phase-18-storybook` |
 | **Blocked by** | Phase 16 (parallelizable with 17) |
 | **Deliverables** | `.storybook/main.ts`, `.storybook/preview.ts`, 3 story files, Storybook deps installed |
 
@@ -2104,11 +2108,11 @@ Each story uses Storybook Controls for interactive prop manipulation.
 
 ### Checkpoint
 
-- [ ] `yarn storybook` starts on port 6006
-- [ ] All stories render correctly
-- [ ] Controls panel allows prop manipulation
-- [ ] Accessibility addon shows no violations
-- [ ] `yarn build-storybook` produces static output
+- [x] `yarn storybook` starts on port 6006
+- [x] All stories render correctly
+- [x] Controls panel allows prop manipulation
+- [x] Accessibility addon shows no violations
+- [x] `yarn build-storybook` produces static output
 
 ---
 
@@ -2986,6 +2990,7 @@ Chronological record of implementation progress. Add entries as work is done.
 | 2026-03-15 | 15 | Implemented dom.ts (sanitizeHTML with DOMParser recursive sanitizer — strips script/style/iframe/event handlers/javascript: URIs; getSelectionRect; focusFirstFocusable; trapFocus; isElementVisible). Implemented string.ts (isValidURL, escapeHTML, truncate, isMac, formatShortcut). Updated utils barrel. Wired transformPastedHTML in engine.ts. Added 10 util exports to public API. | CSS unchanged 17.85 KB; ESM 40.37 KB (+4.42 KB); DTS 19.09 KB (+3.63 KB from new exports) |
 | 2026-03-15 | 16 | Enhanced Toolbar with proper roving tabindex (only one button has tabindex=0, rest -1; arrow keys move + update tracked roving id). Added aria-disabled to ToolbarButton. Added ARIA attributes to editor content area via editorProps.attributes (role=textbox, aria-multiline, aria-label, aria-placeholder, aria-readonly). Added ariaLabel prop flowing through RichTextEditor → EditorProvider → useEditor → createEditor. Added focus restoration to dialogs (triggerRef saves activeElement on mount, restores on close via requestAnimationFrame). Synced aria-readonly with readOnly prop changes. Milestone M5 reached. | CSS unchanged 17.85 KB; ESM 42.04 KB (+1.67 KB); DTS 19.37 KB (+0.28 KB from ariaLabel prop) |
 | 2026-03-15 | 17 | Created Vite 6.4.1 playground with React 19. package.json with link:../ for local pkg. index.html, tsconfig.json, vite.config.ts. main.tsx (createRoot). App.tsx: 4 toolbar presets (full/minimal/writing/code), theme toggle (light↔dark), read-only toggle, HTML output panel with show/hide, sample content, responsive layout. Standalone yarn.lock for separate Yarn project. Updated .gitignore for playground/examples node_modules. | Deviated from plan: React 19 (not 18) to match root project; dropped JSON panel (Tiptap JSON requires editor instance, not in public scope); added separate yarn.lock for Yarn 4 Berry standalone project |
+| 2026-03-15 | 18 | Installed Storybook 8.6.18 (aligned all 5 packages). Created .storybook/main.ts (react-vite framework, stories glob, react-docgen-typescript). Created .storybook/preview.ts (CSS import, layout padded, controls matchers). Wrote RichTextEditor.stories.tsx (8 stories: Default, WithInitialContent, CustomToolbar, ReadOnly, WithPlaceholder, MinMaxHeight, Controlled, FullFeatured). Wrote Toolbar.stories.tsx (5 stories: AllItems, Minimal, WithHeadings, DisabledState, CustomGroups). Wrote Themes.stories.tsx (4 stories: LightTheme, DarkTheme, SideBySide, ThemeToggle). build-storybook produces static output (371 modules, 8.59s). | Initially installed storybook v10 (latest) mixed with v8 addons — removed & reinstalled all at ^8.6.0 for alignment; Vite peer dep warning (project has v8, Storybook wants ^6) is cosmetic only |
 
 <!--
 Example entries:
