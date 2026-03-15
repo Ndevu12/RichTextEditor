@@ -52,8 +52,9 @@ export default [
       // React Hooks rules
       ...reactHooksPlugin.configs.recommended.rules,
 
-      // Disable base rule in favor of TS version
+      // Disable base rules handled by TypeScript
       'no-unused-vars': 'off',
+      'no-undef': 'off', // TypeScript handles this natively and better
     },
   },
 

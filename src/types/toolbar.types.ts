@@ -1,3 +1,5 @@
+import type React from 'react';
+
 // --- Toolbar Item Identifiers ---
 export type ToolbarItemType =
   | 'bold'

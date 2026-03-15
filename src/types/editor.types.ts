@@ -1,3 +1,4 @@
+import type React from 'react';
 import type { ToolbarItem } from './toolbar.types';
 
 // --- Theme ---
