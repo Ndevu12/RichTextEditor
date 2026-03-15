@@ -5,12 +5,10 @@
 /.pnp
 .pnp.js
 
-# Playground / example app dependencies & lockfiles
+# Playground / example app dependencies
 playground/node_modules
-playground/yarn.lock
 playground/.yarn
 examples/*/node_modules
-examples/*/yarn.lock
 
 # Yarn Berry
 .yarn/*

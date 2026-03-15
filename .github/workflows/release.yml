@@ -34,6 +34,16 @@ jobs:
       - name: Build library
         run: yarn build
 
+      - name: Verify version matches tag
+        run: |
+          PKG_VERSION="v$(node -p "require('./package.json').version")"
+          GIT_TAG="${GITHUB_REF#refs/tags/}"
+          if [ "$PKG_VERSION" != "$GIT_TAG" ]; then
+            echo "::error::package.json version ($PKG_VERSION) does not match git tag ($GIT_TAG)"
+            exit 1
+          fi
+          echo "✓ Version $PKG_VERSION matches tag"
+
       - name: Verify dist output
         run: |
           test -f dist/index.js || (echo "Missing dist/index.js" && exit 1)

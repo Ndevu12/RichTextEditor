@@ -42,16 +42,31 @@ jobs:
         run: yarn build
 
       # ── Build Playground ────────────────────────────────
+      - name: Install playground dependencies
+        working-directory: playground
+        run: yarn install
+
       - name: Build playground
-        run: yarn workspace rich-text-editor-playground build
+        working-directory: playground
+        run: yarn build
 
       # ── Build React Demo ────────────────────────────────
+      - name: Install react-demo dependencies
+        working-directory: examples/react-demo
+        run: yarn install
+
       - name: Build react-demo
-        run: yarn workspace react-demo build
+        working-directory: examples/react-demo
+        run: npx vite build
 
       # ── Build Next.js Demo ─────────────────────────────
+      - name: Install nextjs-demo dependencies
+        working-directory: examples/nextjs-demo
+        run: yarn install
+
       - name: Build nextjs-demo
-        run: yarn workspace nextjs-demo build
+        working-directory: examples/nextjs-demo
+        run: npx next build
 
       # ── Build Storybook ────────────────────────────────
       - name: Build storybook
