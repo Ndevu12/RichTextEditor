@@ -10,7 +10,7 @@
 
 ## Progress Dashboard
 
-**Overall:** 16 / 25 phases complete | **64% done**
+**Overall:** 17 / 25 phases complete | **68% done**
 
 > Update the table below as each phase progresses. Use the status markers:
 > `Not Started`, `In Progress`, `Blocked`, `Complete`, `Skipped`
@@ -33,7 +33,7 @@
 | 14 | Plugins: History (Undo / Redo) | `Complete` | 2026-03-15 | 2026-03-15 | StarterKit undoRedo configured (depth:100, newGroupDelay:500), undo/redo buttons disabled via canUndo/canRedo |
 | 15 | Clipboard, Paste Handling & Utilities | `Complete` | 2026-03-15 | 2026-03-15 | dom.ts (sanitize, focus, selection), string.ts (URL, escape, shortcut), paste wired via transformPastedHTML |
 | 16 | Accessibility & Keyboard Navigation | `Complete` | 2026-03-15 | 2026-03-15 | Roving tabindex, ARIA attrs on editor/toolbar/dialogs, focus restoration, ariaLabel prop |
-| 17 | Playground App | `Not Started` | — | — | |
+| 17 | Playground App | `Complete` | 2026-03-15 | 2026-03-15 | Vite 6.4.1, React 19, link:../ for local pkg, 4 toolbar presets, theme/readOnly toggle, HTML output panel |
 | 18 | Storybook Setup & Stories | `Not Started` | — | — | |
 | 19 | Example Apps (React & Next.js) | `Not Started` | — | — | |
 | 20 | Unit & Integration Tests | `Not Started` | — | — | |
@@ -1924,10 +1924,10 @@ Document expected screen reader behavior for key flows:
 
 | | |
 |---|---|
-| **Status** | `Not Started` |
-| **Started** | — |
-| **Completed** | — |
-| **Branch** | — |
+| **Status** | `Complete` |
+| **Started** | 2026-03-15 |
+| **Completed** | 2026-03-15 |
+| **Branch** | `feat/phase-17-playground` |
 | **Blocked by** | Phase 16 |
 | **Deliverables** | `playground/package.json`, `playground/vite.config.ts`, `playground/src/App.tsx`, `playground/src/main.tsx`, `playground/index.html`, `playground/tsconfig.json` |
 
@@ -1999,11 +1999,11 @@ Extends the root tsconfig with playground-specific includes.
 
 ### Checkpoint
 
-- [ ] `cd playground && yarn install && yarn dev` starts the app
-- [ ] Editor renders with all features working
-- [ ] Theme toggle switches light ↔ dark
-- [ ] HTML output updates in real-time
-- [ ] No console errors
+- [x] `cd playground && yarn install && yarn dev` starts the app
+- [x] Editor renders with all features working
+- [x] Theme toggle switches light ↔ dark
+- [x] HTML output updates in real-time
+- [x] No console errors
 
 ---
 
@@ -2985,6 +2985,7 @@ Chronological record of implementation progress. Add entries as work is done.
 | 2026-03-15 | 14 | Configured StarterKit undoRedo (depth:100, newGroupDelay:500) in schema.ts. Created HistoryPlugin.tsx (canUndo, canRedo, HISTORY_DEPTH, HISTORY_NEW_GROUP_DELAY constants). Enhanced useToolbar to disable undo/redo buttons based on editor.can().undo()/redo() state. Updated Plugins barrel + public API exports. | Tiptap v3 StarterKit uses `undoRedo` key (not `history`); defaults already match plan values (100 / 500ms); CSS unchanged; ESM 35.95 KB (+0.55 KB) |
 | 2026-03-15 | 15 | Implemented dom.ts (sanitizeHTML with DOMParser recursive sanitizer — strips script/style/iframe/event handlers/javascript: URIs; getSelectionRect; focusFirstFocusable; trapFocus; isElementVisible). Implemented string.ts (isValidURL, escapeHTML, truncate, isMac, formatShortcut). Updated utils barrel. Wired transformPastedHTML in engine.ts. Added 10 util exports to public API. | CSS unchanged 17.85 KB; ESM 40.37 KB (+4.42 KB); DTS 19.09 KB (+3.63 KB from new exports) |
 | 2026-03-15 | 16 | Enhanced Toolbar with proper roving tabindex (only one button has tabindex=0, rest -1; arrow keys move + update tracked roving id). Added aria-disabled to ToolbarButton. Added ARIA attributes to editor content area via editorProps.attributes (role=textbox, aria-multiline, aria-label, aria-placeholder, aria-readonly). Added ariaLabel prop flowing through RichTextEditor → EditorProvider → useEditor → createEditor. Added focus restoration to dialogs (triggerRef saves activeElement on mount, restores on close via requestAnimationFrame). Synced aria-readonly with readOnly prop changes. Milestone M5 reached. | CSS unchanged 17.85 KB; ESM 42.04 KB (+1.67 KB); DTS 19.37 KB (+0.28 KB from ariaLabel prop) |
+| 2026-03-15 | 17 | Created Vite 6.4.1 playground with React 19. package.json with link:../ for local pkg. index.html, tsconfig.json, vite.config.ts. main.tsx (createRoot). App.tsx: 4 toolbar presets (full/minimal/writing/code), theme toggle (light↔dark), read-only toggle, HTML output panel with show/hide, sample content, responsive layout. Standalone yarn.lock for separate Yarn project. Updated .gitignore for playground/examples node_modules. | Deviated from plan: React 19 (not 18) to match root project; dropped JSON panel (Tiptap JSON requires editor instance, not in public scope); added separate yarn.lock for Yarn 4 Berry standalone project |
 
 <!--
 Example entries:
