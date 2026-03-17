@@ -11,4 +11,6 @@ export {
   MAX_IMAGE_SIZE,
 } from './ImagePlugin';
 export { getCodeBlockLanguage, setCodeBlockLanguage, SUPPORTED_LANGUAGES } from './CodeBlockPlugin';
+export { CodeBlockLanguageSelector } from './CodeBlockLanguageSelector';
+export type { CodeBlockLanguageSelectorProps } from './CodeBlockLanguageSelector';
 export { canUndo, canRedo, HISTORY_DEPTH, HISTORY_NEW_GROUP_DELAY } from './HistoryPlugin';

@@ -29,6 +29,7 @@ export function RichTextEditor(props: RichTextEditorProps) {
     className,
     style,
     ariaLabel,
+    pluginRegistry,
     onFocus,
     onBlur,
   } = props;
@@ -41,6 +42,7 @@ export function RichTextEditor(props: RichTextEditorProps) {
       theme={theme}
       placeholder={placeholder}
       ariaLabel={ariaLabel}
+      pluginRegistry={pluginRegistry}
       onFocus={onFocus}
       onBlur={onBlur}
     >

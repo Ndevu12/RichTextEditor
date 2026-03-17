@@ -1,6 +1,7 @@
 import { Editor } from '@tiptap/core';
 import { createExtensions } from './schema';
 import { sanitizeHTML } from '../utils/dom';
+import type { PluginRegistry } from '@/types/plugin.types';
 
 /**
  * Options for creating a new editor instance.
@@ -14,6 +15,8 @@ export interface CreateEditorOptions {
   placeholder?: string;
   /** Accessible label for the editor (default: 'Rich text editor') */
   ariaLabel?: string;
+  /** Plugin registry whose extensions will be merged into the editor */
+  pluginRegistry?: PluginRegistry;
   /** Called when the editor content changes */
   onUpdate?: (html: string) => void;
   /** Called when the selection changes */
@@ -45,8 +48,10 @@ export function createEditor(options: CreateEditorOptions = {}): Editor {
     ariaAttrs['aria-readonly'] = 'true';
   }
 
+  const pluginExtensions = options.pluginRegistry?.getExtensions() ?? [];
+
   return new Editor({
-    extensions: createExtensions(),
+    extensions: createExtensions(pluginExtensions),
     content: options.content || '',
     editable: options.editable ?? true,
     editorProps: {

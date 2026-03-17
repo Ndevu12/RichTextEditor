@@ -13,7 +13,7 @@ const args = process.argv.slice(2);
 const cleanAll = args.includes('--all');
 
 /** Directories always cleaned (build output). */
-const buildDirs = ['dist'];
+const buildDirs = ['dist', 'playground/dist'];
 
 /** Directories only cleaned with --all flag (caches & generated). */
 const cacheDirs = ['coverage', 'storybook-static', '.turbo'];

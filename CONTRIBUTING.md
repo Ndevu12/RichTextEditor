@@ -69,10 +69,13 @@ cd RichTextEditor
 # Enable Corepack (ships with Node 20+)
 corepack enable
 
-# Install dependencies
+# Install root dependencies
 yarn install
 
-# Start the dev server
+# Install playground dependencies
+cd playground && yarn install && cd ..
+
+# Start the library watcher + playground dev server
 yarn dev
 ```
 
@@ -82,7 +85,9 @@ yarn dev
 
 | Script | Description |
 |--------|-------------|
-| `yarn dev` | Start the Vite dev server |
+| `yarn dev` | Build library in watch mode **and** start the playground dev server concurrently |
+| `yarn dev:playground` | Start only the playground Vite dev server (port 4000) |
+| `yarn dev:lib` | Build only the library in watch mode (tsup) |
 | `yarn build` | Build the library (ESM + CJS + DTS) via tsup |
 | `yarn build:watch` | Build in watch mode |
 | `yarn test` | Run unit tests (Vitest) |

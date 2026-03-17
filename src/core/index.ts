@@ -5,6 +5,9 @@ export { createExtensions, lowlight } from './schema';
 export { createEditor } from './engine';
 export type { CreateEditorOptions } from './engine';
 
+// Plugin Registry
+export { createPluginRegistry } from './pluginRegistry';
+
 // Commands
 export {
   toggleBold,
