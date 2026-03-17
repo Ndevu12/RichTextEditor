@@ -30,9 +30,7 @@ const lowlight = createLowlight(common);
  * - Phase 13: CodeBlockLowlight (replaces StarterKit's codeBlock)
  * - Phase 14: Custom history config
  */
-export function createExtensions(
-  pluginExtensions: (Extension | Mark | Node)[] = [],
-): Extensions {
+export function createExtensions(pluginExtensions: (Extension | Mark | Node)[] = []): Extensions {
   return [
     StarterKit.configure({
       codeBlock: false,

@@ -1,10 +1,6 @@
 import { useCallback } from 'react';
 import type { Editor } from '@tiptap/core';
-import {
-  SUPPORTED_LANGUAGES,
-  getCodeBlockLanguage,
-  setCodeBlockLanguage,
-} from './CodeBlockPlugin';
+import { SUPPORTED_LANGUAGES, getCodeBlockLanguage, setCodeBlockLanguage } from './CodeBlockPlugin';
 
 export interface CodeBlockLanguageSelectorProps {
   /** The Tiptap editor instance */
