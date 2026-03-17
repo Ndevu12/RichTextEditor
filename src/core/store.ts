@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import type { Editor } from '@tiptap/core';
-import type { EditorState, EditorActions, Theme, DialogType } from '@/types';
+import type { EditorState, EditorActions, Theme, DialogType, PreviewMode } from '@/types';
 
 /**
  * The Zustand store — single source of truth for editor state.
@@ -32,6 +32,7 @@ export const useEditorStore = create<EditorStore>((set) => ({
   activeNodes: new Set<string>(),
   headingLevel: null,
   openDialog: null as DialogType | null,
+  previewMode: 'none' as PreviewMode,
 
   // ── Actions ────────────────────────────────
   setEditor: (editor) => set({ editor }),
@@ -42,4 +43,5 @@ export const useEditorStore = create<EditorStore>((set) => ({
   updateActiveState: (marks, nodes, headingLevel) =>
     set({ activeMarks: marks, activeNodes: nodes, headingLevel }),
   setOpenDialog: (dialog) => set({ openDialog: dialog }),
+  setPreviewMode: (mode) => set({ previewMode: mode }),
 }));

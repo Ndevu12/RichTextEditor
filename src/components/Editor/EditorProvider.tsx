@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useEditor } from '@/hooks/useEditor';
 import { useEditorStore } from '@/core/store';
 import type { Theme } from '@/types';
+import type { PluginRegistry } from '@/types/plugin.types';
 
 export interface EditorProviderProps {
   /** Controlled HTML content */
@@ -16,6 +17,8 @@ export interface EditorProviderProps {
   placeholder?: string;
   /** Accessible label for the editor content area */
   ariaLabel?: string;
+  /** Plugin registry for dynamic extension loading */
+  pluginRegistry?: PluginRegistry;
   /** Called when editor gains focus */
   onFocus?: () => void;
   /** Called when editor loses focus */
@@ -38,12 +41,12 @@ export function EditorProvider({
   theme = 'light',
   placeholder,
   ariaLabel,
+  pluginRegistry,
   onFocus,
   onBlur,
   children,
 }: EditorProviderProps) {
-  // Initialize and manage the Tiptap editor lifecycle
-  useEditor({ value, onChange, placeholder, readOnly, ariaLabel, onFocus, onBlur });
+  useEditor({ value, onChange, placeholder, readOnly, ariaLabel, pluginRegistry, onFocus, onBlur });
 
   const setTheme = useEditorStore((s) => s.setTheme);
   const setReadOnly = useEditorStore((s) => s.setReadOnly);

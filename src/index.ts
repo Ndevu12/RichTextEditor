@@ -18,6 +18,7 @@ export type {
   RichTextEditorProps,
   Theme,
   DialogType,
+  PreviewMode,
   EditorState,
   EditorActions,
   EditorConfig,
@@ -45,7 +46,7 @@ export type { UseHistoryResult } from './hooks';
 // ── Core / Headless (advanced usage) ───────────────────────────────
 export { useEditorStore } from './core';
 export type { EditorStore } from './core';
-export { createEditor, createExtensions, lowlight } from './core';
+export { createEditor, createExtensions, createPluginRegistry, lowlight } from './core';
 export type { CreateEditorOptions } from './core';
 
 // ── Commands ───────────────────────────────────────────────────────
@@ -71,6 +72,11 @@ export {
 
 // ── Content Helpers ────────────────────────────────────────────────
 export { toHTML, fromHTML, createEmptyDoc, isContentEmpty } from './core';
+export { toMarkdown } from './components/Content';
+
+// ── Preview Components ────────────────────────────────────────────
+export { PreviewPanel, PreviewToggle } from './components/Preview';
+export type { PreviewPanelProps } from './components/Preview';
 
 // ── Plugin Utilities ───────────────────────────────────────────────
 export {
@@ -86,6 +92,9 @@ export {
   setCodeBlockLanguage,
   SUPPORTED_LANGUAGES,
 } from './components/Plugins/CodeBlockPlugin';
+
+export { CodeBlockLanguageSelector } from './components/Plugins/CodeBlockLanguageSelector';
+export type { CodeBlockLanguageSelectorProps } from './components/Plugins/CodeBlockLanguageSelector';
 
 export {
   canUndo,

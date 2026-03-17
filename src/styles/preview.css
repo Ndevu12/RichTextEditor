@@ -1,0 +1,171 @@
+/**
+ * Preview panel and toggle styles.
+ *
+ * `.rte-toolbar-row`     — flexbox row holding toolbar + preview toggle
+ * `.rte-body`            — wraps editor content + preview side by side
+ * `.rte-preview-toggle`  — segmented control for switching preview modes
+ * `.rte-preview`         — the preview panel showing compiled output
+ */
+
+/* ── Toolbar row (toolbar + toggle) ───────────────────── */
+.rte-toolbar-row {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--rte-toolbar-border);
+  background: var(--rte-toolbar-bg);
+}
+
+.rte-toolbar-row .rte-toolbar {
+  flex: 1;
+  border-bottom: none;
+}
+
+/* ── Preview toggle ───────────────────────────────────── */
+.rte-preview-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-right: 8px;
+  border: 1px solid var(--rte-toolbar-border);
+  border-radius: var(--rte-radius-sm);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.rte-preview-toggle__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 10px;
+  border: none;
+  background: transparent;
+  color: var(--rte-button-text);
+  font-size: 12px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+  white-space: nowrap;
+}
+
+.rte-preview-toggle__btn:not(:last-child) {
+  border-right: 1px solid var(--rte-toolbar-border);
+}
+
+.rte-preview-toggle__btn:hover:not(.rte-preview-toggle__btn--active) {
+  background: var(--rte-button-hover);
+}
+
+.rte-preview-toggle__btn--active {
+  background: var(--rte-accent);
+  color: #ffffff;
+}
+
+.rte-preview-toggle__btn:focus-visible {
+  outline: 2px solid var(--rte-accent);
+  outline-offset: -2px;
+  box-shadow: 0 0 0 3px var(--rte-focus-ring);
+  z-index: 1;
+}
+
+/* ── Body layout ──────────────────────────────────────── */
+.rte-body {
+  display: flex;
+}
+
+.rte-body .rte-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.rte-body--split .rte-content {
+  flex: 1;
+  border-right: 1px solid var(--rte-toolbar-border);
+}
+
+.rte-body--split .rte-preview {
+  flex: 1;
+}
+
+/* ── Preview panel ────────────────────────────────────── */
+.rte-preview {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.rte-preview__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 12px;
+  background: var(--rte-toolbar-bg);
+  border-bottom: 1px solid var(--rte-toolbar-border);
+}
+
+.rte-preview__label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--rte-text-muted);
+}
+
+.rte-preview__copy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: none;
+  border-radius: var(--rte-radius-sm);
+  background: transparent;
+  color: var(--rte-text-muted);
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.rte-preview__copy:hover {
+  background: var(--rte-button-hover);
+  color: var(--rte-text);
+}
+
+.rte-preview__copy:focus-visible {
+  outline: 2px solid var(--rte-accent);
+  outline-offset: -2px;
+  box-shadow: 0 0 0 3px var(--rte-focus-ring);
+}
+
+/* ── Code output ──────────────────────────────────────── */
+.rte-preview__code {
+  flex: 1;
+  margin: 0;
+  padding: 12px 16px;
+  overflow: auto;
+  background: var(--rte-codeblock-bg);
+  font-family: var(--rte-font-mono);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--rte-text);
+  white-space: pre-wrap;
+  word-break: break-word;
+  tab-size: 2;
+}
+
+.rte-preview__code code {
+  background: transparent;
+  padding: 0;
+  font-size: inherit;
+  color: inherit;
+}
+
+.rte-preview__empty {
+  color: var(--rte-placeholder);
+  font-style: italic;
+}

@@ -4,6 +4,7 @@ import { Toolbar } from '@/components/Toolbar';
 import { ContentEditable } from '@/components/Content';
 import { LinkDialog } from '@/components/Dialogs/LinkDialog';
 import { ImageDialog } from '@/components/Dialogs/ImageDialog';
+import { PreviewPanel, PreviewToggle } from '@/components/Preview';
 import type { ToolbarItem } from '@/types';
 
 export interface EditorWrapperProps {
@@ -22,7 +23,7 @@ export interface EditorWrapperProps {
 }
 
 /**
- * Composes Toolbar + ContentEditable vertically.
+ * Composes Toolbar + ContentEditable + PreviewPanel vertically.
  *
  * Applies `data-theme` attribute for CSS theming and conditionally
  * hides the toolbar when `readOnly` is true.
@@ -39,6 +40,7 @@ export function EditorWrapper({
   const theme = useEditorStore((s) => s.theme);
   const readOnly = useEditorStore((s) => s.readOnly);
   const openDialog = useEditorStore((s) => s.openDialog);
+  const previewMode = useEditorStore((s) => s.previewMode);
   const { items: toolbarItems } = useToolbar(toolbar);
 
   const wrapperClass = ['rte-editor', className].filter(Boolean).join(' ');
@@ -50,15 +52,24 @@ export function EditorWrapper({
       data-theme={theme}
       data-readonly={readOnly || undefined}
     >
-      {!readOnly && <Toolbar items={toolbarItems} />}
+      {!readOnly && (
+        <div className="rte-toolbar-row">
+          <Toolbar items={toolbarItems} />
+          <PreviewToggle />
+        </div>
+      )}
 
-      <ContentEditable
-        editor={editor}
-        minHeight={minHeight}
-        maxHeight={maxHeight}
-        placeholder={placeholder}
-        className="rte-content"
-      />
+      <div className={`rte-body${previewMode !== 'none' ? ' rte-body--split' : ''}`}>
+        <ContentEditable
+          editor={editor}
+          minHeight={minHeight}
+          maxHeight={maxHeight}
+          placeholder={placeholder}
+          className="rte-content"
+        />
+
+        <PreviewPanel mode={previewMode} />
+      </div>
 
       {/* Dialogs */}
       {openDialog === 'link' && <LinkDialog />}

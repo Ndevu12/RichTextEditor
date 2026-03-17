@@ -1,11 +1,15 @@
 import type React from 'react';
 import type { ToolbarItem } from './toolbar.types';
+import type { PluginRegistry } from './plugin.types';
 
 // --- Theme ---
 export type Theme = 'light' | 'dark';
 
 // --- Dialog Types ---
 export type DialogType = 'link' | 'image';
+
+// --- Preview Mode ---
+export type PreviewMode = 'none' | 'html' | 'markdown';
 
 // --- Editor Props (public API, matches README spec) ---
 export interface RichTextEditorProps {
@@ -21,6 +25,8 @@ export interface RichTextEditorProps {
   style?: React.CSSProperties;
   /** Accessible label for the editor content area (default: 'Rich text editor') */
   ariaLabel?: string;
+  /** Plugin registry for dynamic extension loading */
+  pluginRegistry?: PluginRegistry;
   onFocus?: () => void;
   onBlur?: () => void;
 }
@@ -35,6 +41,7 @@ export interface EditorState {
   activeNodes: Set<string>; // e.g. 'heading', 'bulletList', ...
   headingLevel: number | null; // currently active heading level (1-6) or null
   openDialog: DialogType | null;
+  previewMode: PreviewMode;
 }
 
 // --- Editor Actions (Zustand store actions) ---
@@ -45,6 +52,7 @@ export interface EditorActions {
   setFocused: (focused: boolean) => void;
   updateActiveState: (marks: Set<string>, nodes: Set<string>, headingLevel: number | null) => void;
   setOpenDialog: (dialog: DialogType | null) => void;
+  setPreviewMode: (mode: PreviewMode) => void;
 }
 
 // --- Editor Config ---

@@ -2,6 +2,7 @@ import { useEffect, useRef, useCallback } from 'react';
 import type { Editor } from '@tiptap/core';
 import { createEditor } from '@/core/engine';
 import { useEditorStore } from '@/core/store';
+import type { PluginRegistry } from '@/types/plugin.types';
 
 export interface UseEditorOptions {
   /** Initial / controlled HTML content */
@@ -14,6 +15,8 @@ export interface UseEditorOptions {
   readOnly?: boolean;
   /** Accessible label for the editor content area */
   ariaLabel?: string;
+  /** Plugin registry whose extensions are merged into the editor */
+  pluginRegistry?: PluginRegistry;
   /** Called when editor gains focus */
   onFocus?: () => void;
   /** Called when editor loses focus */
@@ -37,6 +40,7 @@ export function useEditor(options: UseEditorOptions = {}): Editor | null {
     placeholder,
     readOnly = false,
     ariaLabel,
+    pluginRegistry,
     onFocus,
     onBlur,
   } = options;
@@ -88,6 +92,7 @@ export function useEditor(options: UseEditorOptions = {}): Editor | null {
       editable: !readOnly,
       placeholder,
       ariaLabel,
+      pluginRegistry,
       onUpdate: (html) => {
         isInternalUpdate.current = true;
         setContent(html);

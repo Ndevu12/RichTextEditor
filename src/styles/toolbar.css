@@ -93,3 +93,34 @@
   flex-shrink: 0;
   align-self: center;
 }
+
+/* ── Code block language selector ─────────────────────── */
+.rte-language-selector {
+  height: 32px;
+  padding: 0 8px;
+  border: 1px solid var(--rte-toolbar-border);
+  border-radius: var(--rte-radius-sm);
+  background: var(--rte-toolbar-bg);
+  color: var(--rte-button-text);
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    opacity 0.15s ease;
+}
+
+.rte-language-selector:hover:not(:disabled) {
+  border-color: var(--rte-accent);
+}
+
+.rte-language-selector:focus-visible {
+  outline: 2px solid var(--rte-accent);
+  outline-offset: -2px;
+  box-shadow: 0 0 0 3px var(--rte-focus-ring);
+}
+
+.rte-language-selector:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}

@@ -15,4 +15,6 @@ export interface PluginRegistry {
   register: (plugin: PluginConfig) => void;
   unregister: (name: string) => void;
   getExtensions: () => (Extension | Mark | Node)[];
+  getToolbarItems: () => ToolbarItemType[];
+  getKeyboardShortcuts: () => Record<string, () => boolean>;
 }

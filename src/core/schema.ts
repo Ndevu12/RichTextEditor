@@ -1,9 +1,10 @@
-import type { Extensions } from '@tiptap/core';
+import type { Extension, Extensions, Mark, Node } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
 import Underline from '@tiptap/extension-underline';
 import Link from '@tiptap/extension-link';
 import Image from '@tiptap/extension-image';
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
+import Typography from '@tiptap/extension-typography';
 import { common, createLowlight } from 'lowlight';
 
 /**
@@ -15,7 +16,8 @@ import { common, createLowlight } from 'lowlight';
 const lowlight = createLowlight(common);
 
 /**
- * Assemble the base Tiptap extension stack.
+ * Assemble the base Tiptap extension stack, optionally appending
+ * extensions contributed by registered plugins.
  *
  * Starts with StarterKit which provides: bold, italic, strike, headings,
  * bullet list, ordered list, blockquote, code, history,
@@ -28,12 +30,12 @@ const lowlight = createLowlight(common);
  * - Phase 13: CodeBlockLowlight (replaces StarterKit's codeBlock)
  * - Phase 14: Custom history config
  */
-export function createExtensions(): Extensions {
+export function createExtensions(
+  pluginExtensions: (Extension | Mark | Node)[] = [],
+): Extensions {
   return [
     StarterKit.configure({
-      // Phase 13 — disable StarterKit's codeBlock, replaced by CodeBlockLowlight
       codeBlock: false,
-      // Phase 14 — configure history depth and grouping delay
       undoRedo: {
         depth: 100,
         newGroupDelay: 500,
@@ -60,6 +62,24 @@ export function createExtensions(): Extensions {
       lowlight,
       defaultLanguage: 'plaintext',
     }),
+    Typography.configure({
+      emDash: '\u2014',
+      ellipsis: '\u2026',
+      openDoubleQuote: '\u201c',
+      closeDoubleQuote: '\u201d',
+      openSingleQuote: '\u2018',
+      closeSingleQuote: '\u2019',
+      copyright: '\u00a9',
+      trademark: '\u2122',
+      servicemark: '\u2120',
+      registeredTrademark: '\u00ae',
+      plusMinus: '\u00b1',
+      notEqual: '\u2260',
+      oneHalf: '\u00bd',
+      oneQuarter: '\u00bc',
+      threeQuarters: '\u00be',
+    }),
+    ...pluginExtensions,
   ];
 }
 
