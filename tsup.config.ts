@@ -15,4 +15,5 @@ export default defineConfig({
   esbuildOptions(options) {
     options.jsx = 'automatic';
   },
+  onSuccess: 'echo "\\n✓ Library compiled successfully"',
 });

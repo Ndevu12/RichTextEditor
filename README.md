@@ -241,10 +241,13 @@ Contributions are very welcome! Please read the steps below before opening a pul
 git clone https://github.com/Ndevu12/RichTextEditor.git
 cd RichTextEditor
 
-# 2. Install dependencies
+# 2. Install root dependencies
 yarn install
 
-# 3. Start the development server
+# 3. Install playground dependencies
+cd playground && yarn install && cd ..
+
+# 4. Start the library watcher + playground dev server
 yarn dev
 ```
 
