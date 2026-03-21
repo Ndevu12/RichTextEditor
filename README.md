@@ -1,95 +1,87 @@
 # RichTextEditor
 
-> Free and open-source Rich Text Editor for React — lightweight, extensible, and ready to use as an npm package.
+A free, open-source rich text editor for React. It is lightweight, extensible, and published as an npm package for production use.
 
 [![License: BSD-3-Clause](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](./LICENSE)
 [![npm version](https://img.shields.io/npm/v/rich-text-editor-ndevu.svg)](https://www.npmjs.com/package/rich-text-editor-ndevu)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue.svg)](https://www.typescriptlang.org/)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](./CONTRIBUTING.md)
 
----
-
-## Live Demos
-
-| Demo | Description |
-|------|-------------|
-| [🎮 Playground](https://ndevu12.github.io/RichTextEditor/playground/) | Interactive sandbox — try toolbar presets, themes, and live HTML output |
-| [⚛️ React Demo](https://ndevu12.github.io/RichTextEditor/react-demo/) | Blog-style integration example with a React + Vite app |
-| [▲ Next.js Demo](https://ndevu12.github.io/RichTextEditor/nextjs-demo/) | Next.js 14 integration example |
-| [📖 Storybook](https://ndevu12.github.io/RichTextEditor/storybook/) | Component gallery with interactive controls and accessibility checks |
-
----
-
-## Table of Contents
+## Table of contents
 
 - [Overview](#overview)
-- [Live Demos](#live-demos)
 - [Features](#features)
+- [Live demos](#live-demos)
 - [Installation](#installation)
-- [Quick Start](#quick-start)
+- [Quick start](#quick-start)
 - [Usage](#usage)
-- [Props / API](#props--api)
+- [API reference](#api-reference)
 - [Contributing](#contributing)
 - [License](#license)
 
----
-
 ## Overview
 
-**RichTextEditor** is a free, open-source rich text editing component for React applications. It provides a clean, intuitive interface for formatting and editing content, making it suitable for blog platforms, content-management systems, comment sections, documentation tools, and any application where users need to write formatted text.
+**RichTextEditor** is a React component for formatting and editing HTML content. It suits blogs, content management systems, comment threads, documentation tools, and any application where users need structured text without leaving the page.
 
----
+The editor is built on [Tiptap](https://tiptap.dev/) and ProseMirror, with TypeScript types included in the package.
 
 ## Features
 
-- ✏️ **Text Formatting** — Bold, italic, underline, strikethrough
-- 🔤 **Headings** — H1–H6 heading levels
-- 📋 **Lists** — Ordered and unordered lists
-- 🔗 **Links** — Insert and edit hyperlinks
-- 🖼️ **Images** — Embed images via URL or file upload
-- 💬 **Blockquotes** — Styled quote blocks
-- `</>` **Code Blocks** — Inline code and fenced code blocks with syntax highlighting
-- ↩️ **Undo / Redo** — Full history support
-- 📋 **Copy / Paste** — Preserves formatting when pasting from external sources
-- 🌗 **Dark Mode** — Built-in light and dark theme support
-- ♿ **Accessible** — ARIA-compliant and keyboard-navigable
-- 📦 **TypeScript** — Ships with full TypeScript type definitions
+- **Text formatting:** bold, italic, underline, strikethrough
+- **Headings:** levels H1 through H6
+- **Lists:** ordered and unordered
+- **Links:** insert and edit hyperlinks
+- **Images:** embed via URL or file upload
+- **Blockquotes:** styled quote blocks
+- **Code:** inline code and fenced code blocks with syntax highlighting
+- **History:** undo and redo
+- **Clipboard:** paste from external sources with formatting preserved where possible
+- **Theming:** light and dark modes
+- **Accessibility:** ARIA attributes and keyboard navigation
+- **TypeScript:** full type definitions
 
----
+## Live demos
+
+| Demo | Description |
+|------|-------------|
+| [Playground](https://ndevu12.github.io/RichTextEditor/playground/) | Interactive sandbox: toolbar presets, themes, and live HTML output |
+| [React (Vite)](https://ndevu12.github.io/RichTextEditor/react-demo/) | Blog-style integration in a React and Vite app |
+| [Next.js](https://ndevu12.github.io/RichTextEditor/nextjs-demo/) | Next.js 14 integration example |
+| [Storybook](https://ndevu12.github.io/RichTextEditor/storybook/) | Component gallery with controls and accessibility checks |
 
 ## Installation
 
-Install the package using your preferred package manager:
+Install the package with your preferred client:
 
 ```bash
-# npm
 npm install rich-text-editor-ndevu
+```
 
-# yarn
+```bash
 yarn add rich-text-editor-ndevu
+```
 
-# pnpm
+```bash
 pnpm add rich-text-editor-ndevu
 ```
 
-### Peer Dependencies
+### Peer dependencies
 
-Make sure your project has the following peer dependencies installed:
+React 18 or newer is required:
 
 ```bash
-# npm
 npm install react react-dom
+```
 
-# yarn
+```bash
 yarn add react react-dom
+```
 
-# pnpm
+```bash
 pnpm add react react-dom
 ```
 
----
-
-## Quick Start
+## Quick start
 
 ```tsx
 import React, { useState } from 'react';
@@ -101,7 +93,7 @@ export default function App() {
 
   return (
     <div>
-      <h1>My Editor</h1>
+      <h1>My editor</h1>
       <RichTextEditor
         value={content}
         onChange={setContent}
@@ -113,11 +105,7 @@ export default function App() {
 }
 ```
 
-> **Note:** The CSS import (`rich-text-editor-ndevu/styles.css`) is required for the editor
-> to render correctly. If your bundler already handles CSS side-effects, the styles are
-> also auto-imported when you import the component.
-
----
+Import the stylesheet (`rich-text-editor-ndevu/styles.css`) so layout and toolbar render correctly. If your bundler treats CSS imports as side effects, styles may also load when you import the component alone.
 
 ## Usage
 
@@ -186,105 +174,79 @@ function DarkModeExample() {
 }
 ```
 
----
+## API reference
 
-## Props / API
+### Component props
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `value` | `string` | `''` | HTML string representing the current editor content. |
-| `onChange` | `(value: string) => void` | — | Callback fired whenever the content changes. Receives the updated HTML string. |
-| `placeholder` | `string` | `'Write something...'` | Placeholder text shown when the editor is empty. |
-| `readOnly` | `boolean` | `false` | When `true`, the editor is rendered in read-only mode. |
-| `toolbar` | `ToolbarItem[]` | All items | Array of toolbar button identifiers. Use `'|'` as a separator. |
-| `theme` | `'light' \| 'dark'` | `'light'` | Visual theme of the editor. |
-| `minHeight` | `string \| number` | `'200px'` | Minimum height of the editable area. |
-| `maxHeight` | `string \| number` | `undefined` | Maximum height before the area becomes scrollable. |
-| `className` | `string` | `undefined` | Additional CSS class applied to the editor wrapper. |
-| `style` | `React.CSSProperties` | `undefined` | Inline styles applied to the editor wrapper. |
-| `onFocus` | `() => void` | `undefined` | Callback fired when the editor gains focus. |
-| `onBlur` | `() => void` | `undefined` | Callback fired when the editor loses focus. |
-| `ariaLabel` | `string` | `'Rich text editor'` | Accessible label for the editor content area (announced by screen readers). |
+| `value` | `string` | `''` | HTML string for the current content. |
+| `onChange` | `(value: string) => void` | — | Called when content changes; receives the updated HTML. |
+| `placeholder` | `string` | `'Write something...'` | Shown when the editor is empty. |
+| `readOnly` | `boolean` | `false` | Renders the editor as read-only when `true`. |
+| `toolbar` | `ToolbarItem[]` | All items | Toolbar button identifiers; use `'\|'` as a visual separator. |
+| `theme` | `'light' \| 'dark'` | `'light'` | Color theme. |
+| `minHeight` | `string \| number` | `'200px'` | Minimum height of the editable region. |
+| `maxHeight` | `string \| number` | `undefined` | Maximum height before the region scrolls. |
+| `className` | `string` | `undefined` | Extra class on the editor wrapper. |
+| `style` | `React.CSSProperties` | `undefined` | Inline styles on the editor wrapper. |
+| `onFocus` | `() => void` | `undefined` | Called when the editor receives focus. |
+| `onBlur` | `() => void` | `undefined` | Called when the editor loses focus. |
+| `ariaLabel` | `string` | `'Rich text editor'` | Accessible name for the editing surface. |
 
-### Toolbar Items
+### Toolbar items
 
-Available values for the `toolbar` prop:
+Values accepted by the `toolbar` prop:
 
 | Value | Description |
 |-------|-------------|
-| `'bold'` | Bold text |
-| `'italic'` | Italic text |
-| `'underline'` | Underlined text |
-| `'strike'` | Strikethrough text |
+| `'bold'` | Bold |
+| `'italic'` | Italic |
+| `'underline'` | Underline |
+| `'strike'` | Strikethrough |
 | `'heading1'` – `'heading6'` | Heading levels |
 | `'bulletList'` | Unordered list |
 | `'orderedList'` | Ordered list |
 | `'blockquote'` | Blockquote |
 | `'code'` | Inline code |
 | `'codeBlock'` | Fenced code block |
-| `'link'` | Insert / edit a link |
+| `'link'` | Insert or edit a link |
 | `'image'` | Insert an image |
-| `'undo'` | Undo last action |
-| `'redo'` | Redo last undone action |
-| `'\|'` | Visual separator |
-
----
+| `'undo'` | Undo |
+| `'redo'` | Redo |
+| `'\|'` | Separator between groups |
 
 ## Contributing
 
-Contributions are very welcome! Please read the steps below before opening a pull request.
+Contributions are welcome. [CONTRIBUTING.md](./CONTRIBUTING.md) covers the code of conduct, branch workflow, coding standards, tests, and pull request expectations.
 
-### Getting started locally
+**Prerequisites:** Node.js 20 or newer and Yarn 4 (enable Corepack with `corepack enable` if needed). See CONTRIBUTING for details.
+
+### Local development
 
 ```bash
-# 1. Fork and clone the repository
 git clone https://github.com/Ndevu12/RichTextEditor.git
 cd RichTextEditor
-
-# 2. Install root dependencies
 yarn install
-
-# 3. Install playground dependencies
 cd playground && yarn install && cd ..
-
-# 4. Start the library watcher + playground dev server
 yarn dev
 ```
 
-### Contribution workflow
+The `dev` script runs the library build in watch mode alongside the playground.
 
-1. **Open an issue** — describe the bug or feature you would like to work on.
-2. **Fork** the repository and create a new branch from `main`:
-   ```bash
-   git checkout -b feat/your-feature-name
-   ```
-3. **Make your changes** — write clear, focused commits.
-4. **Run tests and linting** before pushing:
-   ```bash
-   yarn lint
-   yarn test
-   ```
-5. **Push** your branch and **open a Pull Request** against `main`.
-6. Your PR will be reviewed by a maintainer. Please address any feedback promptly.
+Before opening a pull request:
 
-### Code style
+```bash
+yarn lint
+yarn test
+```
 
-- TypeScript is required for all source files.
-- Follow the existing ESLint and Prettier configuration.
-- Write or update tests for every change in behaviour.
+### Reporting issues
 
-### Reporting bugs
-
-Please [open an issue](https://github.com/Ndevu12/RichTextEditor/issues/new) with:
-- A clear title and description
-- Steps to reproduce the problem
-- The expected vs. actual behaviour
-- Your environment (OS, Node.js version, browser)
-
----
+Open an issue on [GitHub](https://github.com/Ndevu12/RichTextEditor/issues/new). Include a clear title, steps to reproduce, expected vs. actual behavior, and your environment (OS, Node.js version, browser).
 
 ## License
 
-This project is licensed under the **BSD 3-Clause License** — see the [LICENSE](./LICENSE) file for details.
+This project is licensed under the [BSD 3-Clause License](./LICENSE).
 
 Copyright © 2026 Jean Paul Elisa NIYOKWIZERWA

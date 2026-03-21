@@ -43,6 +43,10 @@ dist/
 # Storybook
 /storybook-static
 
+# test output
+/test-results/
+test-results/
+
 # misc
 .DS_Store
 *.pem
