@@ -15,7 +15,8 @@ export function normalizeToolbarInput(toolbarItems: ToolbarInput): NormalizedToo
       return [{ type: 'separator', id: item.id ?? `separator-${index}` }];
     }
 
-    const builtinId = typeof item.id === 'string' && isToolbarItemType(item.id) ? item.id : undefined;
+    const builtinId =
+      typeof item.id === 'string' && isToolbarItemType(item.id) ? item.id : undefined;
     return [
       {
         type: 'button',

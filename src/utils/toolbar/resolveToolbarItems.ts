@@ -20,7 +20,9 @@ function resolveValue<T>(
   return value;
 }
 
-function compactToolbarSeparators(items: (ToolbarButtonConfig | '|')[]): (ToolbarButtonConfig | '|')[] {
+function compactToolbarSeparators(
+  items: (ToolbarButtonConfig | '|')[],
+): (ToolbarButtonConfig | '|')[] {
   const compacted: (ToolbarButtonConfig | '|')[] = [];
 
   for (const item of items) {
@@ -82,8 +84,7 @@ function resolveToolbarButton(
     fallbackActive;
 
   const label =
-    resolveValue(item.label, resolverContext) ??
-    resolveValue(registryItem.label, resolverContext);
+    resolveValue(item.label, resolverContext) ?? resolveValue(registryItem.label, resolverContext);
   if (!label) return null;
 
   const shortcut =

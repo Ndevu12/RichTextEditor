@@ -169,4 +169,3 @@ export interface BuiltinToolbarRegistryItem {
   isActive?: ToolbarValueResolver<boolean>;
   onClick?: (context: ToolbarResolveContext) => void;
 }
-

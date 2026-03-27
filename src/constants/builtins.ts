@@ -33,7 +33,11 @@ export const TOOLBAR_META: Record<ToolbarItemType, ToolbarItemMeta> = {
 };
 
 export const BUILTIN_TOOLBAR_REGISTRY: Record<ToolbarItemType, BuiltinToolbarRegistryItem> = {
-  bold: { label: TOOLBAR_META.bold.label, shortcut: TOOLBAR_META.bold.shortcut, icon: TOOLBAR_ICONS.bold ?? null },
+  bold: {
+    label: TOOLBAR_META.bold.label,
+    shortcut: TOOLBAR_META.bold.shortcut,
+    icon: TOOLBAR_ICONS.bold ?? null,
+  },
   italic: {
     label: TOOLBAR_META.italic.label,
     shortcut: TOOLBAR_META.italic.shortcut,
