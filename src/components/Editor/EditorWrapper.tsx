@@ -5,11 +5,11 @@ import { ContentEditable } from '@/components/Content';
 import { LinkDialog } from '@/components/Dialogs/LinkDialog';
 import { ImageDialog } from '@/components/Dialogs/ImageDialog';
 import { PreviewPanel, PreviewToggle } from '@/components/Preview';
-import type { ToolbarItem } from '@/types';
+import type { ToolbarInput } from '@/types';
 
 export interface EditorWrapperProps {
   /** Toolbar items configuration */
-  toolbar: ToolbarItem[];
+  toolbar: ToolbarInput;
   /** Placeholder text when editor is empty */
   placeholder?: string;
   /** Minimum height of the editable area */

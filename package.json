@@ -66,7 +66,8 @@
     "build-storybook": "storybook build",
     "prepublishOnly": "tsx scripts/build.ts",
     "release": "tsx scripts/release.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "verify:demos": "node scripts/verify-demos-dependency-policy.mjs"
   },
   "peerDependencies": {
     "react": ">=18.0.0",

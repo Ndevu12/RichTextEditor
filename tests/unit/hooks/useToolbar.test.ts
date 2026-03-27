@@ -3,7 +3,7 @@ import { renderHook, cleanup } from '@testing-library/react';
 import { useToolbar } from '@/hooks/useToolbar';
 import { useEditorStore } from '@/core/store';
 import { createEditor } from '@/core/engine';
-import type { ToolbarItem } from '@/types';
+import type { RichToolbarInput, ToolbarItem } from '@/types';
 import type { Editor } from '@tiptap/core';
 
 let editor: Editor;
@@ -29,6 +29,96 @@ describe('useToolbar', () => {
 
     expect(result.current.items).toHaveLength(5);
     expect(result.current.items[2]).toBe('|'); // separator preserved
+  });
+
+  it('keeps legacy and rich built-in input compatible', () => {
+    setupEditor();
+    const legacyToolbar: ToolbarItem[] = ['bold', '|', 'italic'];
+    const richToolbar: RichToolbarInput = [{ id: 'bold' }, { type: 'separator' }, { id: 'italic' }];
+
+    const legacyResult = renderHook(() => useToolbar(legacyToolbar));
+    const richResult = renderHook(() => useToolbar(richToolbar));
+
+    expect(richResult.result.current.items).toHaveLength(legacyResult.result.current.items.length);
+    expect(richResult.result.current.items[1]).toBe('|');
+    expect(legacyResult.result.current.items[1]).toBe('|');
+
+    const richBold = richResult.result.current.items[0];
+    const legacyBold = legacyResult.result.current.items[0];
+    const richItalic = richResult.result.current.items[2];
+    const legacyItalic = legacyResult.result.current.items[2];
+
+    if (richBold !== '|' && legacyBold !== '|') {
+      expect(richBold.id).toBe(legacyBold.id);
+      expect(richBold.label).toBe(legacyBold.label);
+      expect(richBold.isDisabled).toBe(legacyBold.isDisabled);
+    }
+    if (richItalic !== '|' && legacyItalic !== '|') {
+      expect(richItalic.id).toBe(legacyItalic.id);
+      expect(richItalic.label).toBe(legacyItalic.label);
+      expect(richItalic.isDisabled).toBe(legacyItalic.isDisabled);
+    }
+  });
+
+  it('updates resolved items when toolbar input changes at runtime', () => {
+    setupEditor();
+    const { result, rerender } = renderHook(
+      ({ toolbar }) => useToolbar(toolbar),
+      {
+        initialProps: {
+          toolbar: ['bold', '|', 'italic'] as ToolbarItem[],
+        },
+      },
+    );
+
+    expect(result.current.items).toHaveLength(3);
+    expect(result.current.items[1]).toBe('|');
+
+    rerender({
+      toolbar: ['underline', '|', 'undo', 'redo'],
+    });
+
+    expect(result.current.items).toHaveLength(4);
+    expect(result.current.items[1]).toBe('|');
+    const first = result.current.items[0];
+    const third = result.current.items[2];
+    if (first !== '|') expect(first.id).toBe('underline');
+    if (third !== '|') expect(third.id).toBe('undo');
+  });
+
+  it('compacts leading, trailing, and consecutive separators', () => {
+    setupEditor();
+    const toolbar: RichToolbarInput = [
+      '|',
+      { type: 'separator', id: 's-1' },
+      { id: 'bold' },
+      '|',
+      { type: 'separator', id: 's-2' },
+      { id: 'italic' },
+      '|',
+      '|',
+    ];
+    const { result } = renderHook(() => useToolbar(toolbar));
+
+    expect(result.current.items).toHaveLength(3);
+    expect(result.current.items[1]).toBe('|');
+    const first = result.current.items[0];
+    const last = result.current.items[2];
+    if (first !== '|') expect(first.id).toBe('bold');
+    if (last !== '|') expect(last.id).toBe('italic');
+  });
+
+  it('keeps built-in labels and actions when rich input only specifies id', () => {
+    setupEditor();
+    const toolbar: RichToolbarInput = [{ id: 'bold' }];
+    const { result } = renderHook(() => useToolbar(toolbar));
+
+    const item = result.current.items[0];
+    expect(item).not.toBe('|');
+    if (item !== '|') {
+      expect(item.label).toBe('Bold');
+      expect(typeof item.action).toBe('function');
+    }
   });
 
   it('sets isDisabled=true when readOnly', () => {

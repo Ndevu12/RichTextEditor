@@ -88,6 +88,33 @@ Each folder has an `index.ts` barrel export.
 
 ## Testing in Depth
 
+### Maintainer vs consumer validation
+
+`playground/` is the maintainer-facing local sandbox.
+`examples/react-demo` and `examples/nextjs-demo` are npm-consumer demos.
+
+Keep this boundary in place:
+
+- Playground supports local-first development workflow.
+- Examples must keep `rich-text-editor-ndevu` as a semver npm dependency (no `link:` or `file:`).
+
+Before opening a PR, run:
+
+```bash
+# Consumer policy gate (examples only)
+yarn verify:demos
+
+# Maintainer/local playground validation
+yarn --cwd playground install
+yarn --cwd playground build
+
+# npm-consumer example validation
+yarn --cwd examples/react-demo install
+yarn --cwd examples/react-demo build
+yarn --cwd examples/nextjs-demo install
+yarn --cwd examples/nextjs-demo build
+```
+
 ### Test File Organization
 
 ```
@@ -129,6 +156,30 @@ editor.destroy();
 
 **Hook tests** use `renderHook` from React Testing Library.
 
+### Toolbar refactor checklist
+
+When touching toolbar internals (`src/types/toolbar.types.ts`, `src/utils/toolbar/*`, `src/hooks/useToolbar.ts`, toolbar UI/CSS), verify both compatibility and dynamic behavior:
+
+1. Legacy input still works: `ToolbarItem[]` with `'|'` separators
+2. Rich input works: object items with resolver functions
+3. Separator compaction holds: no leading/trailing/consecutive separators after resolution
+4. Adaptive rendering remains usable for icon-only and label-driven buttons
+5. Undo/redo disabled state remains accurate with current editor history
+
+Run focused suites first:
+
+```bash
+yarn test tests/unit/hooks/useToolbar.test.ts tests/unit/components/Toolbar.test.tsx
+```
+
+Then run the full quality gates:
+
+```bash
+yarn typecheck
+yarn test
+yarn build
+```
+
 ### Coverage Thresholds
 
 Config in `config/vitest.config.ts`:
@@ -145,10 +196,13 @@ If you're adding a new Tiptap extension to the editor:
 
 1. **Create the extension** in `src/components/Plugins/`
 2. **Register it** in `src/core/schema.ts` (`createExtensions()`)
-3. **Add toolbar support** in `src/hooks/useToolbar.ts` (meta, action, active state)
-4. **Add the toolbar ID** to `ToolbarItemType` in `src/types/toolbar.types.ts`
-5. **Export utilities** from `src/index.ts`
-6. **Write tests** in `tests/unit/`
-7. **Update docs** in `docs/plugins.md`
+3. **Add toolbar support** through the new toolbar pipeline:
+   - update `ToolbarItemType` in `src/types/toolbar.types.ts`
+   - register defaults in `src/constants/builtins.ts`
+   - wire command action in `src/helpers/actions.ts`
+   - wire active-state detection in `src/helpers/activeState.ts`
+4. **Export utilities** from `src/index.ts`
+5. **Write tests** in `tests/unit/` (include toolbar + hook coverage when relevant)
+6. **Update docs** in `docs/plugins.md` and `docs/api.md` if public toolbar types change
 
 See [plugins.md](./plugins.md) for a complete walkthrough with examples.

@@ -8,10 +8,10 @@
     "start": "next start -p 3001"
   },
   "dependencies": {
-    "next": "^14.2.29",
+    "next": "^15.5.14",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
-    "rich-text-editor-ndevu": "link:../../"
+    "rich-text-editor-ndevu": "^0.1.0"
   },
   "devDependencies": {
     "@types/node": "^25.5.0",

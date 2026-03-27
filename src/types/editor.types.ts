@@ -1,5 +1,5 @@
 import type React from 'react';
-import type { ToolbarItem } from './toolbar.types';
+import type { ToolbarInput } from './toolbar.types';
 import type { PluginRegistry } from './plugin.types';
 
 // --- Theme ---
@@ -17,7 +17,7 @@ export interface RichTextEditorProps {
   onChange?: (value: string) => void;
   placeholder?: string;
   readOnly?: boolean;
-  toolbar?: ToolbarItem[];
+  toolbar?: ToolbarInput;
   theme?: Theme;
   minHeight?: string | number;
   maxHeight?: string | number;
@@ -60,7 +60,7 @@ export interface EditorConfig {
   placeholder: string;
   readOnly: boolean;
   theme: Theme;
-  toolbar: ToolbarItem[];
+  toolbar: ToolbarInput;
   minHeight: string | number;
   maxHeight?: string | number;
 }

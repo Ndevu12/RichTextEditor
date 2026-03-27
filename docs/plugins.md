@@ -182,10 +182,22 @@ export function createExtensions(): Extensions {
 
 ### Step 3: Add Toolbar Items
 
+Toolbar resolution has moved to a registry + pipeline, and remains backward-compatible with legacy `ToolbarItem[]`.
+
+If your extension needs a built-in toolbar ID:
+
 1. Add an entry to the `ToolbarItemType` union in `src/types/toolbar.types.ts`.
-2. Add metadata in `TOOLBAR_META` in `src/hooks/useToolbar.ts`.
-3. Add the command dispatch in `getAction()` in `src/hooks/useToolbar.ts`.
-4. Add active state detection in `getIsActive()` in `src/hooks/useToolbar.ts`.
+2. Add label/shortcut/icon defaults in `BUILTIN_TOOLBAR_REGISTRY` at `src/constants/builtins.ts`.
+3. Add command dispatch in `getBuiltinAction()` at `src/helpers/actions.ts`.
+4. Add active-state detection in `isBuiltinItemActive()` at `src/helpers/activeState.ts`.
+5. Ensure behavior resolves correctly through `normalizeToolbarInput()` and `resolveToolbarItems()`.
+
+Consumer-facing toolbar inputs now support both:
+
+- Legacy arrays (`['bold', 'italic', '|', 'link']`)
+- Rich object input (`ToolbarInput`) with dynamic resolvers (`label`, `icon`, `isVisible`, `isDisabled`, `isActive`, `onClick`)
+
+Use this to tune how built-in buttons render and behave without breaking existing integrations.
 
 ### Step 4: Add Keyboard Shortcuts
 

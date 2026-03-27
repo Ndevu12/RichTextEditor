@@ -27,11 +27,15 @@ export function ToolbarButton({
   tabIndex = 0,
 }: ToolbarButtonProps) {
   const title = shortcut ? `${label} (${shortcut})` : label;
+  const hasIcon = icon !== null && icon !== undefined && icon !== false;
+  const className = hasIcon
+    ? 'rte-toolbar__button rte-toolbar__button--icon'
+    : 'rte-toolbar__button rte-toolbar__button--label';
 
   return (
     <button
       type="button"
-      className="rte-toolbar__button"
+      className={className}
       onClick={action}
       disabled={isDisabled}
       aria-label={label}
@@ -41,6 +45,7 @@ export function ToolbarButton({
       tabIndex={isDisabled ? -1 : tabIndex}
       data-toolbar-item={id}
       data-active={isActive || undefined}
+      data-has-icon={hasIcon || undefined}
     >
       {icon ?? label}
     </button>

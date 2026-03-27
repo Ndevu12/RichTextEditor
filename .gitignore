@@ -66,4 +66,5 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+!examples/nextjs-demo/next-env.d.ts
 .vscode/settings.json
