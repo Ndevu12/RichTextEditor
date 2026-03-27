@@ -38,12 +38,16 @@ jobs:
       - name: Verify version matches tag
         run: |
           PKG_VERSION="v$(node -p "require('./package.json').version")"
-          GIT_TAG="${GITHUB_REF#refs/tags/}"
-          if [ "$PKG_VERSION" != "$GIT_TAG" ]; then
-            echo "::error::package.json version ($PKG_VERSION) does not match git tag ($GIT_TAG)"
-            exit 1
+          if [[ "$GITHUB_REF" == refs/tags/* ]]; then
+            GIT_TAG="${GITHUB_REF#refs/tags/}"
+            if [ "$PKG_VERSION" != "$GIT_TAG" ]; then
+              echo "::error::package.json version ($PKG_VERSION) does not match git tag ($GIT_TAG)"
+              exit 1
+            fi
+            echo "✓ Version $PKG_VERSION matches tag"
+          else
+            echo "::notice::Manual run detected on $GITHUB_REF; skipping tag/version match check."
           fi
-          echo "✓ Version $PKG_VERSION matches tag"
 
       - name: Verify dist output
         run: |
