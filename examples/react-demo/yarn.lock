@@ -479,6 +479,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@mixmark-io/domino@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "@mixmark-io/domino@npm:2.2.0"
+  checksum: 10c0/aa468a15f9217d425220fe6a4b3f9416cbe8e566ee14efc191c6d5cc04fe39338b16a90bbac190f28d44e69465db5f2cf95f479c621ce38060ca6b2a3d346e9d
+  languageName: node
+  linkType: hard
+
 "@npmcli/agent@npm:^4.0.0":
   version: 4.0.0
   resolution: "@npmcli/agent@npm:4.0.0"
@@ -927,6 +934,15 @@ __metadata:
   peerDependencies:
     "@tiptap/core": ^3.20.5
   checksum: 10c0/7873da742d03bae8141fb8f28107f11d7f4972c5a4a82109383bec88ccf6bcabd47424f65edde5ff7f4f5227c05a094005e064a9857127485ea4d4cf7d2b32ae
+  languageName: node
+  linkType: hard
+
+"@tiptap/extension-typography@npm:^3.20.4":
+  version: 3.20.6
+  resolution: "@tiptap/extension-typography@npm:3.20.6"
+  peerDependencies:
+    "@tiptap/core": ^3.20.6
+  checksum: 10c0/7988bbc1574fec50dd18253565cf23f540edabd9a8471ef28b866598dfc2b17e88aa6a59ca2905c448f00f695baec315867bb71c229fc959d83d48efc182136f
   languageName: node
   linkType: hard
 
@@ -2093,7 +2109,7 @@ __metadata:
     "@vitejs/plugin-react": "npm:^4.5.2"
     react: "npm:^19.2.4"
     react-dom: "npm:^19.2.4"
-    rich-text-editor-ndevu: "npm:^0.1.0"
+    rich-text-editor-ndevu: "npm:^0.1.1"
     typescript: "npm:^5.9.3"
     vite: "npm:^6.4.1"
   languageName: unknown
@@ -2131,26 +2147,28 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rich-text-editor-ndevu@npm:^0.1.0":
-  version: 0.1.0
-  resolution: "rich-text-editor-ndevu@npm:0.1.0"
+"rich-text-editor-ndevu@npm:^0.1.1":
+  version: 0.1.1
+  resolution: "rich-text-editor-ndevu@npm:0.1.1"
   dependencies:
     "@tiptap/core": "npm:^3.20.1"
     "@tiptap/extension-code-block": "npm:^3.20.1"
     "@tiptap/extension-code-block-lowlight": "npm:^3.20.1"
     "@tiptap/extension-image": "npm:^3.20.1"
     "@tiptap/extension-link": "npm:^3.20.1"
+    "@tiptap/extension-typography": "npm:^3.20.4"
     "@tiptap/extension-underline": "npm:^3.20.1"
     "@tiptap/pm": "npm:^3.20.1"
     "@tiptap/react": "npm:^3.20.1"
     "@tiptap/starter-kit": "npm:^3.20.1"
     highlight.js: "npm:^11.11.1"
     lowlight: "npm:^3.3.0"
+    turndown: "npm:^7.2.2"
     zustand: "npm:^5.0.11"
   peerDependencies:
     react: ">=18.0.0"
     react-dom: ">=18.0.0"
-  checksum: 10c0/a617769bed892f6ef43b2890dae3df1e72018512827d7b031ed7fa82d0a548dfd323be4f59ddd61beb78b5942d99fc2de6a449d0329a6a710193f3017cdb8fe9
+  checksum: 10c0/8b9ed7fe672b944bf7231fc59dc3246a96e204761aae1f00008a7835c4f5d04c8430824d28af791647f11f0886bbff78295135d6ee0e42811ee04d912e163aff
   languageName: node
   linkType: hard
 
@@ -2347,6 +2365,15 @@ __metadata:
     fdir: "npm:^6.5.0"
     picomatch: "npm:^4.0.3"
   checksum: 10c0/869c31490d0d88eedb8305d178d4c75e7463e820df5a9b9d388291daf93e8b1eb5de1dad1c1e139767e4269fe75f3b10d5009b2cc14db96ff98986920a186844
+  languageName: node
+  linkType: hard
+
+"turndown@npm:^7.2.2":
+  version: 7.2.2
+  resolution: "turndown@npm:7.2.2"
+  dependencies:
+    "@mixmark-io/domino": "npm:^2.2.0"
+  checksum: 10c0/ee09f7bd67c468505aad6c3a26b11269ca49ffce07eaa9c212926d068f242b11b4e955b31a58289f26674ff29f91209b29454907551dcaec7da712e524cc78c2
   languageName: node
   linkType: hard
 
