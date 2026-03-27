@@ -1,20 +1,43 @@
 # Playground
 
-Vite-based local playground for manual testing and experimentation with the Rich Text Editor.
+Vite-based maintainer sandbox for manual testing and fast local iteration on the in-repo editor source.
+
+## Role in this repository
+
+- `playground/` is **local-first** and intended for maintainers/contributors working on this codebase.
+- `examples/` are **npm-consumer** demos and should stay aligned with how external users install the package.
 
 ## Quick Start
 
 ```bash
-# From the project root — build the library first
-yarn build
+# From the project root
+yarn --cwd playground install
 
-# Then start the playground
-cd playground
-yarn install
+# Run library watch + playground dev server together
 yarn dev
 ```
 
-The playground uses `link:../` to reference the local package. After rebuilding the library (`yarn build` in root), changes are reflected on the next HMR or page reload.
+## Maintainer Validation (local-first playground)
+
+Run these when validating the local development loop:
+
+```bash
+yarn --cwd playground install
+yarn dev
+yarn --cwd playground build
+```
+
+## Consumer Validation (npm demos)
+
+Run these to validate the npm-consumer example apps:
+
+```bash
+yarn verify:demos
+yarn --cwd examples/react-demo install
+yarn --cwd examples/react-demo build
+yarn --cwd examples/nextjs-demo install
+yarn --cwd examples/nextjs-demo build
+```
 
 ## Features
 

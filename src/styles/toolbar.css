@@ -7,11 +7,28 @@
 
 /* ── Toolbar container ─────────────────────────────────── */
 .rte-toolbar {
+  --rte-toolbar-gap: 0.25rem;
+  --rte-toolbar-padding-y: 0.5rem;
+  --rte-toolbar-padding-x: 0.75rem;
+  --rte-toolbar-group-gap: 0.125rem;
+  --rte-toolbar-group-padding-y: 0.125rem;
+  --rte-toolbar-button-height: clamp(1.875rem, 1.8rem + 0.3vw, 2.25rem);
+  --rte-toolbar-button-min-width: clamp(1.875rem, 1.8rem + 0.3vw, 2.25rem);
+  --rte-toolbar-button-padding-x: 0.5rem;
+  --rte-toolbar-button-label-padding-x: 0.625rem;
+  --rte-toolbar-button-font-size: clamp(0.75rem, 0.72rem + 0.15vw, 0.875rem);
+  --rte-toolbar-icon-size: 1.125rem;
+  --rte-toolbar-separator-width: 1px;
+  --rte-toolbar-separator-height: 1.5rem;
+  --rte-toolbar-separator-margin-x: 0.375rem;
+  --rte-toolbar-focus-outline-width: 2px;
+  --rte-toolbar-focus-ring-width: 3px;
+
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 4px;
-  padding: 8px 12px;
+  gap: var(--rte-toolbar-gap);
+  padding: var(--rte-toolbar-padding-y) var(--rte-toolbar-padding-x);
   background: var(--rte-toolbar-bg);
   border-bottom: 1px solid var(--rte-toolbar-border);
   user-select: none;
@@ -21,8 +38,8 @@
 .rte-toolbar__group {
   display: flex;
   align-items: center;
-  gap: 2px;
-  padding: 2px 0;
+  gap: var(--rte-toolbar-group-gap);
+  padding: var(--rte-toolbar-group-padding-y) 0;
 }
 
 /* ── Single button ─────────────────────────────────────── */
@@ -30,26 +47,37 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
-  padding: 0;
+  min-width: var(--rte-toolbar-button-min-width);
+  height: var(--rte-toolbar-button-height);
+  padding: 0 var(--rte-toolbar-button-padding-x);
   border: none;
   border-radius: var(--rte-radius-sm);
   background: transparent;
   color: var(--rte-button-text);
-  font-size: 13px;
+  font-size: var(--rte-toolbar-button-font-size);
   font-weight: 500;
   line-height: 1;
+  white-space: nowrap;
   cursor: pointer;
-  overflow: hidden;
   transition:
     background-color 0.15s ease,
     color 0.15s ease;
 }
 
+.rte-toolbar__button--icon {
+  width: var(--rte-toolbar-button-min-width);
+  padding: 0;
+}
+
+.rte-toolbar__button--label {
+  width: auto;
+  justify-content: flex-start;
+  padding: 0 var(--rte-toolbar-button-label-padding-x);
+}
+
 .rte-toolbar__button svg {
-  width: 18px;
-  height: 18px;
+  width: var(--rte-toolbar-icon-size);
+  height: var(--rte-toolbar-icon-size);
   flex-shrink: 0;
 }
 
@@ -79,16 +107,16 @@
 
 /* Focus-visible (keyboard navigation) */
 .rte-toolbar__button:focus-visible {
-  outline: 2px solid var(--rte-accent);
-  outline-offset: -2px;
-  box-shadow: 0 0 0 3px var(--rte-focus-ring);
+  outline: var(--rte-toolbar-focus-outline-width) solid var(--rte-accent);
+  outline-offset: calc(var(--rte-toolbar-focus-outline-width) * -1);
+  box-shadow: 0 0 0 var(--rte-toolbar-focus-ring-width) var(--rte-focus-ring);
 }
 
 /* ── Separator ─────────────────────────────────────────── */
 .rte-toolbar__separator {
-  width: 1px;
-  height: 24px;
-  margin: 0 6px;
+  width: var(--rte-toolbar-separator-width);
+  height: var(--rte-toolbar-separator-height);
+  margin: 0 var(--rte-toolbar-separator-margin-x);
   background: var(--rte-toolbar-border);
   flex-shrink: 0;
   align-self: center;
@@ -96,13 +124,13 @@
 
 /* ── Code block language selector ─────────────────────── */
 .rte-language-selector {
-  height: 32px;
-  padding: 0 8px;
+  height: var(--rte-toolbar-button-height);
+  padding: 0 var(--rte-toolbar-button-padding-x);
   border: 1px solid var(--rte-toolbar-border);
   border-radius: var(--rte-radius-sm);
   background: var(--rte-toolbar-bg);
   color: var(--rte-button-text);
-  font-size: 13px;
+  font-size: var(--rte-toolbar-button-font-size);
   font-family: inherit;
   cursor: pointer;
   transition:
@@ -115,9 +143,9 @@
 }
 
 .rte-language-selector:focus-visible {
-  outline: 2px solid var(--rte-accent);
-  outline-offset: -2px;
-  box-shadow: 0 0 0 3px var(--rte-focus-ring);
+  outline: var(--rte-toolbar-focus-outline-width) solid var(--rte-accent);
+  outline-offset: calc(var(--rte-toolbar-focus-outline-width) * -1);
+  box-shadow: 0 0 0 var(--rte-toolbar-focus-ring-width) var(--rte-focus-ring);
 }
 
 .rte-language-selector:disabled {

@@ -36,3 +36,11 @@ yarn release --dry-run patch   # preview without committing
 ```
 
 The push of the `v*` tag triggers the GitHub Actions release workflow (`.github/workflows/release.yml`), which publishes to npm with provenance.
+
+### `verify-demos-dependency-policy.mjs`
+
+Checks that demo/playground manifests use npm semver for `rich-text-editor-ndevu` and do not use local-link dependency specifiers.
+
+```bash
+yarn verify:demos
+```

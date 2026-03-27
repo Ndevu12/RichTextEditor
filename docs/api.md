@@ -18,6 +18,7 @@ Complete API documentation for `rich-text-editor-ndevu`.
 - [Types](#types)
 - [Constants](#constants)
 - [Toolbar Item Reference](#toolbar-item-reference)
+- [Toolbar Migration](#toolbar-migration)
 
 ---
 
@@ -50,7 +51,7 @@ function App() {
 | `onChange` | `(value: string) => void` | — | Called when content changes |
 | `placeholder` | `string` | `'Write something...'` | Placeholder text when editor is empty |
 | `readOnly` | `boolean` | `false` | Disable editing (hides toolbar) |
-| `toolbar` | `ToolbarItem[]` | `DEFAULT_TOOLBAR` | Toolbar items to display |
+| `toolbar` | `ToolbarInput` | `DEFAULT_TOOLBAR` | Toolbar items to display (legacy string array or rich object input) |
 | `theme` | `'light' \| 'dark'` | `'light'` | Color theme |
 | `minHeight` | `string \| number` | `'200px'` | Minimum editor height |
 | `maxHeight` | `string \| number` | — | Maximum editor height (enables scrolling) |
@@ -137,7 +138,7 @@ function UndoRedoButtons() {
 
 ### `useToolbar`
 
-Resolves a list of `ToolbarItem` strings into fully configured `ToolbarButtonConfig` objects with actions, active states, icons, and shortcuts.
+Resolves `ToolbarInput` (legacy or rich) into fully configured `ToolbarButtonConfig` objects with actions, active states, icons, and shortcuts.
 
 ```ts
 import { useToolbar } from 'rich-text-editor-ndevu';
@@ -148,7 +149,7 @@ import type { UseToolbarResult } from 'rich-text-editor-ndevu';
 
 | Param | Type | Description |
 |-------|------|-------------|
-| `items` | `ToolbarItem[]` | Array of toolbar item identifiers and separators |
+| `items` | `ToolbarInput` | Legacy `ToolbarItem[]` or rich toolbar object input |
 
 #### Returns — `UseToolbarResult`
 
@@ -262,8 +263,19 @@ import type {
   ToolbarItemType,
   ToolbarSeparator,
   ToolbarItem,
+  ToolbarInput,
   ToolbarButtonConfig,
   ToolbarGroupConfig,
+  LegacyToolbarInput,
+  RichToolbarInput,
+  RichToolbarItemInput,
+  RichToolbarButtonInput,
+  RichToolbarSeparatorInput,
+  ToolbarResolverContext,
+  ToolbarValueResolver,
+  ToolbarRenderItem,
+  ToolbarRenderButtonItem,
+  ToolbarRenderSeparatorItem,
   PluginConfig,
   PluginRegistry,
   UseEditorOptions,
@@ -282,6 +294,10 @@ import type {
 | `ToolbarItemType` | Union of all toolbar button identifiers (`'bold' \| 'italic' \| ... \| 'redo'`) |
 | `ToolbarSeparator` | `'\|'` — visual separator between toolbar groups |
 | `ToolbarItem` | `ToolbarItemType \| ToolbarSeparator` |
+| `LegacyToolbarInput` | Alias for `ToolbarItem[]` (kept for backward compatibility) |
+| `ToolbarInput` | `LegacyToolbarInput \| RichToolbarInput` |
+| `RichToolbarButtonInput` | Object-based toolbar button with optional resolver hooks for `label`, `icon`, `isVisible`, `isDisabled`, `isActive`, and `onClick` |
+| `RichToolbarSeparatorInput` | Object separator entry (`{ type: 'separator', id?: string }`) |
 | `ToolbarButtonConfig` | Full button configuration: `{ id, label, icon, action, isActive, isDisabled, shortcut? }` |
 | `DialogType` | `'link' \| 'image'` |
 | `EditorState` | Internal store state (content, theme, readOnly, activeMarks, etc.) |
@@ -331,3 +347,37 @@ import { DEFAULT_TOOLBAR } from 'rich-text-editor-ndevu';
 | `image` | Image | — | 🖼 | Open image dialog |
 | `undo` | Undo | Ctrl+Z / ⌘Z | ↩ | Undo last action |
 | `redo` | Redo | Ctrl+Y / ⌘Shift+Z | ↪ | Redo last undone action |
+
+---
+
+## Toolbar Migration
+
+The toolbar API is **non-breaking**. Existing `ToolbarItem[]` arrays still work:
+
+```tsx
+<RichTextEditor toolbar={['bold', 'italic', '|', 'link']} />
+```
+
+You can now opt into richer object configuration without changing existing behavior:
+
+```tsx
+<RichTextEditor
+  toolbar={[
+    { id: 'bold' },
+    { id: 'italic', label: 'Emphasis' },
+    { type: 'separator' },
+    {
+      id: 'undo',
+      isDisabled: ({ readOnly }) => readOnly,
+      label: ({ readOnly }) => (readOnly ? 'Undo (disabled)' : 'Undo'),
+    },
+  ]}
+/>
+```
+
+### Compatibility Notes
+
+- Legacy separator strings (`'|'`) and object separators (`{ type: 'separator' }`) are both supported.
+- Built-in item IDs (`ToolbarItemType`) preserve their default actions and active-state behavior.
+- Resolver fields (`label`, `icon`, `shortcut`, `isVisible`, `isDisabled`, `isActive`) can be static values or functions receiving `ToolbarResolverContext`.
+- `onClick` lets you override a built-in button action while keeping the same ID and render behavior.

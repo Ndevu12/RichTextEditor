@@ -63,6 +63,14 @@ describe('Toolbar', () => {
     expect(screen.getByLabelText('Bold')).toBeDisabled();
   });
 
+  it('renders label-mode button when icon is null', () => {
+    render(<Toolbar items={[makeButton({ icon: null })]} />);
+    const button = screen.getByLabelText('Bold');
+    expect(button).toHaveTextContent('Bold');
+    expect(button).toHaveClass('rte-toolbar__button--label');
+    expect(button).not.toHaveAttribute('data-has-icon');
+  });
+
   it('has aria-orientation="horizontal"', () => {
     render(<Toolbar items={[makeButton()]} />);
     expect(screen.getByRole('toolbar')).toHaveAttribute('aria-orientation', 'horizontal');
@@ -178,6 +186,24 @@ describe('Toolbar', () => {
     const { container } = render(<Toolbar items={items} />);
     const groups = container.querySelectorAll('.rte-toolbar__group');
     expect(groups.length).toBe(2);
+  });
+
+  it('ignores leading, trailing, and consecutive separators when grouping', () => {
+    const items: (ToolbarButtonConfig | '|')[] = [
+      '|',
+      '|',
+      makeButton({ id: 'bold', label: 'Bold' }),
+      '|',
+      '|',
+      makeButton({ id: 'italic', label: 'Italic' }),
+      '|',
+    ];
+    const { container } = render(<Toolbar items={items} />);
+
+    const groups = container.querySelectorAll('.rte-toolbar__group');
+    const separators = container.querySelectorAll('.rte-toolbar__separator');
+    expect(groups.length).toBe(2);
+    expect(separators.length).toBe(1);
   });
 
   it('sets tabIndex=0 on active roving item and -1 on others', () => {

@@ -46,7 +46,7 @@ The editor is built on [Tiptap](https://tiptap.dev/) and ProseMirror, with TypeS
 |------|-------------|
 | [Playground](https://ndevu12.github.io/RichTextEditor/playground/) | Interactive sandbox: toolbar presets, themes, and live HTML output |
 | [React (Vite)](https://ndevu12.github.io/RichTextEditor/react-demo/) | Blog-style integration in a React and Vite app |
-| [Next.js](https://ndevu12.github.io/RichTextEditor/nextjs-demo/) | Next.js 14 integration example |
+| [Next.js](https://ndevu12.github.io/RichTextEditor/nextjs-demo/) | Next.js (React 19-compatible baseline) integration example |
 | [Storybook](https://ndevu12.github.io/RichTextEditor/storybook/) | Component gallery with controls and accessibility checks |
 
 ## Installation
@@ -181,7 +181,7 @@ function DarkModeExample() {
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `value` | `string` | `''` | HTML string for the current content. |
-| `onChange` | `(value: string) => void` | — | Called when content changes; receives the updated HTML. |
+| `onChange` | `(value: string) => void` | `N/A` | Called when content changes; receives the updated HTML. |
 | `placeholder` | `string` | `'Write something...'` | Shown when the editor is empty. |
 | `readOnly` | `boolean` | `false` | Renders the editor as read-only when `true`. |
 | `toolbar` | `ToolbarItem[]` | All items | Toolbar button identifiers; use `'\|'` as a visual separator. |
@@ -194,6 +194,44 @@ function DarkModeExample() {
 | `onBlur` | `() => void` | `undefined` | Called when the editor loses focus. |
 | `ariaLabel` | `string` | `'Rich text editor'` | Accessible name for the editing surface. |
 
+### Toolbar migration (non-breaking)
+
+Existing toolbar arrays are still supported:
+
+```tsx
+<RichTextEditor toolbar={['bold', 'italic', '|', 'link', 'image']} />
+```
+
+You can gradually migrate to rich toolbar objects for dynamic behavior:
+
+```tsx
+import type { ToolbarInput } from 'rich-text-editor-ndevu';
+
+const toolbar: ToolbarInput = [
+  { id: 'bold' },
+  { id: 'italic', label: 'Emphasis' },
+  { type: 'separator' },
+  {
+    id: 'undo',
+    isDisabled: ({ readOnly }) => readOnly,
+    label: ({ readOnly }) => (readOnly ? 'Undo (read-only)' : 'Undo'),
+  },
+];
+
+<RichTextEditor value="" onChange={setContent} toolbar={toolbar} />;
+```
+
+Rich entries support dynamic resolvers for:
+
+- `label`
+- `icon`
+- `shortcut`
+- `isVisible`
+- `isDisabled`
+- `isActive`
+
+Separators can be either `'|'` or `{ type: 'separator' }`.
+
 ### Toolbar items
 
 Values accepted by the `toolbar` prop:
@@ -204,7 +242,7 @@ Values accepted by the `toolbar` prop:
 | `'italic'` | Italic |
 | `'underline'` | Underline |
 | `'strike'` | Strikethrough |
-| `'heading1'` – `'heading6'` | Heading levels |
+| `'heading1'` to `'heading6'` | Heading levels |
 | `'bulletList'` | Unordered list |
 | `'orderedList'` | Ordered list |
 | `'blockquote'` | Blockquote |
@@ -228,17 +266,30 @@ Contributions are welcome. [CONTRIBUTING.md](./CONTRIBUTING.md) covers the code 
 git clone https://github.com/Ndevu12/RichTextEditor.git
 cd RichTextEditor
 yarn install
-cd playground && yarn install && cd ..
+yarn --cwd playground install
+yarn --cwd examples/react-demo install
+yarn --cwd examples/nextjs-demo install
 yarn dev
 ```
 
 The `dev` script runs the library build in watch mode alongside the playground.
+This split is intentional:
+
+- `playground/` is the maintainer-focused local sandbox for in-repo development.
+- `examples/react-demo` and `examples/nextjs-demo` are npm-consumer demos and must keep `rich-text-editor-ndevu` as a semver dependency (not `link:`/`file:`).
 
 Before opening a pull request:
 
 ```bash
 yarn lint
+yarn verify:demos
 yarn test
+yarn --cwd playground install
+yarn --cwd playground build
+yarn --cwd examples/react-demo install
+yarn --cwd examples/react-demo build
+yarn --cwd examples/nextjs-demo install
+yarn --cwd examples/nextjs-demo build
 ```
 
 ### Reporting issues
@@ -249,4 +300,4 @@ Open an issue on [GitHub](https://github.com/Ndevu12/RichTextEditor/issues/new).
 
 This project is licensed under the [BSD 3-Clause License](./LICENSE).
 
-Copyright © 2026 Jean Paul Elisa NIYOKWIZERWA
+Copyright (c) 2026 Jean Paul Elisa NIYOKWIZERWA

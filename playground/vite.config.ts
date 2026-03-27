@@ -3,25 +3,32 @@ import react from '@vitejs/plugin-react';
 import { resolve } from 'node:path';
 
 const isGHPages = process.env.DEPLOY_PAGES === 'true';
+const localPackageName = 'rich-text-editor-ndevu';
+const localDistPath = resolve(__dirname, '../dist');
+const localStylesPath = resolve(__dirname, '../dist/index.css');
 
 export default defineConfig({
   plugins: [react()],
   base: isGHPages ? '/RichTextEditor/playground/' : '/',
+  optimizeDeps: {
+    // Keep the linked package out of prebundling so local dist/source updates are picked up in dev.
+    exclude: [localPackageName],
+  },
   server: {
     port: 4000,
     open: true,
     watch: {
-      ignored: ['!**/node_modules/rich-text-editor-ndevu/**'],
+      ignored: [`!**/node_modules/${localPackageName}/**`],
     },
-  },
-  optimizeDeps: {
-    exclude: ['rich-text-editor-ndevu'],
+    fs: {
+      allow: ['..'],
+    },
   },
   resolve: {
     alias: {
-      'rich-text-editor-ndevu/styles.css': resolve(__dirname, '../dist/index.css'),
-      'rich-text-editor-ndevu/styles': resolve(__dirname, '../dist/index.css'),
-      'rich-text-editor-ndevu': resolve(__dirname, '../dist'),
+      [`${localPackageName}/styles`]: localStylesPath,
+      [`${localPackageName}/styles.css`]: localStylesPath,
+      [localPackageName]: localDistPath,
     },
   },
 });

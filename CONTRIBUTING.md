@@ -72,12 +72,19 @@ corepack enable
 # Install root dependencies
 yarn install
 
-# Install playground dependencies
-cd playground && yarn install && cd ..
+# Install maintainer playground + npm-consumer examples
+yarn --cwd playground install
+yarn --cwd examples/react-demo install
+yarn --cwd examples/nextjs-demo install
 
 # Start the library watcher + playground dev server
 yarn dev
 ```
+
+Workflow split:
+
+- `playground/` is maintainer/local-first and used for active in-repo iteration.
+- `examples/` are strict npm-consumer demos and must keep semver dependency ranges for `rich-text-editor-ndevu` (no `link:` or `file:`).
 
 ---
 
@@ -251,10 +258,21 @@ Run the full check suite and make sure everything passes:
 
 ```bash
 yarn lint
+yarn verify:demos
 yarn format:check
 yarn typecheck
 yarn test
 yarn build
+
+# Maintainer validation (local-first playground)
+yarn --cwd playground install
+yarn --cwd playground build
+
+# Consumer validation (npm examples)
+yarn --cwd examples/react-demo install
+yarn --cwd examples/react-demo build
+yarn --cwd examples/nextjs-demo install
+yarn --cwd examples/nextjs-demo build
 ```
 
 ### PR Checklist
@@ -270,7 +288,7 @@ yarn build
 
 1. Open a PR against the `main` branch
 2. Fill in the PR template
-3. Wait for CI checks to pass (lint, type-check, test, build)
+3. Wait for CI checks to pass (lint, dependency-policy verification, type-check, test, and consumer builds)
 4. Address review feedback
 5. A maintainer will merge once approved
 
