@@ -1826,11 +1826,11 @@ __metadata:
   linkType: hard
 
 "@tiptap/core@npm:^3.20.1, @tiptap/core@npm:^3.20.4":
-  version: 3.20.4
-  resolution: "@tiptap/core@npm:3.20.4"
+  version: 3.20.6
+  resolution: "@tiptap/core@npm:3.20.6"
   peerDependencies:
-    "@tiptap/pm": ^3.20.4
-  checksum: 10c0/e36a2b8ea572c426ab371a93274a780cbbff3d3de43d8f4e8622f81aa964fceed9fc89f8eb88367ac941cb24d623ad6ee5b4876e986cd66a07cddefe9adfc212
+    "@tiptap/pm": ^3.20.6
+  checksum: 10c0/cf563201e77ce6c55eaafbf540970ca8170833565d337b937b4306b3a3674bd89709b1d05fa8ff1eac91a2023474a23227d4f7efab47fed3c82c33bd483672f9
   languageName: node
   linkType: hard
 
@@ -5898,9 +5898,9 @@ __metadata:
   linkType: hard
 
 "picomatch@npm:^4.0.2, picomatch@npm:^4.0.3":
-  version: 4.0.3
-  resolution: "picomatch@npm:4.0.3"
-  checksum: 10c0/9582c951e95eebee5434f59e426cddd228a7b97a0161a375aed4be244bd3fe8e3a31b846808ea14ef2c8a2527a6eeab7b3946a67d5979e81694654f939473ae2
+  version: 4.0.4
+  resolution: "picomatch@npm:4.0.4"
+  checksum: 10c0/e2c6023372cc7b5764719a5ffb9da0f8e781212fa7ca4bd0562db929df8e117460f00dff3cb7509dacfc06b86de924b247f504d0ce1806a37fac4633081466b0
   languageName: node
   linkType: hard
 
