@@ -2,6 +2,8 @@
 
 A free, open-source rich text editor for React. It is lightweight, extensible, and published as an npm package for production use.
 
+For interactive demos and quick navigation to examples and repository documentation, see the **[GitHub Pages documentation hub](https://ndevu12.github.io/RichTextEditor/)**.
+
 [![License: BSD-3-Clause](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](./LICENSE)
 [![npm version](https://img.shields.io/npm/v/rich-text-editor-ndevu.svg)](https://www.npmjs.com/package/rich-text-editor-ndevu)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue.svg)](https://www.typescriptlang.org/)

@@ -76,6 +76,8 @@ jobs:
       - name: Assemble deployment directory
         run: |
           mkdir -p _site
+          mkdir -p _site/assets
+          cp src/assets/GEOFINDA-bgless-logo.png _site/assets/geofinda-logo.png
           cp -r playground/dist/        _site/playground
           cp -r examples/react-demo/dist/ _site/react-demo
           cp -r examples/nextjs-demo/out/ _site/nextjs-demo
