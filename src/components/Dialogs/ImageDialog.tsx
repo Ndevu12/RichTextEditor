@@ -208,7 +208,29 @@ export function ImageDialog() {
   }, []);
 
   // ── Compute preview URL (either file preview or typed URL) ─
-  const previewSrc = source === 'file' ? filePreview : url.trim() || null;
+  const getSafePreviewSrc = (): string | null => {
+    if (source === 'file') {
+      return filePreview;
+    }
+
+    const trimmed = url.trim();
+    if (!trimmed) {
+      return null;
+    }
+
+    try {
+      const parsed = new URL(trimmed, window.location.origin);
+      const scheme = parsed.protocol.replace(':', '').toLowerCase();
+      if (scheme === 'http' || scheme === 'https' || scheme === 'data') {
+        return trimmed;
+      }
+      return null;
+    } catch {
+      return null;
+    }
+  };
+
+  const previewSrc = getSafePreviewSrc();
   const showPreview = !!previewSrc;
 
   return (
