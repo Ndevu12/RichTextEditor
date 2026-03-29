@@ -206,3 +206,38 @@ If you're adding a new Tiptap extension to the editor:
 6. **Update docs** in `docs/plugins.md` and `docs/api.md` if public toolbar types change
 
 See [plugins.md](./plugins.md) for a complete walkthrough with examples.
+
+---
+
+## GitHub Pages adopters
+
+The [documentation hub](https://ndevu12.github.io/RichTextEditor/) (`index.html` under [.github/pages/](../.github/pages/)) includes a **Trusted by** block for organizations or products that use this library in a shipped production surface or a substantial public demo. Extended prose lives here in `docs/`; the hub page is assembled into `_site` by [.github/workflows/deploy.yml](../.github/workflows/deploy.yml).
+
+### Eligibility
+
+- **In scope:** A company, product, or open-source project that **actually uses** `rich-text-editor-ndevu` (this package) in user-facing software you control, not merely an intent to adopt.
+- **Representation:** By opening a pull request you confirm you have the right to use the logo and URL you submit. The listing is **informational** and does not imply the maintainers endorse your product.
+- **Out of scope:** Generic “built with React” sites with no editor dependency, affiliate listings, or entries whose primary goal is SEO rather than accurate attribution. Maintainers may decline or remove listings that are misleading or stale.
+
+### Assets
+
+- **Source file:** Add the logo to [`src/assets/`](../src/assets/) (PNG or SVG with transparency is ideal). Use a descriptive filename; avoid spaces.
+- **Published path:** The workflow copies assets into `_site/assets/` with a **lowercase, URL-stable** name (for example, `src/assets/GEOFINDA-bgless-logo.png` is copied to `_site/assets/geofinda-logo.png`). Add a `cp` line in the “Assemble deployment directory” step in `deploy.yml` alongside the existing copies.
+- **Markup:** In `.github/pages/index.html`, append a new `<li>` inside the `#adopters` list: an `<a href="https://…">` with `rel="noopener noreferrer"`, a visible name (for example `<span class="adopter-name">…</span>`), and an `<img>` pointing at `./assets/your-file.png` with explicit `width` and `height`, `loading="lazy"`, and `decoding="async"`.
+
+### Pull request checklist
+
+When adding or updating an adopter entry, verify the following before requesting review:
+
+1. Logo file is committed under `src/assets/` and the **license or trademark** situation is clear (your own mark or explicit permission).
+2. `.github/workflows/deploy.yml` copies the new asset into `_site/assets/` with a stable filename that matches `index.html`.
+3. `.github/pages/index.html` includes the new list item: HTTPS homepage, accessible link text (see below), and dimensions on the image to limit layout shift.
+4. **Social previews:** If maintainers use a single `og:image` / `twitter:image` for the hub, coordinate any change to that image and its **alt** metadata in `<head>` so link previews stay accurate and accessible; do not swap global preview metadata casually when only adding a secondary logo in the body.
+
+### Alternative text and link purpose
+
+- **Inline logo beside visible name:** Treat the image as **decorative**: use `alt=""` on the `<img>` so assistive technology does not hear the link twice. The **same** `<a>` must include visible text (for example the organization name) so the link has a clear purpose in and out of context.
+- **Standalone or iconic image:** If the logo is the only label inside the link, set **non-empty** `alt` text that names the organization and indicates it uses or ships the editor (for example, “Acme — Trusted by / adopter logo”).
+- **Open Graph and Twitter:** For `og:image` and `twitter:image`, always set **paired** `og:image:alt` and `twitter:image:alt` (and Twitter `image:alt`) so preview cards are described when the image is shown or when platforms surface alt text.
+
+These rules align with WCAG 2.2 expectations for meaningful link names, redundant-image avoidance, and non-text contrast where the logo is part of the visible UI.
