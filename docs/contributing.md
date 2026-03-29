@@ -223,15 +223,15 @@ The [documentation hub](https://ndevu12.github.io/RichTextEditor/) (`index.html`
 
 - **Source file:** Add the logo to [`src/assets/`](../src/assets/) (PNG or SVG with transparency is ideal). Use a descriptive filename; avoid spaces.
 - **Published path:** The workflow copies assets into `_site/assets/` with a **lowercase, URL-stable** name (for example, `src/assets/GEOFINDA-bgless-logo.png` is copied to `_site/assets/geofinda-logo.png`). Add a `cp` line in the “Assemble deployment directory” step in `deploy.yml` alongside the existing copies.
-- **Markup:** In `.github/pages/index.html`, append a new `<li>` inside the `#adopters` list: an `<a href="https://…">` with `rel="noopener noreferrer"`, a visible name (for example `<span class="adopter-name">…</span>`), and an `<img>` pointing at `./assets/your-file.png` with explicit `width` and `height`, `loading="lazy"`, and `decoding="async"`.
+- **Markup:** In `.github/pages/index.html`, append a new `<li>` inside the `#adopters` list: an `<a href="https://…">` with `rel="noopener noreferrer"`. Prefer a **logo image**: `<span class="adopter-name">…</span>` plus `<span class="adopter-logo"><img …></span>` (explicit `width` and `height`, `loading="lazy"`, `decoding="async"`). For a **text-only wordmark** (no image asset), use a single `<span class="adopter-logo adopter-wordmark">YourBrand</span>` inside the link so the link name is unambiguous for assistive technology.
 
 ### Pull request checklist
 
 When adding or updating an adopter entry, verify the following before requesting review:
 
-1. Logo file is committed under `src/assets/` and the **license or trademark** situation is clear (your own mark or explicit permission).
-2. `.github/workflows/deploy.yml` copies the new asset into `_site/assets/` with a stable filename that matches `index.html`.
-3. `.github/pages/index.html` includes the new list item: HTTPS homepage, accessible link text (see below), and dimensions on the image to limit layout shift.
+1. **With logo asset:** The file is committed under `src/assets/` and the **license or trademark** situation is clear (your own mark or explicit permission). **Text-only wordmark:** Skip to step 3; no `deploy.yml` asset line is required.
+2. `.github/workflows/deploy.yml` copies the new asset into `_site/assets/` with a stable filename that matches `index.html` (not applicable for wordmark-only entries).
+3. `.github/pages/index.html` includes the new list item: HTTPS homepage, accessible link text (see below), and dimensions on the image when present to limit layout shift.
 4. **Social previews:** If maintainers use a single `og:image` / `twitter:image` for the hub, coordinate any change to that image and its **alt** metadata in `<head>` so link previews stay accurate and accessible; do not swap global preview metadata casually when only adding a secondary logo in the body.
 
 ### Alternative text and link purpose

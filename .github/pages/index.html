@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<!--
+  Production GitHub Pages source: this file is copied to _site/index.html by .github/workflows/deploy.yml.
+  User-visible links must use canonical public HTTPS URLs (no placeholders or generic profile links for brands).
+  Social previews intentionally use the project hub graphic at /assets/rich-text-editor-hub-og.png, not adopter logos.
+  Do not ship TODOs or internal-only notes in visible HTML; keep drafts on a branch until ready for the public hub.
+-->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -10,13 +16,15 @@
   <meta property="og:url" content="https://ndevu12.github.io/RichTextEditor/" />
   <meta property="og:title" content="RichTextEditor — Live demos &amp; documentation hub" />
   <meta property="og:description" content="Try the Playground, React and Next.js examples, and Storybook. Open-source rich text editor for React with themes, accessibility, and TypeScript." />
-  <meta property="og:image" content="https://ndevu12.github.io/RichTextEditor/assets/geofinda-logo.png" />
-  <meta property="og:image:alt" content="GEOFINDA logo — project adopter" />
+  <meta property="og:image" content="https://ndevu12.github.io/RichTextEditor/assets/rich-text-editor-hub-og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="RichTextEditor — live demos and documentation hub (project branding)" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="RichTextEditor — Live demos &amp; documentation hub" />
   <meta name="twitter:description" content="Interactive demos and Storybook for the open-source RichTextEditor React component." />
-  <meta name="twitter:image" content="https://ndevu12.github.io/RichTextEditor/assets/geofinda-logo.png" />
-  <meta name="twitter:image:alt" content="GEOFINDA logo — project adopter" />
+  <meta name="twitter:image" content="https://ndevu12.github.io/RichTextEditor/assets/rich-text-editor-hub-og.png" />
+  <meta name="twitter:image:alt" content="RichTextEditor — live demos and documentation hub (project branding)" />
   <style>
     *, *::before, *::after { box-sizing: border-box; }
     :root {
@@ -274,6 +282,16 @@
       max-height: 52px;
       width: auto;
     }
+    .adopter-wordmark {
+      display: flex;
+      align-items: center;
+      min-height: 52px;
+      padding-block: 4px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--color-text);
+    }
     .adopter-name {
       font-size: 0.9rem;
       font-weight: 600;
@@ -436,8 +454,19 @@
           <li>
             <a
               class="adopter-link"
+              href="https://www.ndevuspace.com/"
+              rel="noopener noreferrer"
+              aria-label="NdevuSpace — visit website"
+            >
+              <span class="adopter-logo adopter-wordmark">NdevuSpace</span>
+            </a>
+          </li>
+          <li>
+            <a
+              class="adopter-link"
               href="https://www.geofinda.com/"
               rel="noopener noreferrer"
+              aria-label="GEOFINDA — visit website"
             >
               <span class="adopter-name">GEOFINDA</span>
               <span class="adopter-logo">
