@@ -28,6 +28,21 @@ export function createEmptyDoc(): string {
  * Strips all tags and checks whether any visible text remains.
  */
 export function isContentEmpty(html: string): boolean {
-  const stripped = html.replace(/<[^>]*>/g, '').trim();
-  return stripped.length === 0;
+  let i = 0;
+  let stripped = '';
+  while (i < html.length) {
+    const lt = html.indexOf('<', i);
+    if (lt === -1) {
+      stripped += html.slice(i);
+      break;
+    }
+    stripped += html.slice(i, lt);
+    const gt = html.indexOf('>', lt + 1);
+    if (gt === -1) {
+      stripped += html.slice(lt);
+      break;
+    }
+    i = gt + 1;
+  }
+  return stripped.trim().length === 0;
 }
