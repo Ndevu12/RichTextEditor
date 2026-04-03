@@ -2066,11 +2066,11 @@ __metadata:
   linkType: hard
 
 "@tiptap/extension-typography@npm:^3.20.4":
-  version: 3.20.4
-  resolution: "@tiptap/extension-typography@npm:3.20.4"
+  version: 3.22.1
+  resolution: "@tiptap/extension-typography@npm:3.22.1"
   peerDependencies:
-    "@tiptap/core": ^3.20.4
-  checksum: 10c0/ab46e5ac4817d40f9756c5b6665560b7d27a7e9403ef16b28727fd6e591ad52e06998ddc92d0b124e909956ad86a8d71db773b2f423a586acfd50ad5779ee43c
+    "@tiptap/core": ^3.22.1
+  checksum: 10c0/dd86c02962b394ece552722263ee3ce22ac7faf1ab2bad8f5d7a8ca1f424f6802a355af717f90d8c721e2275fbef2869d07e6c80e33737e8227e314469ba83a0
   languageName: node
   linkType: hard
 
