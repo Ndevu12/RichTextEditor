@@ -221,9 +221,13 @@ export function ImageDialog() {
     try {
       const parsed = new URL(trimmed, window.location.origin);
       const scheme = parsed.protocol.replace(':', '').toLowerCase();
-      if (scheme === 'http' || scheme === 'https' || scheme === 'data') {
+
+      // Only allow http/https for URL-based previews. Other schemes, including
+      // generic data: URLs, are rejected to avoid loading potentially unsafe content.
+      if (scheme === 'http' || scheme === 'https') {
         return trimmed;
       }
+
       return null;
     } catch {
       return null;
