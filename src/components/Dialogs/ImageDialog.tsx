@@ -225,7 +225,7 @@ export function ImageDialog() {
       // Only allow http/https for URL-based previews. Other schemes, including
       // generic data: URLs, are rejected to avoid loading potentially unsafe content.
       if (scheme === 'http' || scheme === 'https') {
-        return trimmed;
+        return parsed.toString();
       }
 
       return null;
