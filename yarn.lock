@@ -1962,14 +1962,14 @@ __metadata:
   linkType: hard
 
 "@tiptap/extension-link@npm:^3.20.1, @tiptap/extension-link@npm:^3.20.4":
-  version: 3.20.4
-  resolution: "@tiptap/extension-link@npm:3.20.4"
+  version: 3.22.3
+  resolution: "@tiptap/extension-link@npm:3.22.3"
   dependencies:
     linkifyjs: "npm:^4.3.2"
   peerDependencies:
-    "@tiptap/core": ^3.20.4
-    "@tiptap/pm": ^3.20.4
-  checksum: 10c0/f7dca7cdca476f2f401b71030dee13357354e094be9283e87782717281451830fca4968bff325dd795705c40d79d78764207b70f8f37426a00409166f5365324
+    "@tiptap/core": ^3.22.3
+    "@tiptap/pm": ^3.22.3
+  checksum: 10c0/934a8f058814fe7331a0d184a9c855e9e4c3058a67c68369c406ff90cbbfeb050d7603804deac629e71fe91b355a32d06b025d65e263cef44cfddb76c83d45ff
   languageName: node
   linkType: hard
 
