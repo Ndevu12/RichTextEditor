@@ -1937,11 +1937,11 @@ __metadata:
   linkType: hard
 
 "@tiptap/extension-image@npm:^3.20.1":
-  version: 3.20.4
-  resolution: "@tiptap/extension-image@npm:3.20.4"
+  version: 3.27.1
+  resolution: "@tiptap/extension-image@npm:3.27.1"
   peerDependencies:
-    "@tiptap/core": ^3.20.4
-  checksum: 10c0/5aa7941f525b0242918a6b06084a51a9753fd178b2f34b299fe03442cd081961eadd6d73c1a28ec9097b863378cfffecac44979c41df0f61ca950fc9368acc71
+    "@tiptap/core": 3.27.1
+  checksum: 10c0/c53d6200997b4ebc4f73f6a7a04cf7064c43caa9de98eac98882e70e866b3549de7a8ef1853998cb481cd3c1aa56fd1c5278b4293c758ff57fe31a6b09358a9c
   languageName: node
   linkType: hard
 
