@@ -1,0 +1,25 @@
+# Strix worm-guard — installed/updated by `saw guard setup`.
+# Blocks a merge when Strix finds self-propagating worm indicators. Found by its
+# `uses: Ndevu12/strix@<sha>` reference (not this filename); re-run `saw guard setup` to bump
+# the SHA. Report-only least privilege (contents: read). Auto-remediation needs scoped write
+# — see the Strix README's Auto-remediation section; it is deliberately opt-in.
+name: Worm guard — block infected merges
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read       # pure exit-code gate: green = clean, red = infected
+
+jobs:
+  worm-guard:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (full history so evil-merge detection sees the whole graph)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Strix worm scan
+        uses: Ndevu12/strix@93fe465d7b0266c6010778999b73b591ae082f3e  # v0.1.4
