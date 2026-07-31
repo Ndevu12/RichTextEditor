@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { RichTextEditor } from '../../src/components/Editor';
 import type { ToolbarItem } from '../../src/types';
 import { DEFAULT_TOOLBAR } from '../../src/types';
