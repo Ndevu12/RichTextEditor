@@ -1932,11 +1932,11 @@ __metadata:
   linkType: hard
 
 "@tiptap/extension-underline@npm:^3.20.1, @tiptap/extension-underline@npm:^3.20.4":
-  version: 3.20.4
-  resolution: "@tiptap/extension-underline@npm:3.20.4"
+  version: 3.30.3
+  resolution: "@tiptap/extension-underline@npm:3.30.3"
   peerDependencies:
-    "@tiptap/core": ^3.20.4
-  checksum: 10c0/f1c8e9cc6f2a2166b80f655c8bb6f8febbb8130b47dbf5c8b960f309da78e8975c07f6d12eb0cef9fabd1f41d6f5757a3604f737337b278eb23adf28fe274fb4
+    "@tiptap/core": 3.30.3
+  checksum: 10c0/c678cfc2fe1f839b9a8eefa0ef0bb2f61f137ecc71ec8af1b0d6354fbf263ddbaab8ebb04bc52906e29042cc2a437e867bcc26cedaa1555ceb5deebd78bb9fb1
   languageName: node
   linkType: hard
 
