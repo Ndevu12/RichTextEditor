@@ -19,7 +19,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node 20
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 24
@@ -30,6 +30,16 @@ jobs:
 
       - name: Install dependencies
         run: yarn install --immutable
+
+      - name: Verify version matches tag
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          PKG_VERSION="v$(node -p "require('./package.json').version")"
+          GIT_TAG="${GITHUB_REF#refs/tags/}"
+          if [ "$PKG_VERSION" != "$GIT_TAG" ]; then
+            echo "::error::package.json version ($PKG_VERSION) does not match git tag ($GIT_TAG). Nothing was published."
+            exit 1
+          fi
 
       - name: Check npm publish status
         id: publish_status
@@ -51,21 +61,6 @@ jobs:
       - name: Build library
         if: steps.publish_status.outputs.already_published != 'true'
         run: yarn build
-
-      - name: Verify version matches tag
-        if: steps.publish_status.outputs.already_published != 'true'
-        run: |
-          PKG_VERSION="v$(node -p "require('./package.json').version")"
-          if [[ "$GITHUB_REF" == refs/tags/* ]]; then
-            GIT_TAG="${GITHUB_REF#refs/tags/}"
-            if [ "$PKG_VERSION" != "$GIT_TAG" ]; then
-              echo "::error::package.json version ($PKG_VERSION) does not match git tag ($GIT_TAG)"
-              exit 1
-            fi
-            echo "✓ Version $PKG_VERSION matches tag"
-          else
-            echo "::notice::Manual run detected on $GITHUB_REF; skipping tag/version match check."
-          fi
 
       - name: Verify dist output
         if: steps.publish_status.outputs.already_published != 'true'
