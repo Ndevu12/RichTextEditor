@@ -71,7 +71,14 @@ jobs:
         with:
           node-version: 24
           cache: yarn
-          cache-dependency-path: playground/yarn.lock
+          cache-dependency-path: |
+            yarn.lock
+            playground/yarn.lock
+
+      # dist/index.js imports react and the other packages tsup left external.
+      # Those resolve from the root install, not from playground/node_modules.
+      - name: Install root dependencies
+        run: yarn install --immutable
 
       - name: Install playground dependencies
         working-directory: playground
