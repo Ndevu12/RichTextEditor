@@ -1,0 +1,12 @@
+diff --git a/dist/commonjs/index.js b/dist/commonjs/index.js
+index eb1c915f43b2debf5faa7ac3a73c262a161c7a4f..9d068a5cd7daf92732e47dd1a13814ad12f3a2f8 100644
+--- a/dist/commonjs/index.js
++++ b/dist/commonjs/index.js
+@@ -1547,4 +1547,6 @@ Object.defineProperty(exports, "unescape", { enumerable: true, get: function ()
+ exports.minimatch.Minimatch = Minimatch;
+ exports.minimatch.escape = escape_js_1.escape;
+ exports.minimatch.unescape = unescape_js_1.unescape;
++exports.minimatch.minimatch = exports.minimatch;
++module.exports = exports.minimatch;
+ //# sourceMappingURL=index.js.map
+\ No newline at end of file

@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Development tools** — Storybook, Vite, and Vitest are on the releases that close the open development advisories. Dependabot now watches the playground and both examples as well as the package root.
 - **Examples** — Bumped `rich-text-editor-ndevu` to `v0.1.1` in Next.js and React demos
 - **CI/release workflow** — Enabled manual release dispatch and improved manual-run checks
 - **Dependabot config** — Added root npm ecosystem updates and refined dependency update coverage
@@ -25,6 +26,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Dependencies** — The editor is on Tiptap and ProseMirror releases that close the paste script-injection and Markdown denial-of-service advisories.
+- **Next.js example** — The demo is on the Next.js and image-library releases that close the image-optimization remote code execution advisories.
 - **Compilation and SEO** — Reading a document for plain text or the SEO score no longer stalls on a long unclosed tag.
 - **Release automation** — Skipped redundant publish/tag checks for manual release runs
 
