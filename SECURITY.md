@@ -43,6 +43,8 @@ verification listed beside it.
 Verified with: `yarn build` (tsup), `yarn test:coverage`, `yarn build-storybook`,
 `yarn typecheck`, `yarn lint`, and a `tsx` script run (`yarn clean`).
 
+`eslint-plugin-react@7.37.5` is patched in place, not overridden to another version. ESLint 10 removed `context.getFilename()`, and that release still calls it while loading `react/display-name`. The patch uses `context.filename` when the method is gone, which is what upstream master already does. Remove the patch when a published `eslint-plugin-react` does the same.
+
 ### `examples/nextjs-demo/package.json`
 
 | Override | Pinned by | Advisory | Remove when |
