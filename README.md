@@ -283,7 +283,7 @@ Values accepted by the `toolbar` prop:
 
 Contributions are welcome. [CONTRIBUTING.md](./CONTRIBUTING.md) covers the code of conduct, branch workflow, coding standards, tests, and pull request expectations.
 
-**Prerequisites:** Node.js 20 or newer and Yarn 4 (enable Corepack with `corepack enable` if needed). See CONTRIBUTING for details.
+**Prerequisites:** Node.js 26 and Yarn 4 (enable Corepack with `corepack enable` if needed). See CONTRIBUTING for details.
 
 ### Local development
 
