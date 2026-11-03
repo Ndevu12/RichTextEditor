@@ -62,10 +62,12 @@ export function useEditor(options: UseEditorOptions = {}): Editor | null {
   const onCompileRef = useRef(onCompile);
   const autoCompileRef = useRef(autoCompile);
   const siteOriginRef = useRef(siteOrigin);
-  onChangeRef.current = onChange;
-  onCompileRef.current = onCompile;
-  autoCompileRef.current = autoCompile;
-  siteOriginRef.current = siteOrigin;
+  useEffect(() => {
+    onChangeRef.current = onChange;
+    onCompileRef.current = onCompile;
+    autoCompileRef.current = autoCompile;
+    siteOriginRef.current = siteOrigin;
+  }, [onChange, onCompile, autoCompile, siteOrigin]);
 
   const { setEditor, setContent, setFocused, updateActiveState } = useEditorStore.getState();
 
