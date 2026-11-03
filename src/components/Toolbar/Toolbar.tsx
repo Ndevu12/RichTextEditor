@@ -1,4 +1,4 @@
-import { useRef, useCallback, useMemo, useState } from 'react';
+import { Fragment, useRef, useCallback, useMemo, useState } from 'react';
 import type { ToolbarButtonConfig } from '@/types';
 import { ToolbarButton } from './ToolbarButton';
 import { ToolbarSeparator } from './ToolbarSeparator';
@@ -93,12 +93,18 @@ export function Toolbar({ items }: ToolbarProps) {
       onKeyDown={handleKeyDown}
     >
       {groups.map((group, groupIndex) => (
-        <ToolbarGroup key={groupIndex} label={`Formatting group ${groupIndex + 1}`}>
-          {group.map((item) => (
-            <ToolbarButton key={item.id} {...item} tabIndex={item.id === activeRovingId ? 0 : -1} />
-          ))}
+        <Fragment key={group[0]?.id ?? groupIndex}>
+          <ToolbarGroup label={`Formatting group ${groupIndex + 1}`} weight={group.length}>
+            {group.map((item) => (
+              <ToolbarButton
+                key={item.id}
+                {...item}
+                tabIndex={item.id === activeRovingId ? 0 : -1}
+              />
+            ))}
+          </ToolbarGroup>
           {groupIndex < groups.length - 1 && <ToolbarSeparator />}
-        </ToolbarGroup>
+        </Fragment>
       ))}
     </div>
   );

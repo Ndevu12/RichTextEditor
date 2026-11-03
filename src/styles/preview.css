@@ -9,8 +9,10 @@
 
 /* ── Toolbar row (toolbar + toggle) ───────────────────── */
 .rte-toolbar-row {
+  container-type: inline-size;
+  container-name: rte-toolbar-row;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
   min-width: 0;
   max-width: 100%;
@@ -19,7 +21,7 @@
 }
 
 .rte-toolbar-row .rte-toolbar {
-  flex: 1 1 12rem;
+  flex: 1 1 auto;
   min-width: 0;
   border-bottom: none;
 }
@@ -29,22 +31,23 @@
   display: flex;
   align-items: center;
   gap: 0;
-  margin-right: 8px;
+  margin-right: clamp(0.25rem, 1.5cqw, 0.5rem);
   border: 1px solid var(--rte-toolbar-border);
   border-radius: var(--rte-radius-sm);
   overflow: hidden;
-  flex-shrink: 0;
+  flex: 0 1 auto;
+  min-width: 0;
 }
 
 .rte-preview-toggle__btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 4px 10px;
+  padding: clamp(2px, 0.8cqw, 4px) clamp(4px, 1.8cqw, 10px);
   border: none;
   background: transparent;
   color: var(--rte-button-text);
-  font-size: 12px;
+  font-size: clamp(0.625rem, 2.6cqw, 0.75rem);
   font-weight: 500;
   font-family: inherit;
   cursor: pointer;

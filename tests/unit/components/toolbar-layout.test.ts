@@ -13,28 +13,32 @@ function block(css: string, selector: string): string {
   return css.slice(open, close);
 }
 
-describe('toolbar layout in a narrow container', () => {
-  it('lets groups wrap and shrink to the editor width', () => {
+describe('toolbar scales with its container', () => {
+  it('sizes buttons, icons, and gaps from the toolbar width', () => {
     const toolbar = block(toolbarCss, '.rte-toolbar {');
     const group = block(toolbarCss, '.rte-toolbar__group {');
-    const label = block(toolbarCss, '.rte-toolbar__button--label {');
+    const button = block(toolbarCss, '.rte-toolbar__button {');
+    const icon = block(toolbarCss, '.rte-toolbar__button svg {');
 
-    expect(toolbar).toContain('flex-wrap: wrap');
-    expect(toolbar).toContain('min-width: 0');
-    expect(toolbar).toContain('max-width: 100%');
-    expect(group).toContain('flex-wrap: wrap');
+    expect(toolbar).toContain('container-type: inline-size');
+    expect(toolbar).toContain('flex-wrap: nowrap');
+    expect(toolbar).not.toContain('flex-wrap: wrap');
+    expect(toolbar).toContain('cqw');
+    expect(group).toContain('flex-wrap: nowrap');
     expect(group).toContain('min-width: 0');
-    expect(group).toContain('max-width: 100%');
-    expect(label).toContain('max-width: 100%');
-    expect(label).toContain('text-overflow: ellipsis');
+    expect(button).toContain('min-width: 0');
+    expect(button).toContain('aspect-ratio: 1');
+    expect(toolbar).toContain('--rte-toolbar-icon-size: 62%');
+    expect(icon).toContain('var(--rte-toolbar-icon-size)');
   });
 
-  it('wraps the toolbar row so the preview toggle can drop below', () => {
+  it('keeps the preview toggle on the same line and scales its text', () => {
     const row = block(previewCss, '.rte-toolbar-row {');
-    const toolbar = block(previewCss, '.rte-toolbar-row .rte-toolbar {');
+    const toggle = block(previewCss, '.rte-preview-toggle__btn {');
 
-    expect(row).toContain('flex-wrap: wrap');
-    expect(row).toContain('min-width: 0');
-    expect(toolbar).toContain('min-width: 0');
+    expect(row).toContain('container-type: inline-size');
+    expect(row).toContain('flex-wrap: nowrap');
+    expect(row).not.toContain('flex-wrap: wrap');
+    expect(toggle).toContain('cqw');
   });
 });

@@ -7,25 +7,25 @@
 
 /* ── Toolbar container ─────────────────────────────────── */
 .rte-toolbar {
-  --rte-toolbar-gap: 0.25rem;
-  --rte-toolbar-padding-y: 0.5rem;
-  --rte-toolbar-padding-x: 0.75rem;
-  --rte-toolbar-group-gap: 0.125rem;
+  --rte-toolbar-gap: clamp(0.0625rem, 0.8cqw, 0.25rem);
+  --rte-toolbar-padding-y: clamp(0.25rem, 1.2cqw, 0.5rem);
+  --rte-toolbar-padding-x: clamp(0.25rem, 1.6cqw, 0.75rem);
+  --rte-toolbar-group-gap: clamp(0.0625rem, 0.4cqw, 0.125rem);
   --rte-toolbar-group-padding-y: 0.125rem;
-  --rte-toolbar-button-height: clamp(1.875rem, 1.8rem + 0.3vw, 2.25rem);
-  --rte-toolbar-button-min-width: clamp(1.875rem, 1.8rem + 0.3vw, 2.25rem);
-  --rte-toolbar-button-padding-x: 0.5rem;
-  --rte-toolbar-button-label-padding-x: 0.625rem;
-  --rte-toolbar-button-font-size: clamp(0.75rem, 0.72rem + 0.15vw, 0.875rem);
-  --rte-toolbar-icon-size: 1.125rem;
+  --rte-toolbar-button-size: clamp(1.25rem, 8cqw, 2.25rem);
+  --rte-toolbar-button-padding-x: clamp(0.25rem, 1.2cqw, 0.5rem);
+  --rte-toolbar-button-label-padding-x: clamp(0.3rem, 1.4cqw, 0.625rem);
+  --rte-toolbar-button-font-size: clamp(0.625rem, 2.8cqw, 0.875rem);
+  --rte-toolbar-icon-size: 62%;
   --rte-toolbar-separator-width: 1px;
-  --rte-toolbar-separator-height: 1.5rem;
-  --rte-toolbar-separator-margin-x: 0.375rem;
+  --rte-toolbar-separator-margin-x: clamp(0.125rem, 0.8cqw, 0.375rem);
   --rte-toolbar-focus-outline-width: 2px;
   --rte-toolbar-focus-ring-width: 3px;
 
+  container-type: inline-size;
+  container-name: rte-toolbar;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
   gap: var(--rte-toolbar-gap);
   min-width: 0;
@@ -39,7 +39,8 @@
 /* ── Button group ──────────────────────────────────────── */
 .rte-toolbar__group {
   display: flex;
-  flex-wrap: wrap;
+  flex: 1 1 0;
+  flex-wrap: nowrap;
   align-items: center;
   gap: var(--rte-toolbar-group-gap);
   min-width: 0;
@@ -52,8 +53,11 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: var(--rte-toolbar-button-min-width);
-  height: var(--rte-toolbar-button-height);
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: var(--rte-toolbar-button-size);
+  height: auto;
+  aspect-ratio: 1;
   padding: 0 var(--rte-toolbar-button-padding-x);
   border: none;
   border-radius: var(--rte-radius-sm);
@@ -70,24 +74,23 @@
 }
 
 .rte-toolbar__button--icon {
-  width: var(--rte-toolbar-button-min-width);
+  width: auto;
   padding: 0;
 }
 
 .rte-toolbar__button--label {
   width: auto;
-  min-width: 0;
-  max-width: 100%;
+  max-width: calc(var(--rte-toolbar-button-size) * 4);
+  aspect-ratio: auto;
+  height: var(--rte-toolbar-button-size);
   justify-content: flex-start;
-  overflow: hidden;
-  text-overflow: ellipsis;
   padding: 0 var(--rte-toolbar-button-label-padding-x);
 }
 
 .rte-toolbar__button svg {
   width: var(--rte-toolbar-icon-size);
-  height: var(--rte-toolbar-icon-size);
-  flex-shrink: 0;
+  height: auto;
+  aspect-ratio: 1;
 }
 
 .rte-toolbar__button:hover:not(:disabled) {
@@ -124,16 +127,16 @@
 /* ── Separator ─────────────────────────────────────────── */
 .rte-toolbar__separator {
   width: var(--rte-toolbar-separator-width);
-  height: var(--rte-toolbar-separator-height);
+  height: clamp(0.75rem, 5cqw, 1.5rem);
   margin: 0 var(--rte-toolbar-separator-margin-x);
   background: var(--rte-toolbar-border);
-  flex-shrink: 0;
+  flex: 0 0 auto;
   align-self: center;
 }
 
 /* ── Code block language selector ─────────────────────── */
 .rte-language-selector {
-  height: var(--rte-toolbar-button-height);
+  height: var(--rte-toolbar-button-size);
   padding: 0 var(--rte-toolbar-button-padding-x);
   border: 1px solid var(--rte-toolbar-border);
   border-radius: var(--rte-radius-sm);
