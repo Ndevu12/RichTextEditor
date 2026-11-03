@@ -184,8 +184,10 @@ describe('Toolbar', () => {
       makeButton({ id: 'undo', label: 'Undo' }),
     ];
     const { container } = render(<Toolbar items={items} />);
-    const groups = container.querySelectorAll('.rte-toolbar__group');
+    const groups = container.querySelectorAll<HTMLElement>('.rte-toolbar__group');
     expect(groups.length).toBe(2);
+    expect(groups[0].style.flexGrow).toBe('2');
+    expect(groups[1].style.flexGrow).toBe('1');
   });
 
   it('ignores leading, trailing, and consecutive separators when grouping', () => {

@@ -1,4 +1,5 @@
 import { Editor } from '@tiptap/core';
+import type { Extension, Mark, Node } from '@tiptap/core';
 import { createExtensions } from './schema';
 import { sanitizeHTML } from '../utils/dom';
 import type { PluginRegistry } from '@/types/plugin.types';
@@ -48,7 +49,11 @@ export function createEditor(options: CreateEditorOptions = {}): Editor {
     ariaAttrs['aria-readonly'] = 'true';
   }
 
-  const pluginExtensions = options.pluginRegistry?.getExtensions() ?? [];
+  const pluginExtensions = (options.pluginRegistry?.getExtensions() ?? []) as (
+    | Extension
+    | Mark
+    | Node
+  )[];
 
   return new Editor({
     extensions: createExtensions(pluginExtensions),

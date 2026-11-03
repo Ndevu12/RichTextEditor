@@ -151,6 +151,14 @@ describe('commands', () => {
       editor = editorWithSelection();
       insertLink(editor, 'https://example.com');
       expect(editor.getHTML()).toContain('href="https://example.com"');
+      expect(editor.getHTML()).toContain('nofollow');
+    });
+
+    it('follows an internal link', () => {
+      editor = editorWithSelection();
+      insertLink(editor, '/docs/guide');
+      expect(editor.getHTML()).toContain('href="/docs/guide"');
+      expect(editor.getHTML()).not.toContain('nofollow');
     });
 
     it('creates a link with custom text', () => {

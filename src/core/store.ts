@@ -33,6 +33,7 @@ export const useEditorStore = create<EditorStore>((set) => ({
   headingLevel: null,
   openDialog: null as DialogType | null,
   previewMode: 'none' as PreviewMode,
+  siteOrigin: '',
 
   // ── Actions ────────────────────────────────
   setEditor: (editor) => set({ editor }),
@@ -44,4 +45,5 @@ export const useEditorStore = create<EditorStore>((set) => ({
     set({ activeMarks: marks, activeNodes: nodes, headingLevel }),
   setOpenDialog: (dialog) => set({ openDialog: dialog }),
   setPreviewMode: (mode) => set({ previewMode: mode }),
+  setSiteOrigin: (siteOrigin) => set({ siteOrigin }),
 }));

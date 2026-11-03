@@ -1,5 +1,9 @@
 import type { ReactNode } from 'react';
-import type { Editor } from '@tiptap/core';
+
+/** Subset of the editor the toolbar consults while resolving buttons. */
+export interface ToolbarEditor {
+  can(): { undo(): boolean; redo(): boolean };
+}
 
 // --- Toolbar Item Identifiers ---
 export type ToolbarItemType =
@@ -157,7 +161,7 @@ export const DEFAULT_TOOLBAR: ToolbarItem[] = [
 ];
 
 export interface ToolbarResolveContext extends ToolbarResolverContext {
-  editor: Editor | null;
+  editor: ToolbarEditor | null;
 }
 
 export interface BuiltinToolbarRegistryItem {

@@ -8,6 +8,7 @@
 
 import type { Editor } from '@tiptap/core';
 import { useEditorStore } from '@/core/store';
+import { attributesForHref, linkMarkup } from '@/seo/links';
 
 /** Get the link attributes (`href`) of the currently selected link, if any. */
 export function getActiveLinkAttrs(editor: Editor): { href: string } | null {
@@ -39,9 +40,15 @@ export function openLinkDialog(): void {
  * - If `text` is provided and differs from current selection, replaces selection.
  * - Otherwise, applies the link mark to the current selection.
  */
-export function applyLink(editor: Editor, href: string, text?: string): boolean {
+export function applyLink(
+  editor: Editor,
+  href: string,
+  text?: string,
+  siteOrigin?: string,
+): boolean {
+  const origin = siteOrigin ?? useEditorStore.getState().siteOrigin;
+  const attrs = attributesForHref(href, origin);
   if (text) {
-    // Delete current selection and insert new text with link
     const { from, to } = editor.state.selection;
     const selectedText = editor.state.doc.textBetween(from, to, ' ');
 
@@ -50,13 +57,12 @@ export function applyLink(editor: Editor, href: string, text?: string): boolean 
         .chain()
         .focus()
         .deleteSelection()
-        .insertContent(`<a href="${href}">${text}</a>`)
+        .insertContent(linkMarkup(href, text, origin))
         .run();
     }
   }
 
-  // Apply link to existing selection
-  return editor.chain().focus().setLink({ href }).run();
+  return editor.chain().focus().setLink({ href, rel: attrs.rel, target: attrs.target }).run();
 }
 
 /** Remove the link mark from the current selection. */

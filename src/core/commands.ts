@@ -1,4 +1,5 @@
 import type { Editor } from '@tiptap/core';
+import { attributesForHref, linkMarkup } from '@/seo/links';
 
 // ──────────────────────────────────────────────
 // Text Formatting
@@ -56,10 +57,11 @@ export const toggleCodeBlock = (editor: Editor): boolean =>
 // ──────────────────────────────────────────────
 
 export const insertLink = (editor: Editor, href: string, text?: string): boolean => {
+  const attrs = attributesForHref(href);
   if (text) {
-    return editor.chain().focus().insertContent(`<a href="${href}">${text}</a>`).run();
+    return editor.chain().focus().insertContent(linkMarkup(href, text)).run();
   }
-  return editor.chain().focus().setLink({ href }).run();
+  return editor.chain().focus().setLink({ href, rel: attrs.rel, target: attrs.target }).run();
 };
 
 export const removeLink = (editor: Editor): boolean => editor.chain().focus().unsetLink().run();

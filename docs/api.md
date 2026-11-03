@@ -60,6 +60,11 @@ function App() {
 | `ariaLabel` | `string` | `'Rich text editor'` | Accessible label for the editor content area |
 | `onFocus` | `() => void` | — | Called when editor gains focus |
 | `onBlur` | `() => void` | — | Called when editor loses focus |
+| `seo` | `boolean \| SeoOptions` | — | Shows the SEO panel and captures title, description, and slug |
+| `onSeoChange` | `(report: SeoReport) => void` | — | Called when the SEO report changes |
+| `autoCompile` | `boolean` | `false` | Compiles Markdown or plain text in `value` into HTML |
+| `onCompile` | `(document: CompiledDocument) => void` | — | Called with HTML, Markdown, text, and the SEO report |
+| `siteOrigin` | `string` | — | Origin used to treat absolute URLs as internal links |
 
 ---
 

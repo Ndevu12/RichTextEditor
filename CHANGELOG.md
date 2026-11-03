@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **SEO panel** — The editor can show a score, capture a title, description, and slug, and point out headings, image descriptions, and links. Internal links stay on the page. External links open in a new tab and are not followed.
+- **Text compilation** — Markdown and plain text can be turned into editor HTML as you edit. `compileDocument` returns HTML, Markdown, plain text, and the SEO report together.
+- **TypeScript** — `import 'rich-text-editor-ndevu/styles.css'` typechecks from the package. Public types resolve with React and do not ask you to install Tiptap, Zustand, or the highlighter.
+- **Toolbar** — Buttons, icons, labels, and the preview toggle shrink with the editor width and stay on one line.
 - **Security policy** — Added `SECURITY.md` with reporting guidance
 
 ### Changed
@@ -21,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Compilation and SEO** — Reading a document for plain text or the SEO score no longer stalls on a long unclosed tag.
 - **Release automation** — Skipped redundant publish/tag checks for manual release runs
 
 ## [0.1.1] - 2026-03-15

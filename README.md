@@ -195,6 +195,11 @@ function DarkModeExample() {
 | `onFocus` | `() => void` | `undefined` | Called when the editor receives focus. |
 | `onBlur` | `() => void` | `undefined` | Called when the editor loses focus. |
 | `ariaLabel` | `string` | `'Rich text editor'` | Accessible name for the editing surface. |
+| `seo` | `boolean \| SeoOptions` | `undefined` | Shows the SEO panel and captures title, description, and slug. |
+| `onSeoChange` | `(report: SeoReport) => void` | `undefined` | Called when the SEO score or captured fields change. |
+| `autoCompile` | `boolean` | `false` | Compiles Markdown or plain text in `value` into HTML. |
+| `onCompile` | `(document: CompiledDocument) => void` | `undefined` | Called with HTML, Markdown, plain text, and the SEO report. |
+| `siteOrigin` | `string` | `undefined` | Origin used to treat absolute URLs as internal links. |
 
 ### Toolbar migration (non-breaking)
 

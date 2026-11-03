@@ -35,11 +35,18 @@
         "default": "./dist/index.cjs"
       }
     },
-    "./styles": "./dist/index.css",
-    "./styles.css": "./dist/index.css"
+    "./styles": {
+      "types": "./types/styles.d.ts",
+      "default": "./dist/index.css"
+    },
+    "./styles.css": {
+      "types": "./types/styles.d.ts",
+      "default": "./dist/index.css"
+    }
   },
   "files": [
     "dist",
+    "types",
     "README.md",
     "LICENSE"
   ],

@@ -1,5 +1,5 @@
 import type { Extension, Mark, Node } from '@tiptap/core';
-import type { PluginConfig, PluginRegistry } from '@/types/plugin.types';
+import type { PluginConfig, PluginRegistry, EditorExtension } from '@/types/plugin.types';
 import type { ToolbarItemType } from '@/types/toolbar.types';
 
 /**
@@ -37,10 +37,10 @@ export function createPluginRegistry(initial: PluginConfig[] = []): PluginRegist
     plugins.delete(name);
   }
 
-  function getExtensions(): (Extension | Mark | Node)[] {
+  function getExtensions(): EditorExtension[] {
     const extensions: (Extension | Mark | Node)[] = [];
     for (const plugin of plugins.values()) {
-      extensions.push(...plugin.extensions);
+      extensions.push(...(plugin.extensions as (Extension | Mark | Node)[]));
     }
     return extensions;
   }
