@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Development** — CI, release, and GitHub Pages run on Node.js 26.
 - **Development tools** — Storybook, Vite, and Vitest are on the releases that close the open development advisories. Dependabot now watches the playground and both examples as well as the package root.
 - **Examples** — Bumped `rich-text-editor-ndevu` to `v0.1.1` in Next.js and React demos
 - **CI/release workflow** — Enabled manual release dispatch and improved manual-run checks

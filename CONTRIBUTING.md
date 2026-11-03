@@ -55,7 +55,7 @@ This project follows the [Contributor Covenant Code of Conduct](https://www.cont
 
 ### Prerequisites
 
-- **Node.js** 24
+- **Node.js** 26
 - **Yarn 4** (Berry) via Corepack
 - **Git**
 
@@ -66,7 +66,7 @@ This project follows the [Contributor Covenant Code of Conduct](https://www.cont
 git clone https://github.com/<your-username>/RichTextEditor.git
 cd RichTextEditor
 
-# Enable Corepack (ships with Node 24)
+# Enable Corepack (ships with Node 26)
 corepack enable
 
 # Install root dependencies
