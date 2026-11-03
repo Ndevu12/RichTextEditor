@@ -3,7 +3,9 @@ import { compileDocument, compileSource, looksLikeHtml } from '@/compile/compile
 
 describe('compileDocument', () => {
   it('compiles Markdown into HTML and keeps internal links followable', () => {
-    const compiled = compileDocument('# Title\n\nHello **world**\n\n[Markdown guide](/docs/guide)\n');
+    const compiled = compileDocument(
+      '# Title\n\nHello **world**\n\n[Markdown guide](/docs/guide)\n',
+    );
 
     expect(looksLikeHtml('# Title')).toBe(false);
     expect(compiled.html).toContain('<h1>Title</h1>');
@@ -23,9 +25,17 @@ describe('compileDocument', () => {
   it('leaves HTML source unchanged', () => {
     const html = '<p>Already <strong>html</strong></p>';
     expect(looksLikeHtml(html)).toBe(true);
+    expect(looksLikeHtml('</div>')).toBe(true);
+    expect(looksLikeHtml('<BR>')).toBe(true);
+    expect(looksLikeHtml('a < b')).toBe(false);
+    expect(looksLikeHtml('<3 cats')).toBe(false);
     expect(compileSource(html)).toBe(html);
     expect(compileDocument(html).html).toBe(html);
   });
+
+  it('rejects a long unclosed tag', () => {
+    expect(looksLikeHtml(`<a`.repeat(200_000))).toBe(false);
+  }, 1000);
 
   it('compiles a fenced code block and a list', () => {
     const compiled = compileDocument('```ts\nconst n = 1;\n```\n\n- One\n- Two\n');

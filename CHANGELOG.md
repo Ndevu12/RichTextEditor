@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Compilation and SEO** — Reading a document for plain text or the SEO score no longer stalls on a long unclosed tag.
 - **Release automation** — Skipped redundant publish/tag checks for manual release runs
 
 ## [0.1.1] - 2026-03-15

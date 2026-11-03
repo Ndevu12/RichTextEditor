@@ -43,7 +43,7 @@ function lengthPoints(
  * Builds title, description, and slug from `html`, keeping any captured fields.
  */
 export function generateSeoMetadata(html: string, captured?: Partial<SeoMetadata>): SeoMetadata {
-  const doc = new DOMParser().parseFromString(`<body>${html}</body>`, 'text/html');
+  const doc = new DOMParser().parseFromString(html, 'text/html');
   const generatedTitle = plain(doc.body.querySelector('h1, h2, h3')?.textContent);
   const generatedDescription = plain(doc.body.querySelector('p')?.textContent);
   const title = plain(captured?.title) || generatedTitle;
@@ -94,7 +94,7 @@ function collectImages(body: HTMLElement): SeoImage[] {
  * Scores `html` and reports what a search engine would recognize.
  */
 export function recognizeSeo(html: string, options: SeoOptions = {}): SeoReport {
-  const doc = new DOMParser().parseFromString(`<body>${html}</body>`, 'text/html');
+  const doc = new DOMParser().parseFromString(html, 'text/html');
   const body = doc.body;
   const metadata = generateSeoMetadata(html, options.metadata);
   const headings = collectHeadings(body);

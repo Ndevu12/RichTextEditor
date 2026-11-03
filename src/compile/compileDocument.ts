@@ -3,11 +3,23 @@ import { recognizeSeo } from '@/seo/recognize';
 import { markdownToHtml } from './markdown';
 import type { CompileOptions, CompiledDocument } from './types';
 
+function isAsciiLetter(char: string | undefined): boolean {
+  if (!char) return false;
+  const code = char.charCodeAt(0);
+  return (code >= 65 && code <= 90) || (code >= 97 && code <= 122);
+}
+
 /**
  * Returns whether `source` already looks like HTML.
  */
 export function looksLikeHtml(source: string): boolean {
-  return /<\/?[a-z][\s\S]*>/i.test(source);
+  for (let i = 0; i < source.length; i += 1) {
+    if (source[i] !== '<') continue;
+    const nameIndex = source[i + 1] === '/' ? i + 2 : i + 1;
+    if (!isAsciiLetter(source[nameIndex])) continue;
+    return source.indexOf('>', nameIndex + 1) !== -1;
+  }
+  return false;
 }
 
 /**
@@ -20,7 +32,7 @@ export function compileSource(source: string, options: CompileOptions = {}): str
 }
 
 function htmlToText(html: string): string {
-  const doc = new DOMParser().parseFromString(`<body>${html}</body>`, 'text/html');
+  const doc = new DOMParser().parseFromString(html, 'text/html');
   return (doc.body.textContent ?? '').replace(/\s+/g, ' ').trim();
 }
 
