@@ -13,6 +13,7 @@
 import { useState, useRef, useCallback, useLayoutEffect } from 'react';
 import { useEditorStore } from '@/core/store';
 import { getActiveLinkAttrs, getSelectedText, applyLink, removeLink } from '../Plugins/LinkPlugin';
+import { isInternalHref } from '@/seo/links';
 
 /**
  * Compute initial dialog state from the current editor selection.
@@ -34,6 +35,7 @@ function getInitialState(editor: import('@tiptap/core').Editor | null) {
 export function LinkDialog() {
   const editor = useEditorStore((s) => s.editor);
   const setOpenDialog = useEditorStore((s) => s.setOpenDialog);
+  const siteOrigin = useEditorStore((s) => s.siteOrigin);
 
   const initial = getInitialState(editor);
   const [url, setUrl] = useState(initial.url);
@@ -79,9 +81,9 @@ export function LinkDialog() {
   // ── Insert / update link ───────────────────────────────────
   const handleSubmit = useCallback(() => {
     if (!editor || !validateUrl(url)) return;
-    applyLink(editor, url.trim(), text.trim() || undefined);
+    applyLink(editor, url.trim(), text.trim() || undefined, siteOrigin);
     close();
-  }, [editor, url, text, validateUrl, close]);
+  }, [editor, url, text, validateUrl, close, siteOrigin]);
 
   // ── Remove link (edit mode only) ──────────────────────────
   const handleRemove = useCallback(() => {
@@ -178,6 +180,13 @@ export function LinkDialog() {
               {error}
             </p>
           )}
+          {url.trim() && !error ? (
+            <p className="rte-dialog__hint">
+              {isInternalHref(url.trim(), siteOrigin)
+                ? 'Internal link. Search engines can follow it.'
+                : 'External link. It opens in a new tab and is not followed.'}
+            </p>
+          ) : null}
         </div>
 
         <div className="rte-dialog__field">

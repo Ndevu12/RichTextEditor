@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useEditor } from '@/hooks/useEditor';
 import { useEditorStore } from '@/core/store';
+import type { CompiledDocument } from '@/compile/types';
 import type { Theme } from '@/types';
 import type { PluginRegistry } from '@/types/plugin.types';
 
@@ -23,6 +24,12 @@ export interface EditorProviderProps {
   onFocus?: () => void;
   /** Called when editor loses focus */
   onBlur?: () => void;
+  /** Compile Markdown or plain text in `value` into HTML. */
+  autoCompile?: boolean;
+  /** Called with the compiled document after content changes. */
+  onCompile?: (document: CompiledDocument) => void;
+  /** Origin used when compiling and recognizing links. */
+  siteOrigin?: string;
   /** Children to render */
   children: React.ReactNode;
 }
@@ -44,12 +51,28 @@ export function EditorProvider({
   pluginRegistry,
   onFocus,
   onBlur,
+  autoCompile = false,
+  onCompile,
+  siteOrigin = '',
   children,
 }: EditorProviderProps) {
-  useEditor({ value, onChange, placeholder, readOnly, ariaLabel, pluginRegistry, onFocus, onBlur });
+  useEditor({
+    value,
+    onChange,
+    placeholder,
+    readOnly,
+    ariaLabel,
+    pluginRegistry,
+    onFocus,
+    onBlur,
+    autoCompile,
+    onCompile,
+    siteOrigin,
+  });
 
   const setTheme = useEditorStore((s) => s.setTheme);
   const setReadOnly = useEditorStore((s) => s.setReadOnly);
+  const setSiteOrigin = useEditorStore((s) => s.setSiteOrigin);
 
   // Sync theme prop → store
   useEffect(() => {
@@ -60,6 +83,10 @@ export function EditorProvider({
   useEffect(() => {
     setReadOnly(readOnly);
   }, [readOnly, setReadOnly]);
+
+  useEffect(() => {
+    setSiteOrigin(siteOrigin);
+  }, [siteOrigin, setSiteOrigin]);
 
   return <>{children}</>;
 }

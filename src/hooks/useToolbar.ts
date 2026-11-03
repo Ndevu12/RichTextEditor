@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useEditorStore } from '@/core/store';
-import type { ToolbarInput, ToolbarButtonConfig } from '@/types';
+import type { ToolbarInput, ToolbarButtonConfig, ToolbarEditor } from '@/types';
 import { resolveToolbarFromInput } from '@/core/toolbar';
 
 // ── Hook ─────────────────────────────────────────────────────
@@ -26,7 +26,7 @@ export function useToolbar(toolbarItems: ToolbarInput): UseToolbarResult {
 
   const items = useMemo(() => {
     return resolveToolbarFromInput(toolbarItems, {
-      editor,
+      editor: editor as ToolbarEditor | null,
       readOnly,
       activeMarks,
       activeNodes,

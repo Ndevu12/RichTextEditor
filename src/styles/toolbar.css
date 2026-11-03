@@ -28,6 +28,8 @@
   flex-wrap: wrap;
   align-items: center;
   gap: var(--rte-toolbar-gap);
+  min-width: 0;
+  max-width: 100%;
   padding: var(--rte-toolbar-padding-y) var(--rte-toolbar-padding-x);
   background: var(--rte-toolbar-bg);
   border-bottom: 1px solid var(--rte-toolbar-border);
@@ -37,8 +39,11 @@
 /* ── Button group ──────────────────────────────────────── */
 .rte-toolbar__group {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: var(--rte-toolbar-group-gap);
+  min-width: 0;
+  max-width: 100%;
   padding: var(--rte-toolbar-group-padding-y) 0;
 }
 
@@ -71,7 +76,11 @@
 
 .rte-toolbar__button--label {
   width: auto;
+  min-width: 0;
+  max-width: 100%;
   justify-content: flex-start;
+  overflow: hidden;
+  text-overflow: ellipsis;
   padding: 0 var(--rte-toolbar-button-label-padding-x);
 }
 

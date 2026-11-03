@@ -6,6 +6,8 @@ import { LinkDialog } from '@/components/Dialogs/LinkDialog';
 import { ImageDialog } from '@/components/Dialogs/ImageDialog';
 import { PreviewPanel, PreviewToggle } from '@/components/Preview';
 import type { ToolbarInput } from '@/types';
+import type { SeoOptions, SeoReport } from '@/seo/types';
+import { SeoPanel } from '@/components/Seo';
 
 export interface EditorWrapperProps {
   /** Toolbar items configuration */
@@ -20,6 +22,10 @@ export interface EditorWrapperProps {
   className?: string;
   /** Inline styles for the outer wrapper */
   style?: React.CSSProperties;
+  /** Show the SEO panel when set. */
+  seo?: boolean | SeoOptions;
+  /** Called when the SEO report changes. */
+  onSeoChange?: (report: SeoReport) => void;
 }
 
 /**
@@ -35,6 +41,8 @@ export function EditorWrapper({
   maxHeight,
   className,
   style,
+  seo,
+  onSeoChange,
 }: EditorWrapperProps) {
   const editor = useEditorStore((s) => s.editor);
   const theme = useEditorStore((s) => s.theme);
@@ -70,6 +78,14 @@ export function EditorWrapper({
 
         <PreviewPanel mode={previewMode} />
       </div>
+
+      {seo ? (
+        <SeoPanel
+          options={typeof seo === 'object' ? seo : undefined}
+          onSeoChange={onSeoChange}
+          readOnly={readOnly}
+        />
+      ) : null}
 
       {/* Dialogs */}
       {openDialog === 'link' && <LinkDialog />}

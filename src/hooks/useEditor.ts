@@ -1,5 +1,7 @@
 import { useEffect, useRef, useCallback } from 'react';
 import type { Editor } from '@tiptap/core';
+import { compileDocument, compileSource } from '@/compile/compileDocument';
+import type { CompiledDocument } from '@/compile/types';
 import { createEditor } from '@/core/engine';
 import { useEditorStore } from '@/core/store';
 import type { PluginRegistry } from '@/types/plugin.types';
@@ -21,6 +23,12 @@ export interface UseEditorOptions {
   onFocus?: () => void;
   /** Called when editor loses focus */
   onBlur?: () => void;
+  /** Compile Markdown or plain text in `value` into HTML. */
+  autoCompile?: boolean;
+  /** Called with the compiled document after content changes. */
+  onCompile?: (document: CompiledDocument) => void;
+  /** Origin used when compiling and recognizing links. */
+  siteOrigin?: string;
 }
 
 /**
@@ -43,10 +51,21 @@ export function useEditor(options: UseEditorOptions = {}): Editor | null {
     pluginRegistry,
     onFocus,
     onBlur,
+    autoCompile = false,
+    onCompile,
+    siteOrigin = '',
   } = options;
 
   const editorRef = useRef<Editor | null>(null);
   const isInternalUpdate = useRef(false);
+  const onChangeRef = useRef(onChange);
+  const onCompileRef = useRef(onCompile);
+  const autoCompileRef = useRef(autoCompile);
+  const siteOriginRef = useRef(siteOrigin);
+  onChangeRef.current = onChange;
+  onCompileRef.current = onCompile;
+  autoCompileRef.current = autoCompile;
+  siteOriginRef.current = siteOrigin;
 
   const { setEditor, setContent, setFocused, updateActiveState } = useEditorStore.getState();
 
@@ -87,8 +106,11 @@ export function useEditor(options: UseEditorOptions = {}): Editor | null {
 
   // ── Create editor on mount ────────────────────────────────
   useEffect(() => {
+    const initial = compileSource(value, {
+      siteOrigin: siteOriginRef.current,
+    });
     const editor = createEditor({
-      content: value,
+      content: autoCompileRef.current ? initial : value,
       editable: !readOnly,
       placeholder,
       ariaLabel,
@@ -96,7 +118,10 @@ export function useEditor(options: UseEditorOptions = {}): Editor | null {
       onUpdate: (html) => {
         isInternalUpdate.current = true;
         setContent(html);
-        onChange?.(html);
+        onChangeRef.current?.(html);
+        if (onCompileRef.current) {
+          onCompileRef.current(compileDocument(html, { siteOrigin: siteOriginRef.current }));
+        }
         // Refresh active state after content change
         if (editorRef.current) {
           refreshActiveState(editorRef.current);
@@ -120,6 +145,10 @@ export function useEditor(options: UseEditorOptions = {}): Editor | null {
 
     editorRef.current = editor;
     setEditor(editor);
+    if (autoCompileRef.current && initial !== value) {
+      onChangeRef.current?.(initial);
+      onCompileRef.current?.(compileDocument(initial, { siteOrigin: siteOriginRef.current }));
+    }
 
     return () => {
       editor.destroy();
@@ -136,10 +165,17 @@ export function useEditor(options: UseEditorOptions = {}): Editor | null {
     if (!editor || isInternalUpdate.current) return;
 
     const currentHTML = editor.getHTML();
-    if (value !== currentHTML) {
-      editor.commands.setContent(value, { emitUpdate: false });
+    const next = autoCompileRef.current
+      ? compileSource(value, { siteOrigin: siteOriginRef.current })
+      : value;
+    if (next !== currentHTML) {
+      editor.commands.setContent(next, { emitUpdate: false });
+      if (next !== value) {
+        onChangeRef.current?.(next);
+        onCompileRef.current?.(compileDocument(next, { siteOrigin: siteOriginRef.current }));
+      }
     }
-  }, [value]);
+  }, [value, autoCompile, siteOrigin]);
 
   // ── Sync `readOnly` prop ───────────────────────────────────
   useEffect(() => {

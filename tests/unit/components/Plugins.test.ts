@@ -132,6 +132,15 @@ describe('LinkPlugin', () => {
     editor.commands.selectAll();
     applyLink(editor, 'https://example.com');
     expect(editor.getHTML()).toContain('href="https://example.com"');
+    expect(editor.getHTML()).toContain('nofollow');
+  });
+
+  it('applyLink follows an internal link', () => {
+    editor = createEditor({ content: '<p>Hello</p>' });
+    editor.commands.selectAll();
+    applyLink(editor, '/guides/editor');
+    expect(editor.getHTML()).toContain('href="/guides/editor"');
+    expect(editor.getHTML()).not.toContain('nofollow');
   });
 
   it('applyLink inserts new text with link when text differs', () => {

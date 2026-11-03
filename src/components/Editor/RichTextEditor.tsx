@@ -32,7 +32,15 @@ export function RichTextEditor(props: RichTextEditorProps) {
     pluginRegistry,
     onFocus,
     onBlur,
+    seo,
+    onSeoChange,
+    autoCompile,
+    onCompile,
+    siteOrigin,
   } = props;
+
+  const seoOptions = typeof seo === 'object' ? seo : undefined;
+  const resolvedOrigin = siteOrigin ?? seoOptions?.siteOrigin ?? '';
 
   return (
     <EditorProvider
@@ -45,6 +53,9 @@ export function RichTextEditor(props: RichTextEditorProps) {
       pluginRegistry={pluginRegistry}
       onFocus={onFocus}
       onBlur={onBlur}
+      autoCompile={autoCompile}
+      onCompile={onCompile}
+      siteOrigin={resolvedOrigin}
     >
       <EditorWrapper
         toolbar={toolbar}
@@ -53,6 +64,8 @@ export function RichTextEditor(props: RichTextEditorProps) {
         maxHeight={maxHeight}
         className={className}
         style={style}
+        seo={seo}
+        onSeoChange={onSeoChange}
       />
     </EditorProvider>
   );

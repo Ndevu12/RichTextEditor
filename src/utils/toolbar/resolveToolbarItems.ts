@@ -8,6 +8,7 @@ import type {
 import { BUILTIN_TOOLBAR_REGISTRY } from '../../constants/builtins';
 import { getBuiltinAction } from '../../helpers/actions';
 import { isBuiltinItemActive } from '../../helpers/activeState';
+import type { Editor } from '@tiptap/core';
 import type { ToolbarResolveContext } from '@/core/toolbar/types';
 
 function resolveValue<T>(
@@ -99,7 +100,7 @@ function resolveToolbarButton(
   const action = onClick
     ? () => onClick(context)
     : context.editor
-      ? getBuiltinAction(item.builtinId, context.editor)
+      ? getBuiltinAction(item.builtinId, context.editor as unknown as Editor)
       : () => {};
 
   return {

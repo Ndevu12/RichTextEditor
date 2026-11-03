@@ -1,0 +1,78 @@
+/**
+ * SEO panel — score, captured metadata, and recognition findings.
+ */
+
+.rte-seo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px 16px 16px;
+  border-top: 1px solid var(--rte-toolbar-border);
+  background: var(--rte-toolbar-bg);
+}
+
+.rte-seo__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.rte-seo__title {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.rte-seo__score {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--rte-accent);
+}
+
+.rte-seo__field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.rte-seo__label {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.rte-seo__input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 6px 8px;
+  border: 1px solid var(--rte-toolbar-border);
+  border-radius: var(--rte-radius-sm);
+  background: var(--rte-bg);
+  color: var(--rte-text);
+  font: inherit;
+  font-size: 13px;
+}
+
+.rte-seo__input--area {
+  resize: vertical;
+}
+
+.rte-seo__counts {
+  margin: 0;
+  font-size: 12px;
+}
+
+.rte-seo__findings {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 12px;
+}
+
+.rte-seo__findings li[data-severity='bad'] {
+  color: var(--rte-danger, #b42318);
+}
+
+.rte-seo__findings li[data-severity='good'] {
+  color: var(--rte-success, #067647);
+}

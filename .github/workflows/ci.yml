@@ -100,6 +100,10 @@ jobs:
           test -f dist/index.cjs || (echo "Missing dist/index.cjs" && exit 1)
           test -f dist/index.d.ts || (echo "Missing dist/index.d.ts" && exit 1)
           test -f dist/index.css || (echo "Missing dist/index.css" && exit 1)
+          if grep -E "from ['\"](@tiptap/core|zustand|lowlight|hast|highlight\\.js)['\"]" dist/index.d.ts dist/index.d.cts; then
+            echo "Public types import implementation packages"
+            exit 1
+          fi
           echo "All expected dist files present"
           ls -lh dist/
 
