@@ -6,8 +6,15 @@ import { useEditorStore } from '@/core/store';
 afterEach(() => {
   cleanup();
   // Reset the Zustand store between tests
-  const { setEditor, setContent, setTheme, setReadOnly, setFocused, setOpenDialog } =
-    useEditorStore.getState();
+  const {
+    setEditor,
+    setContent,
+    setTheme,
+    setReadOnly,
+    setFocused,
+    setOpenDialog,
+    setPreviewMode,
+  } = useEditorStore.getState();
   const editor = useEditorStore.getState().editor;
   editor?.destroy();
   setEditor(null);
@@ -16,9 +23,43 @@ afterEach(() => {
   setReadOnly(false);
   setFocused(false);
   setOpenDialog(null);
+  setPreviewMode('none');
 });
 
 describe('RichTextEditor', () => {
+  it('keeps the preview switch out of the editor', async () => {
+    useEditorStore.getState().setPreviewMode('html');
+    render(<RichTextEditor value="<p>Hello</p>" />);
+    await waitFor(() => {
+      expect(screen.getByRole('toolbar')).toBeInTheDocument();
+    });
+    expect(screen.queryByRole('radiogroup', { name: 'Preview mode' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('region', { name: 'HTML preview' })).not.toBeInTheDocument();
+  });
+
+  it('shows the preview panel only when preview is enabled', async () => {
+    useEditorStore.getState().setPreviewMode('html');
+    render(<RichTextEditor value="<p>Hello</p>" preview />);
+    await waitFor(() => {
+      expect(screen.getByRole('region', { name: 'HTML preview' })).toBeInTheDocument();
+    });
+    expect(screen.queryByRole('radiogroup', { name: 'Preview mode' })).not.toBeInTheDocument();
+  });
+
+  it('splits the default toolbar into two lines', async () => {
+    const { container } = render(<RichTextEditor value="" />);
+    await waitFor(() => {
+      expect(container.querySelectorAll('.rte-toolbar__line')).toHaveLength(2);
+    });
+  });
+
+  it('keeps a short toolbar on one line', async () => {
+    const { container } = render(<RichTextEditor value="" toolbar={['bold', 'italic']} />);
+    await waitFor(() => {
+      expect(container.querySelectorAll('.rte-toolbar__line')).toHaveLength(1);
+    });
+  });
+
   it('renders without crashing', async () => {
     const { container } = render(<RichTextEditor value="" />);
     await waitFor(() => {

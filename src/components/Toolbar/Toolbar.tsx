@@ -82,6 +82,9 @@ export function Toolbar({ items }: ToolbarProps) {
 
   // ── Group items by separators ──────────────────────────────
   const groups = groupBySeparator(items);
+  const splitAt = firstLineEnd(groups);
+  const firstLine = splitAt === -1 ? groups : groups.slice(0, splitAt + 1);
+  const secondLine = splitAt === -1 ? [] : groups.slice(splitAt + 1);
 
   return (
     <div
@@ -92,22 +95,64 @@ export function Toolbar({ items }: ToolbarProps) {
       aria-orientation="horizontal"
       onKeyDown={handleKeyDown}
     >
-      {groups.map((group, groupIndex) => (
-        <Fragment key={group[0]?.id ?? groupIndex}>
-          <ToolbarGroup label={`Formatting group ${groupIndex + 1}`} weight={group.length}>
-            {group.map((item) => (
-              <ToolbarButton
-                key={item.id}
-                {...item}
-                tabIndex={item.id === activeRovingId ? 0 : -1}
-              />
-            ))}
-          </ToolbarGroup>
-          {groupIndex < groups.length - 1 && <ToolbarSeparator />}
-        </Fragment>
-      ))}
+      <div className="rte-toolbar__line">{renderGroups(firstLine, 0, activeRovingId)}</div>
+      {secondLine.length > 0 && (
+        <>
+          <ToolbarSeparator />
+          <div className="rte-toolbar__line">
+            {renderGroups(secondLine, firstLine.length, activeRovingId)}
+          </div>
+        </>
+      )}
     </div>
   );
+}
+
+const FIRST_LINE = new Set([
+  'bold',
+  'italic',
+  'underline',
+  'strike',
+  'heading1',
+  'heading2',
+  'heading3',
+  'heading4',
+  'heading5',
+  'heading6',
+  'bulletList',
+  'orderedList',
+  'blockquote',
+]);
+
+/** Last group index that still belongs on the first line, or -1 when the toolbar stays one line. */
+function firstLineEnd(groups: ToolbarButtonConfig[][]): number {
+  let end = -1;
+  for (let index = 0; index < groups.length; index++) {
+    if (!groups[index].every((item) => FIRST_LINE.has(item.id))) break;
+    end = index;
+  }
+  if (end < 0 || end === groups.length - 1) return -1;
+  return end;
+}
+
+function renderGroups(
+  groups: ToolbarButtonConfig[][],
+  indexOffset: number,
+  activeRovingId: string | null,
+) {
+  return groups.map((group, index) => {
+    const groupIndex = indexOffset + index;
+    return (
+      <Fragment key={group[0]?.id ?? groupIndex}>
+        <ToolbarGroup label={`Formatting group ${groupIndex + 1}`} weight={group.length}>
+          {group.map((item) => (
+            <ToolbarButton key={item.id} {...item} tabIndex={item.id === activeRovingId ? 0 : -1} />
+          ))}
+        </ToolbarGroup>
+        {index < groups.length - 1 && <ToolbarSeparator />}
+      </Fragment>
+    );
+  });
 }
 
 // ── Helper: split items into groups at separator boundaries ──

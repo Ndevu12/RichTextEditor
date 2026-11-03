@@ -41,6 +41,11 @@ export interface RichTextEditorProps {
   onCompile?: (document: CompiledDocument) => void;
   /** Origin used when compiling links and recognizing internal URLs. */
   siteOrigin?: string;
+  /**
+   * Show the HTML or Markdown panel when preview mode is set.
+   * The host renders `PreviewToggle` where it wants the switch.
+   */
+  preview?: boolean;
 }
 
 // --- Editor State (internal, for Zustand store) ---

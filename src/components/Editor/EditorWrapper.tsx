@@ -4,7 +4,7 @@ import { Toolbar } from '@/components/Toolbar';
 import { ContentEditable } from '@/components/Content';
 import { LinkDialog } from '@/components/Dialogs/LinkDialog';
 import { ImageDialog } from '@/components/Dialogs/ImageDialog';
-import { PreviewPanel, PreviewToggle } from '@/components/Preview';
+import { PreviewPanel } from '@/components/Preview';
 import type { ToolbarInput } from '@/types';
 import type { SeoOptions, SeoReport } from '@/seo/types';
 import { SeoPanel } from '@/components/Seo';
@@ -26,6 +26,8 @@ export interface EditorWrapperProps {
   seo?: boolean | SeoOptions;
   /** Called when the SEO report changes. */
   onSeoChange?: (report: SeoReport) => void;
+  /** Show the HTML or Markdown panel when the host sets a preview mode. */
+  preview?: boolean;
 }
 
 /**
@@ -43,6 +45,7 @@ export function EditorWrapper({
   style,
   seo,
   onSeoChange,
+  preview = false,
 }: EditorWrapperProps) {
   const editor = useEditorStore((s) => s.editor);
   const theme = useEditorStore((s) => s.theme);
@@ -63,11 +66,10 @@ export function EditorWrapper({
       {!readOnly && (
         <div className="rte-toolbar-row">
           <Toolbar items={toolbarItems} />
-          <PreviewToggle />
         </div>
       )}
 
-      <div className={`rte-body${previewMode !== 'none' ? ' rte-body--split' : ''}`}>
+      <div className={`rte-body${preview && previewMode !== 'none' ? ' rte-body--split' : ''}`}>
         <ContentEditable
           editor={editor}
           minHeight={minHeight}
@@ -76,7 +78,7 @@ export function EditorWrapper({
           className="rte-content"
         />
 
-        <PreviewPanel mode={previewMode} />
+        {preview ? <PreviewPanel mode={previewMode} /> : null}
       </div>
 
       {seo ? (

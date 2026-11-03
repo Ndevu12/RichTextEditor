@@ -200,6 +200,24 @@ function DarkModeExample() {
 | `autoCompile` | `boolean` | `false` | Compiles Markdown or plain text in `value` into HTML. |
 | `onCompile` | `(document: CompiledDocument) => void` | `undefined` | Called with HTML, Markdown, plain text, and the SEO report. |
 | `siteOrigin` | `string` | `undefined` | Origin used to treat absolute URLs as internal links. |
+| `preview` | `boolean` | `false` | Shows the HTML or Markdown panel when a host sets the preview mode. The editor does not render the switch. |
+
+### HTML and Markdown preview
+
+Place `PreviewToggle` where you want Editor, HTML, and MD, and set `preview` so the panel can open beside the text. Leaving `preview` off keeps the editor to the toolbar and the writing surface.
+
+```tsx
+import { PreviewToggle, RichTextEditor } from 'rich-text-editor-ndevu';
+
+function EditorWithPreview() {
+  return (
+    <>
+      <PreviewToggle />
+      <RichTextEditor value="" onChange={console.log} preview />
+    </>
+  );
+}
+```
 
 ### Toolbar migration (non-breaking)
 

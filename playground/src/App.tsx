@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { RichTextEditor, DEFAULT_TOOLBAR } from 'rich-text-editor-ndevu';
+import { RichTextEditor, DEFAULT_TOOLBAR, PreviewToggle } from 'rich-text-editor-ndevu';
 import type { Theme, ToolbarItem } from 'rich-text-editor-ndevu';
 
 // ── Toolbar presets ──────────────────────────────────────────
@@ -109,10 +109,7 @@ export function App() {
 
         <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
           {/* Toolbar preset selector */}
-          <label
-            htmlFor="preset-select"
-            style={{ fontSize: '0.85rem', fontWeight: 500 }}
-          >
+          <label htmlFor="preset-select" style={{ fontSize: '0.85rem', fontWeight: 500 }}>
             Toolbar:
           </label>
           <select
@@ -168,6 +165,10 @@ export function App() {
             />
             Read-only
           </label>
+
+          <span className="rte-preview-toggle-host" data-theme={theme}>
+            <PreviewToggle />
+          </span>
         </div>
       </header>
 
@@ -185,6 +186,7 @@ export function App() {
             minHeight="250px"
             maxHeight="500px"
             ariaLabel="Playground editor"
+            preview
           />
         </section>
 
