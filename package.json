@@ -1,12 +1,12 @@
 {
   "name": "rich-text-editor-ndevu",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Free and open-source Rich Text Editor for React — lightweight, extensible, and ready to use as an npm package.",
   "author": "Jean Paul Elisa NIYOKWIZERWA",
   "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Ndevu12/RichTextEditor.git"
+    "url": "git+https://github.com/Ndevu12/RichTextEditor.git"
   },
   "homepage": "https://github.com/Ndevu12/RichTextEditor#readme",
   "bugs": {
