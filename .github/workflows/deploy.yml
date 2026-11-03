@@ -18,8 +18,8 @@ env:
   DEPLOY_PAGES: 'true'
 
 jobs:
-  build:
-    name: Build all apps
+  library:
+    name: Build library
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -37,11 +37,42 @@ jobs:
       - name: Install root dependencies
         run: yarn install --immutable
 
-      # ── Build library ───────────────────────────────────
       - name: Build library
         run: yarn build
 
-      # ── Build Playground ────────────────────────────────
+      - name: Upload library dist
+        uses: actions/upload-artifact@v4
+        with:
+          name: library-dist
+          path: dist
+          if-no-files-found: error
+          retention-days: 1
+
+  playground:
+    name: Build playground
+    needs: library
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # The playground aliases the package to ../dist, so it builds the library just produced.
+      - name: Download library dist
+        uses: actions/download-artifact@v4
+        with:
+          name: library-dist
+          path: dist
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: yarn
+          cache-dependency-path: playground/yarn.lock
+
       - name: Install playground dependencies
         working-directory: playground
         run: yarn install
@@ -50,7 +81,31 @@ jobs:
         working-directory: playground
         run: yarn build
 
-      # ── Build React Demo ────────────────────────────────
+      - name: Upload playground dist
+        uses: actions/upload-artifact@v4
+        with:
+          name: playground-dist
+          path: playground/dist
+          if-no-files-found: error
+          retention-days: 1
+
+  react-demo:
+    name: Build react-demo
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: yarn
+          cache-dependency-path: examples/react-demo/yarn.lock
+
       - name: Install react-demo dependencies
         working-directory: examples/react-demo
         run: yarn install
@@ -59,7 +114,31 @@ jobs:
         working-directory: examples/react-demo
         run: npx vite build
 
-      # ── Build Next.js Demo ─────────────────────────────
+      - name: Upload react-demo dist
+        uses: actions/upload-artifact@v4
+        with:
+          name: react-demo-dist
+          path: examples/react-demo/dist
+          if-no-files-found: error
+          retention-days: 1
+
+  nextjs-demo:
+    name: Build nextjs-demo
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: yarn
+          cache-dependency-path: examples/nextjs-demo/yarn.lock
+
       - name: Install nextjs-demo dependencies
         working-directory: examples/nextjs-demo
         run: yarn install
@@ -68,14 +147,78 @@ jobs:
         working-directory: examples/nextjs-demo
         run: npx next build
 
-      # ── Build Storybook ────────────────────────────────
+      - name: Upload nextjs-demo output
+        uses: actions/upload-artifact@v4
+        with:
+          name: nextjs-demo-out
+          path: examples/nextjs-demo/out
+          if-no-files-found: error
+          retention-days: 1
+
+  storybook:
+    name: Build storybook
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: yarn
+
+      - name: Install root dependencies
+        run: yarn install --immutable
+
       - name: Build storybook
         run: yarn build-storybook
 
-      # ── Assemble _site directory ────────────────────────
+      - name: Upload storybook
+        uses: actions/upload-artifact@v4
+        with:
+          name: storybook-static
+          path: storybook-static
+          if-no-files-found: error
+          retention-days: 1
+
+  assemble:
+    name: Assemble site
+    needs: [playground, react-demo, nextjs-demo, storybook]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download playground dist
+        uses: actions/download-artifact@v4
+        with:
+          name: playground-dist
+          path: playground/dist
+
+      - name: Download react-demo dist
+        uses: actions/download-artifact@v4
+        with:
+          name: react-demo-dist
+          path: examples/react-demo/dist
+
+      - name: Download nextjs-demo output
+        uses: actions/download-artifact@v4
+        with:
+          name: nextjs-demo-out
+          path: examples/nextjs-demo/out
+
+      - name: Download storybook
+        uses: actions/download-artifact@v4
+        with:
+          name: storybook-static
+          path: storybook-static
+
       - name: Assemble deployment directory
         run: |
-          mkdir -p _site
           mkdir -p _site/assets
           cp src/assets/GEOFINDA-bgless-logo.png _site/assets/geofinda-logo.png
           cp src/assets/rich-text-editor-hub-og.png _site/assets/rich-text-editor-hub-og.png
@@ -93,7 +236,7 @@ jobs:
 
   deploy:
     name: Deploy to GitHub Pages
-    needs: build
+    needs: assemble
     runs-on: ubuntu-latest
     environment:
       name: github-pages

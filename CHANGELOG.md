@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Playground** — GitHub Pages builds again. The playground stays on Vite 6, with a React plugin that Vite 6 can load.
 - **Vite** — Storybook's Vite requirement no longer stays on 8.2.0. The six remaining Vite advisories were for that second copy.
 - **Dependencies** — The editor is on Tiptap and ProseMirror releases that close the paste script-injection and Markdown denial-of-service advisories.
 - **Next.js example** — The demo is on the Next.js and image-library releases that close the image-optimization remote code execution advisories.
