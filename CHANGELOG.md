@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- **Release** — GitHub publishes through npm's trusted publisher. The token that skips two-factor authentication is no longer sent.
+- **Release** — GitHub stages the package for approval. The token that skips two-factor authentication is no longer sent.
 
 ## [0.2.2] - 2026-11-03
 

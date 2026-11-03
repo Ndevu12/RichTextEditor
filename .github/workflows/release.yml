@@ -72,8 +72,8 @@ jobs:
 
       # A token in the environment is used instead of the GitHub identity.
       # npm rejects tokens that skip two-factor authentication.
-      - name: Publish to npm with provenance
+      - name: Stage the npm release
         if: steps.publish_status.outputs.already_published != 'true'
         run: |
           npm config delete //registry.npmjs.org/:_authToken || true
-          npm publish --provenance --access public
+          npm stage publish
