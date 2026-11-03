@@ -37,6 +37,7 @@ export function RichTextEditor(props: RichTextEditorProps) {
     autoCompile,
     onCompile,
     siteOrigin,
+    preview = false,
   } = props;
 
   const seoOptions = typeof seo === 'object' ? seo : undefined;
@@ -66,6 +67,7 @@ export function RichTextEditor(props: RichTextEditorProps) {
         style={style}
         seo={seo}
         onSeoChange={onSeoChange}
+        preview={preview}
       />
     </EditorProvider>
   );

@@ -25,10 +25,26 @@ export default defineConfig({
     },
   },
   resolve: {
-    alias: {
-      [`${localPackageName}/styles`]: localStylesPath,
-      [`${localPackageName}/styles.css`]: localStylesPath,
-      [localPackageName]: localDistPath,
-    },
+    dedupe: ['react', 'react-dom'],
+    alias: [
+      // The linked dist resolves react from the repo root, a second copy.
+      { find: /^react$/, replacement: resolve(__dirname, 'node_modules/react') },
+      {
+        find: /^react\/jsx-runtime$/,
+        replacement: resolve(__dirname, 'node_modules/react/jsx-runtime.js'),
+      },
+      {
+        find: /^react\/jsx-dev-runtime$/,
+        replacement: resolve(__dirname, 'node_modules/react/jsx-dev-runtime.js'),
+      },
+      { find: /^react-dom$/, replacement: resolve(__dirname, 'node_modules/react-dom') },
+      {
+        find: /^react-dom\/client$/,
+        replacement: resolve(__dirname, 'node_modules/react-dom/client.js'),
+      },
+      { find: `${localPackageName}/styles`, replacement: localStylesPath },
+      { find: `${localPackageName}/styles.css`, replacement: localStylesPath },
+      { find: localPackageName, replacement: localDistPath },
+    ],
   },
 });

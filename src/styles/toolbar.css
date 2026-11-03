@@ -36,6 +36,31 @@
   user-select: none;
 }
 
+/* Joins both lines into the wide row. A narrow card stacks the lines. */
+.rte-toolbar__line {
+  display: contents;
+}
+
+@container rte-toolbar-row (max-width: 42rem) {
+  .rte-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .rte-toolbar__line {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: var(--rte-toolbar-gap);
+    min-width: 0;
+    width: 100%;
+  }
+
+  .rte-toolbar__line + .rte-toolbar__separator {
+    display: none;
+  }
+}
+
 /* ── Button group ──────────────────────────────────────── */
 .rte-toolbar__group {
   display: flex;

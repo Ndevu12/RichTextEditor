@@ -32,13 +32,13 @@ describe('toolbar scales with its container', () => {
     expect(icon).toContain('var(--rte-toolbar-icon-size)');
   });
 
-  it('keeps the preview toggle on the same line and scales its text', () => {
+  it('stacks the two tool lines only inside a narrow editor', () => {
     const row = block(previewCss, '.rte-toolbar-row {');
-    const toggle = block(previewCss, '.rte-preview-toggle__btn {');
 
     expect(row).toContain('container-type: inline-size');
-    expect(row).toContain('flex-wrap: nowrap');
-    expect(row).not.toContain('flex-wrap: wrap');
-    expect(toggle).toContain('cqw');
+    expect(row).toContain('container-name: rte-toolbar-row');
+    expect(toolbarCss).toContain('.rte-toolbar__line');
+    expect(toolbarCss).toContain('@container rte-toolbar-row (max-width: 42rem)');
+    expect(toolbarCss).toContain('flex-direction: column');
   });
 });
