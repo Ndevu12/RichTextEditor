@@ -70,8 +70,10 @@ jobs:
           test -f dist/index.d.ts || (echo "Missing dist/index.d.ts" && exit 1)
           test -f dist/index.css || (echo "Missing dist/index.css" && exit 1)
 
+      # A token in the environment is used instead of the GitHub identity.
+      # npm rejects tokens that skip two-factor authentication.
       - name: Publish to npm with provenance
         if: steps.publish_status.outputs.already_published != 'true'
-        run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          npm config delete //registry.npmjs.org/:_authToken || true
+          npm publish --provenance --access public

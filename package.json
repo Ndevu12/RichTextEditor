@@ -6,7 +6,7 @@
   "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Ndevu12/RichTextEditor.git"
+    "url": "git+https://github.com/Ndevu12/RichTextEditor.git"
   },
   "homepage": "https://github.com/Ndevu12/RichTextEditor#readme",
   "bugs": {
