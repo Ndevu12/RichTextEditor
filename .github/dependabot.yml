@@ -20,6 +20,11 @@ updates:
     directory: /playground
     schedule:
       interval: weekly
+    # plugin-react 6 imports vite/internal, which Vite 6 does not export.
+    ignore:
+      - dependency-name: "@vitejs/plugin-react"
+        update-types:
+          - version-update:semver-major
     groups:
       minor-and-patch:
         patterns:
