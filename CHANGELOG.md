@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.2] - 2026-11-03
+
 ### Added
 
 - **SEO panel** — The editor can show a score, capture a title, description, and slug, and point out headings, image descriptions, and links. Internal links stay on the page. External links open in a new tab and are not followed.
