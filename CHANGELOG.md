@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **Release** — The npm release runs only from a version tag.
+
 ## [0.2.3] - 2026-11-03
 
 ### Added
