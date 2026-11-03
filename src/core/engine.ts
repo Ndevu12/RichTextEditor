@@ -50,9 +50,7 @@ export function createEditor(options: CreateEditorOptions = {}): Editor {
   }
 
   const pluginExtensions = (options.pluginRegistry?.getExtensions() ?? []) as (
-    | Extension
-    | Mark
-    | Node
+    Extension | Mark | Node
   )[];
 
   return new Editor({

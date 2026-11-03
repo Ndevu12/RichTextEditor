@@ -67,9 +67,7 @@ export interface RichToolbarSeparatorInput {
 }
 
 export type RichToolbarItemInput =
-  | ToolbarSeparator
-  | RichToolbarButtonInput
-  | RichToolbarSeparatorInput;
+  ToolbarSeparator | RichToolbarButtonInput | RichToolbarSeparatorInput;
 
 export type RichToolbarInput = RichToolbarItemInput[];
 
