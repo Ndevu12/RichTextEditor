@@ -13,12 +13,12 @@
     "rich-text-editor-ndevu": "link:../"
   },
   "devDependencies": {
-    "@types/node": "^25.5.0",
+    "@types/node": "^26.6.6",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.2.0",
     "typescript": "^5.9.0",
-    "vite": "^6.4.5"
+    "vite": "^8.3.8"
   },
   "resolutions": {
     "glob": "^14.0.3",
